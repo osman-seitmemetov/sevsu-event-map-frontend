@@ -1,0 +1,39 @@
+.dropArea {
+    width: 100%;
+    height: 50px;
+    border: 1px dashed #C2C6DF;
+    padding: 0 15px;
+    color: #232323;
+    border-radius: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 10px 0;
+    cursor: pointer;
+
+    &_error {
+        border: 1px dashed #FF3D3D;
+    }
+}
+
+.input {
+    display: none;
+}
+
+.img {
+    max-width: 100%;
+    height: 70px;
+    border-radius: 12px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.errorLog {
+    margin-top: 10px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 100%;
+    color: #FF3D3D;
+    display: flex;
+}

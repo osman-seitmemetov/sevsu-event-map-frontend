@@ -1,0 +1,17 @@
+.input {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &_hidden {
+        display: none;
+    }
+}
+
+.autoMargin {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,1 @@
+export const separateBySemicolons = (str: string) => str.split('; ');

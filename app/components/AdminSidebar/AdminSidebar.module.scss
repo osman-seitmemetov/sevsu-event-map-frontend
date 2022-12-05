@@ -1,0 +1,40 @@
+.sidebar {
+    width: 320px;
+    margin-right: 30px;
+}
+
+.link {
+    display: inline-flex;
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px; //t
+    color: #232323;
+    text-decoration: none;
+
+    &:hover {
+        background-color: #f3f6ff;
+        border-radius: 8px;
+    }
+}
+
+.link_active {
+    background-color: #EDF0F7;
+    border-radius: 8px;
+    font-weight: 500;
+    position: relative;
+
+    &::before {
+        content: "";
+        width: 3px;
+        height: 25px;
+        background-color: #1D71B8;
+        border-radius: 100px;
+        position: absolute;
+        left: -6px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

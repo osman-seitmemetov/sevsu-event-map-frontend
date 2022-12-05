@@ -1,0 +1,19 @@
+.home {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    padding: 30px 0;
+    //grid-template-areas:
+    //    'nav nav nav nav nav nav filter filter filter'
+    //    'scrollarea scrollarea scrollarea scrollarea scrollarea scrollarea filter filter filter'
+    //    'scrollarea scrollarea scrollarea scrollarea scrollarea scrollarea filter filter filter';
+}
+
+.content {
+    width: calc(100% - 410px); // костыль
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

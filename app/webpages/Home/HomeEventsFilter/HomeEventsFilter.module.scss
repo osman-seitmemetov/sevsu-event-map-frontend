@@ -1,0 +1,49 @@
+.filter {
+    min-width: 400px;
+    height: 100%;
+    //background-color: #6041b6;
+    border-radius: 12px;
+    margin-left: 10px;
+}
+
+.title {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    color: #000000;
+    margin-bottom: 15px;
+    padding: 0 10px;
+}
+
+.scrollarea {
+    overflow-y: scroll;
+    overflow-x: visible;
+    padding: 0 10px;
+    height: calc(100% - 295px);
+    filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.07));
+    scrollbar-color: #458245 transparent;
+    scrollbar-width: 4px;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #C1C1C1;
+        border-radius: 10px;
+        width: 4px;
+        height: 4px;
+    }
+}
+
+.subjects {
+    background: #FFFFFF;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.07), -1px -1px 15px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+    height: 240px;
+    width: 100%;
+    margin: 15px 10px 0 10px;
+}

@@ -1,0 +1,32 @@
+@import "normalize.css/normalize.css";
+@import 'react-redux-toastr/src/styles/index';
+
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #232323;
+
+    //&::-webkit-scrollbar {
+    //    width: 10px;
+    //    background-color: #dbdbdb;
+    //}
+    //
+    //&::-webkit-scrollbar-thumb {
+    //    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    //}
+}
+
+a {
+    color: #232323;
+    text-decoration: none;
+}
