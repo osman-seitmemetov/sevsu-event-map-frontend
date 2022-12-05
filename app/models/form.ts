@@ -1,7 +1,7 @@
 export interface IOrganizerFields {
     name: string,
     logo: string,
-    level: number
+    level: string
 }
 
 export interface IEventFields {

@@ -12,7 +12,7 @@ export const useFetchOrganizersForSelect = () => {
             data.map(
                 (organizer): IOption => ({
                     label: organizer.name,
-                    value: organizer.id
+                    value: String(organizer.id)
                 })
             ),
     });

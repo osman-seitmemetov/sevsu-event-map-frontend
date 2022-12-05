@@ -39,10 +39,10 @@ const AdminEventCreate: FC = () => {
         mode: "onChange"
     });
 
-    const foundingRangeLow = watch("foundingRangeLow");
-    const foundingRangeHigh = watch("foundingRangeHigh");
-    const coFoundingRangeLow = watch("coFoundingRangeLow");
-    const coFoundingRangeHigh = watch("coFoundingRangeHigh");
+    const foundingRangeLow = watch("founding_range.low");
+    const foundingRangeHigh = watch("founding_range.high");
+    const coFoundingRangeLow = watch("founding_range.low");
+    const coFoundingRangeHigh = watch("founding_range.high");
     console.log(foundingRangeLow)
     console.log(dirtyFields)
 
@@ -151,7 +151,7 @@ const AdminEventCreate: FC = () => {
                             {/*/>*/}
                             <InputRangeGroup>
                                 <InputRange
-                                    {...register('foundingRangeLow', {
+                                    {...register('founding_range.low', {
                                         required: "Это поле обязательное",
                                         // max: dirtyFields.coFoundingRangeHigh ? {
                                         //     value: foundingRangeHigh,
@@ -162,11 +162,11 @@ const AdminEventCreate: FC = () => {
                                             message: 'Можно вводить только числа'
                                         }
                                     })}
-                                    error={errors.foundingRangeLow}
+                                    error={errors.founding_range?.low}
                                     label="от"
                                 />
                                 <InputRange
-                                    {...register('foundingRangeHigh', {
+                                    {...register('founding_range.high', {
                                         required: "Это поле обязательно",
                                         // min: dirtyFields.coFoundingRangeLow ? {
                                         //     value: foundingRangeLow,
@@ -177,7 +177,7 @@ const AdminEventCreate: FC = () => {
                                             message: 'Можно вводить только числа'
                                         }
                                     })}
-                                    error={errors.foundingRangeHigh}
+                                    error={errors.founding_range?.high}
                                     label="до"
                                 />
                             </InputRangeGroup>
@@ -186,7 +186,7 @@ const AdminEventCreate: FC = () => {
                         <InputGroup title="Софинансирование">
                             <InputRangeGroup>
                                 <InputRange
-                                    {...register('coFoundingRangeLow', {
+                                    {...register('co_founding_range.low', {
                                         required: "Это поле обязательно",
                                         // max: dirtyFields.coFoundingRangeHigh ? {
                                         //     value: foundingRangeHigh,
@@ -197,11 +197,11 @@ const AdminEventCreate: FC = () => {
                                             message: 'Можно вводить только числа'
                                         }
                                     })}
-                                    error={errors.coFoundingRangeLow}
+                                    error={errors.co_founding_range?.low}
                                     label="от"
                                 />
                                 <InputRange
-                                    {...register('coFoundingRangeHigh', {
+                                    {...register('co_founding_range.high', {
                                         required: "Это поле обязательно",
                                         // max: dirtyFields.coFoundingRangeHigh ? {
                                         //     value: foundingRangeHigh,
@@ -212,7 +212,7 @@ const AdminEventCreate: FC = () => {
                                             message: 'Можно вводить только числа'
                                         }
                                     })}
-                                    error={errors.coFoundingRangeHigh}
+                                    error={errors.co_founding_range?.high}
                                     label="до"
                                 />
                             </InputRangeGroup>
@@ -220,28 +220,28 @@ const AdminEventCreate: FC = () => {
 
                         <InputGroup title="Срок рассмотрения">
                             <Input
-                                {...register('considerationPeriod', {
+                                {...register('consideration_period', {
                                     required: "Это поле обязательное"
                                 })}
                                 placeholder="Введите текст"
-                                error={errors.considerationPeriod}
+                                error={errors.consideration_period}
                             />
                         </InputGroup>
 
                         <InputGroup title="Длительность реализации">
                             <Input
-                                {...register('realisationPeriod', {
+                                {...register('realisation_period', {
                                     required: "Это поле обязательное"
                                 })}
                                 placeholder="Введите текст"
-                                error={errors.realisationPeriod}
+                                error={errors.realisation_period}
                             />
                         </InputGroup>
 
                         <InputGroup title="Срок подачи документов">
                             <Controller
                                 control={control}
-                                name="submissionDeadline"
+                                name="submission_deadline"
                                 rules={{
                                     required: "Это поле обязательно"
                                 }}
@@ -292,11 +292,11 @@ const AdminEventCreate: FC = () => {
                     <FieldsSection>
                         <InputGroup title="Тип финансирования">
                             <Textarea
-                                {...register('foundingType', {
+                                {...register('founding_type', {
                                     required: "Это поле обязательно"
                                 })}
                                 placeholder="Введите тип финансирования"
-                                error={errors.foundingType}
+                                // error={errors.founding_type}
                             />
                         </InputGroup>
 
@@ -320,11 +320,11 @@ const AdminEventCreate: FC = () => {
 
                         <InputGroup title="Контакты для консультаций внутри СевГУ">
                             <Textarea
-                                {...register('internalContacts', {
+                                {...register('internal_contacts', {
                                     required: "Это поле обязательно"
                                 })}
                                 placeholder="Введите контакты"
-                                error={errors.internalContacts}
+                                error={errors.internal_contacts}
                             />
                         </InputGroup>
 

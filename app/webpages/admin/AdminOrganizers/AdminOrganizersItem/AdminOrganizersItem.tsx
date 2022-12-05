@@ -65,7 +65,7 @@ const AdminOrganizersItem: FC<AdminOrganizersItemProps> = ({organizer, removeHan
                 >
                     <PrimaryButton
                         onClick={() => {
-                            removeHandler(organizer.id);
+                            removeHandler(String(organizer.id));
                             setActiveModal(false);
                         }}
                         style={{width: '48%'}}
