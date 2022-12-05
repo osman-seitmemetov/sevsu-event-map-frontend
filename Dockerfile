@@ -7,7 +7,7 @@ COPY --chown=node:node . .
 USER node
 
 RUN npm install
-RUN yarn build
+RUN npm build
 
 EXPOSE 3000
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
