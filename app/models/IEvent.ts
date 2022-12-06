@@ -1,13 +1,15 @@
 export interface IEvent {
     id: number,
     organizer: number,
-    internal_university_contacts: string,
+    internal_contacts: string,
     trl: number,
     founding_range: {
+        id: number,
         low: number,
         high: number
     },
     co_founding_range: {
+        id: number,
         low: number,
         high: number
     },
@@ -19,7 +21,6 @@ export interface IEvent {
     result: string,
     site: string,
     document: string,
-    internal_contacts: string,
     precursor: number,
     founding_type: number[],
     competitors: number[]

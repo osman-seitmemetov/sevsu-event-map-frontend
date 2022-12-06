@@ -14,7 +14,7 @@ const AdminHome: FC = () => {
     return (
         <>
             {/*<AdminHomeNavbar />*/}
-            {/*<AdminContent title="Административная панель"></AdminContent>*/}
+            {/*<EventsPrint title="Административная панель"></EventsPrint>*/}
         </>
     );
 }

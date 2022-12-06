@@ -12,7 +12,7 @@ export const EventService = {
     },
 
     async getById(id: string) {
-        return await axios.get<IEventFieldsServer>(`https://event-map-django.onrender.com/api/v1/event/${id}`);
+        return await axios.get<IEventFieldsServer>(`${process.env.NEXT_APP_SERVER_URL}https://event-map-django.onrender.com/api/v1/event/${id}`);
     },
 
     async edit(id: string, data: IEventFieldsClient) {

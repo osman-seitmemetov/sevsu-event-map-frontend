@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, RefObject} from "react";
 import styles from "./Event.module.scss";
 import Container from "@/components/Container/Container";
 import EventNav from "@/webpages/Event/EventNav/EventNav";

@@ -24,6 +24,7 @@ const DynamicSelect = dynamic(() => import('@/UI/InputGroup/SelectCustom/SelectC
     ssr: false
 });
 
+console.log("ppppp", process.env.APP_SERVER_URL);
 
 const AdminEventCreate: FC = () => {
     const {data: organizers, isLoading: isOrganizersLoading} = useFetchOrganizersForSelect();
@@ -32,19 +33,10 @@ const AdminEventCreate: FC = () => {
     const {data: foundingTypes, isLoading: isFoundingTypesLoading} = useFetchFoundingTypesForSelect();
 
     const {
-        register, handleSubmit,
-        formState: {errors, isValid, isDirty, isSubmitting, isSubmitSuccessful, dirtyFields},
-        reset, resetField, control,
-        getValues, setValue,
-        watch
+        register, handleSubmit, formState: {errors}, control, watch
     } = useForm<IEventFieldsClient>({
         mode: "onChange"
     });
-
-    const foundingRangeLow = watch("founding_range.low");
-    const foundingRangeHigh = watch("founding_range.high");
-    const coFoundingRangeLow = watch("founding_range.low");
-    const coFoundingRangeHigh = watch("founding_range.high");
 
     const {onSubmit} = useEventCreate();
 

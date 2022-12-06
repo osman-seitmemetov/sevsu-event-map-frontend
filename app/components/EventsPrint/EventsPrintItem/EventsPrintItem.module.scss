@@ -1,0 +1,117 @@
+@media print {
+    @page {
+        padding: 0;
+    }
+
+    .event {
+        padding: 8mm;
+        page-break-inside: avoid;
+        page-break-before: always;
+    }
+
+    .main {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px
+    }
+
+    .infos {
+        margin-bottom: 10px;
+    }
+
+    .info {
+        margin-bottom: 4px;
+        font-size: 14px;
+
+        &__title {
+            font-weight: 600;
+        }
+    }
+
+    .title {
+        font-weight: 900;
+        font-size: 30px;
+        line-height: 38px;
+        color: #000000;
+        margin-bottom: 10px;
+    }
+
+    .infoBlock {
+        border: 1px solid #D3D3D3;
+        border-radius: 10px;
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &__items {
+            padding: 10px;
+        }
+
+        &__head {
+            padding: 10px;
+            border-bottom: 1px solid #D3D3D3;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 28px;
+        }
+
+        &__item {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14px;
+            color: #000000;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo {
+        width: 430px;
+        height: 80px;
+        object-position: center;
+        object-fit: contain;
+    }
+
+    .qr {
+        margin-top: 20px;
+        border: 2px solid #000000;
+        border-radius: 12px;
+        width: 350px;
+        height: 350px;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .annotation {
+        margin-top: 20px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        text-align: center;
+        color: #232323;
+    }
+}
+
+@media print and (orientation: portrait) {
+    @page {
+        height: 297mm;
+        width: 210mm;
+    }
+}
+
+@media print and (orientation: landscape) {
+    @page {
+        height: 210mm;
+        width: 297mm;
+    }
+}

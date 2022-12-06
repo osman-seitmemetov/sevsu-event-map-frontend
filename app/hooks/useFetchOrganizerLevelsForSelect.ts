@@ -1,11 +1,12 @@
 import {useQuery} from "react-query";
 import {OrganizerService} from "@/services/OrganizerService";
 import {IOption} from "@/models/IOption";
+import {toastError} from "@/utils/api/withToastrErrorRedux";
 
 export const useFetchOrganizerLevelsForSelect = () => {
-    const queryData = useQuery('admin get all organizer levels', () => OrganizerService.getOrganizerLevels(), {
+    const queryData = useQuery('admin-get-all-organizer-levels-for-select', () => OrganizerService.getOrganizerLevels(), {
         onError: (error: any) => {
-            alert(error)
+            toastError(error, 'Возникла ошибка при получении типов организатора');
         },
 
         select: ({data}) =>

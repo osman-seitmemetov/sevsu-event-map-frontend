@@ -41,6 +41,7 @@
         "react-scroll": "^1.8.8",
         "react-scrollbar": "^0.5.6",
         "react-select": "^5.6.1",
+        "react-to-print": "^2.14.10",
         "redux": "^4.2.0",
         "sass": "^1.56.1",
         "swiper": "^8.4.5",

@@ -5,6 +5,7 @@ import {getKeys} from "@/utils/object/getKeys";
 import {OrganizerService} from "@/services/OrganizerService";
 import {IOrganizerFields} from "@/models/form";
 import {toastr} from "react-redux-toastr";
+import {toastError} from "@/utils/api/withToastrErrorRedux";
 
 export const useEditOrganizer = (setValue: UseFormSetValue<IOrganizerFields>) => {
     const {push, query} = useRouter();
@@ -17,7 +18,7 @@ export const useEditOrganizer = (setValue: UseFormSetValue<IOrganizerFields>) =>
             setValue("logo", data.logo);
         },
         onError: (error) => {
-            alert(error)
+            toastError(error, 'Возникла ошибка при получении организатора');
         },
         enabled: !!query.id
     });

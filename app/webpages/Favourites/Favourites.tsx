@@ -1,15 +1,16 @@
 import React, {FC} from "react";
 import styles from "./Favourites.module.scss";
 import Container from "@/components/Container/Container";
-import EventNav from "@/webpages/Event/EventNav/EventNav";
-import MinRF from "@/assets/img/min_rf.png"
-import EventInfo from "@/webpages/Event/EventInfo/EventInfo";
-import Dropdown from "@/UI/Dropdown/Dropdown";
 import FavouritesNav from "@/webpages/Favourites/FavouritesNav/FavouritesNav";
 import EventCard from "@/UI/EventCard/EventCard";
+import {useTypedSelector} from "@/hooks/useTypedSelector";
+import {favouritesSlice} from "@/store/favourites/favouritesSlice";
+import {useDispatch} from "react-redux";
 
 
 const Favourites: FC = () => {
+    const {events, eventsSelected} = useTypedSelector(state => state.favouritesReducer);
+
     return (
         <section className={styles.favourites}>
             <Container>
@@ -18,12 +19,9 @@ const Favourites: FC = () => {
                 <div className={styles.title}>Избранное</div>
 
                 <div className={styles.items}>
-                    <EventCard link="" />
-                    <EventCard link="" />
-                    <EventCard link="" />
-                    <EventCard link="" />
-                    <EventCard link="" />
-                    <EventCard link="" />
+                    {
+                        events.map(ev => <EventCard key={ev.id} checkbox link="/event/fdffd" event={ev} />)
+                    }
                 </div>
             </Container>
         </section>
