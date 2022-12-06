@@ -1,0 +1,1 @@
+export const joinBySemicolons = (arrStr: string[]) => arrStr.join('; ');

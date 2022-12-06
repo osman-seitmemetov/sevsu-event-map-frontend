@@ -30,13 +30,9 @@ const NavLink: FC<NavLinkProps> = (
         isActive = isEqualStartPathNames(href, asPath);
     }
 
-    if (isActive) return (
-        <div style={{cursor: "pointer"}} className={`${className} ${activeClassName}`}>{children}</div>
-    );
-
     return (
         <Link href={href}>
-            <div style={{cursor: "pointer"}} className={className}>{children}</div>
+            <div style={{cursor: "pointer"}} className={`${className} ${isActive && activeClassName}`}>{children}</div>
         </Link>
     );
 }

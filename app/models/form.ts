@@ -15,7 +15,6 @@ export interface IEventFields {
     document: string,
     internal_contacts: string,
     precursor: number,
-    founding_type: number[],
     competitors: number[]
 }
 
@@ -31,7 +30,8 @@ export interface IEventFieldsServer extends IEventFields {
     submission_deadline: string,
     trl: number,
     subjects: string[],
-    organizer: number
+    organizer: number,
+    founding_type: number[],
 }
 
 export interface IEventFieldsClient extends IEventFields {
@@ -47,4 +47,5 @@ export interface IEventFieldsClient extends IEventFields {
     trl: string,
     subjects: string,
     organizer: string,
+    founding_type: string[],
 }

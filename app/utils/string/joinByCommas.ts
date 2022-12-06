@@ -1,1 +1,0 @@
-export const joinByCommas = (arrStr: string[]) => arrStr.join(', ');

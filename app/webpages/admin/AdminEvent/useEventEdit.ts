@@ -4,7 +4,7 @@ import {EventService} from "@/services/EventService";
 import {IEventFields, IEventFieldsClient} from "@/models/form";
 import {useRouter} from "next/router";
 import {getKeys} from "@/utils/object/getKeys";
-import {joinByCommas} from "@/utils/string/joinByCommas";
+import {joinBySemicolons} from "@/utils/string/joinBySemicolons";
 import {convertPostgresDateWithoutTime} from "../../../helpers/date/convertPostgresDateWithoutTime";
 import {toastError} from "@/utils/api/withToastrErrorRedux";
 import {toastr} from "react-redux-toastr";
@@ -17,7 +17,8 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
         onSuccess: ({data}) => {
             setValue('title', data.title);
             setValue('organizer', String(data.organizer));
-            setValue('founding_type', data.founding_type);
+            // @ts-ignore
+            setValue('founding_type', String(data.founding_type));
             setValue('co_founding_range.high', String(data.co_founding_range.high));
             setValue('co_founding_range.low', String(data.co_founding_range.low));
             setValue('founding_range.high', String(data.founding_range.high));
@@ -31,7 +32,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
             setValue('internal_contacts', data.internal_contacts);
             setValue('trl', String(data.trl));
             setValue('competitors', data.competitors);
-            setValue('subjects', joinByCommas(data.subjects));
+            setValue('subjects', joinBySemicolons(data.subjects));
         },
         onError: (error) => {
             toastError(error, 'Возникла ошибка при загрузке данных мероприятия');
@@ -39,7 +40,9 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
         enabled: !!query.id
     });
 
-    const {mutateAsync} = useMutation('admin update product', (data: IEventFieldsClient) => EventService.edit(eventId, data), {
+    const {mutateAsync} = useMutation('admin-update-product', (data: IEventFieldsClient) => {
+        return EventService.edit(eventId, data)
+    }, {
         onError: (error) => {
             toastError(error, 'Возникла ошибка при редактировании мероприятия');
         },

@@ -3,6 +3,7 @@ import {IEvent} from "@/models/IEvent";
 import {IEventFields, IEventFieldsClient, IEventFieldsServer} from "@/models/form";
 import {convertInputDateToPostgresDate} from "../helpers/date/convertInputDateToPostgresDate";
 import {separateBySemicolons} from "@/utils/string/separateBySemicolons";
+import {IFoundingType} from "@/models/IFoundingType";
 
 
 export const EventService = {
@@ -27,6 +28,7 @@ export const EventService = {
                 high: Number(data.co_founding_range.high),
             },
             trl: Number(data.trl),
+            founding_type: String(data.founding_type).split(',').map(ft => +ft)
         });
     },
 
@@ -35,7 +37,7 @@ export const EventService = {
     },
 
     async create(data: IEventFieldsClient) {
-        return await axios.post<IEvent>(`https://event-map-django.onrender.com/api/v1/event/`, {
+        return await axios.post<IEvent>(`https://event-map-django.onrender.com/api/v1/event`, {
             ...data, submission_deadline: convertInputDateToPostgresDate(data.submission_deadline),
             subjects: separateBySemicolons(data.subjects),
             founding_range: {
@@ -47,6 +49,11 @@ export const EventService = {
                 high: Number(data.co_founding_range.high),
             },
             trl: Number(data.trl),
+            founding_type: String(data.founding_type).split(',').map(ft => +ft)
         });
+    },
+
+    async getAllFoundingTypes() {
+        return await axios.get<IFoundingType[]>('https://event-map-django.onrender.com/api/v1/founding_type');
     }
 }

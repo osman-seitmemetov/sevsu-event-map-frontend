@@ -18,6 +18,7 @@ import {useFetchOrganizersForSelect} from "@/hooks/useFetchOrganizersForSelect";
 import {useFetchOrganizerLevelsForSelect} from "@/hooks/useFetchOrganizerLevelsForSelect";
 import {useFetchCompetitorsForSelect} from "@/hooks/useFetchCompetitorsForSelect";
 import {useEventEdit} from "@/webpages/admin/AdminEvent/useEventEdit";
+import {useFetchFoundingTypesForSelect} from "@/hooks/useFetchFoundingTypesForSelect";
 
 const DynamicSelect = dynamic(() => import('@/UI/InputGroup/SelectCustom/SelectCustom'), {
     ssr: false
@@ -28,6 +29,7 @@ const AdminEvent: FC = () => {
     const {data: organizers, isLoading: isOrganizersLoading} = useFetchOrganizersForSelect();
     const {data: organizerLevels, isLoading: isOrganizerLevelsLoading} = useFetchOrganizerLevelsForSelect();
     const {data: competitors, isLoading: isCompetitorsLoading} = useFetchCompetitorsForSelect();
+    const {data: foundingTypes, isLoading: isFoundingTypesLoading} = useFetchFoundingTypesForSelect();
 
     const {
         register, handleSubmit,
@@ -41,6 +43,9 @@ const AdminEvent: FC = () => {
 
     const {onSubmit, data, isLoading} = useEventEdit(setValue);
     const event = data?.data;
+
+    const ft = watch("founding_type");
+    console.log(ft)
 
     return (
         <>
@@ -88,11 +93,11 @@ const AdminEvent: FC = () => {
                         </InputGroup>
 
                         <InputGroup title="Ссылка на сайт мероприятия-прекурсора">
-                            <Input
-                                {...register('precursor')}
-                                placeholder="Введите ссылку"
-                                error={errors.site}
-                            />
+                            {/*<Input*/}
+                            {/*    {...register('precursor')}*/}
+                            {/*    placeholder="Введите ссылку"*/}
+                            {/*    error={errors.site}*/}
+                            {/*/>*/}
                         </InputGroup>
 
                         <InputGroup title="TRL / УГТ">
@@ -261,19 +266,29 @@ const AdminEvent: FC = () => {
                         {/*        }*/}
                         {/*    />*/}
                         {/*</InputGroup>*/}
+                        <InputGroup title="Тип финансирования">
+                            <Controller
+                                control={control}
+                                name="founding_type"
+                                rules={{
+                                    required: "Это поле обязательно"
+                                }}
+                                render={({field, fieldState: {error}}) =>
+                                    <DynamicSelect
+                                        error={error}
+                                        field={field}
+                                        placeholder="Выберите типы финансирования"
+                                        options={foundingTypes || []}
+                                        isLoading={isFoundingTypesLoading}
+                                        isMulti
+                                        isSearchable
+                                    />
+                                }
+                            />
+                        </InputGroup>
                     </FieldsSection>
 
                     <FieldsSection>
-                        <InputGroup title="Тип финансирования">
-                            <Textarea
-                                {...register('founding_type', {
-                                    required: "Это поле обязательно"
-                                })}
-                                placeholder="Введите тип финансирования"
-                                // error={errors.founding_type}
-                            />
-                        </InputGroup>
-
                         <InputGroup title="Результат">
                             <Textarea
                                 {...register('result', {
