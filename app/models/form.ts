@@ -6,7 +6,6 @@ export interface IOrganizerFields {
 
 export interface IEventFields {
     id: number,
-    organizer: number,
     internal_university_contacts: string,
     title: string,
     consideration_period: string,
@@ -31,7 +30,8 @@ export interface IEventFieldsServer extends IEventFields {
     },
     submission_deadline: string,
     trl: number,
-    subjects: string[]
+    subjects: string[],
+    organizer: number
 }
 
 export interface IEventFieldsClient extends IEventFields {
@@ -45,5 +45,6 @@ export interface IEventFieldsClient extends IEventFields {
     },
     submission_deadline: Date,
     trl: string,
-    subjects: string
+    subjects: string,
+    organizer: string,
 }

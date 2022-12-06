@@ -5,6 +5,7 @@ import Link from "next/link";
 import {IEvent} from "@/models/IEvent";
 import {useOrganizer} from "@/hooks/useOrganizer";
 import {useFetchOrganizerLevels} from "@/hooks/useFetchOrganizerLevels";
+import Logo from "@/assets/img/edu_rf.png"
 
 
 interface EventCardProps {
@@ -17,16 +18,18 @@ const EventCard: FC<EventCardProps> = ({className, link, event}) => {
     const {data: organizerData} = useOrganizer(Number(event?.organizer));
     const {data: organizerLevelData} = useFetchOrganizerLevels();
     const organizer = organizerData?.data;
-    console.log(organizerLevelData?.data);
+    // console.log(organizerLevelData?.data);
     // const organizerLevel = organizerLevelData?.data.find(organizerLevel => organizerLevel.id === organizer?.level);
-    console.log(organizer)
+    // console.log(organizer)
 
     return (
         <Link href={link}>
             {
                 organizer && <div className={`${styles.item} ${styles.item_reg}`}>
                     <div className={styles.content}>
-                        <img className={styles.logo} src={organizer?.logo} alt="logo"/>
+
+                        {/*ВРЕМЕННООООО*/}
+                        <img className={styles.logo} src={organizer ? organizer?.logo : Logo.src} alt="logo"/>
 
                         <div className={styles.title}>{event?.title}</div>
 

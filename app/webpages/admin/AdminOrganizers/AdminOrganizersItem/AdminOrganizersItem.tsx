@@ -15,8 +15,6 @@ interface AdminOrganizersItemProps {
 }
 
 const AdminOrganizersItem: FC<AdminOrganizersItemProps> = ({organizer, removeHandler, activeModal, setActiveModal}) => {
-    console.log(organizer);
-
     return (
         <>
             <div className={styles.item}>

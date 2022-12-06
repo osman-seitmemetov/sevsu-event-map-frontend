@@ -43,8 +43,6 @@ const AdminEventCreate: FC = () => {
     const foundingRangeHigh = watch("founding_range.high");
     const coFoundingRangeLow = watch("founding_range.low");
     const coFoundingRangeHigh = watch("founding_range.high");
-    console.log(foundingRangeLow)
-    console.log(dirtyFields)
 
     const {onSubmit} = useEventCreate();
 

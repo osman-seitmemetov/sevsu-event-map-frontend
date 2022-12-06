@@ -13,7 +13,5 @@ export const useEventsFetch = () => {
         }
     });
 
-    console.log(queryData);
-
     return queryData;
 }

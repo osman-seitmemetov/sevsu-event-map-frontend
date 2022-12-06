@@ -16,7 +16,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
     const queryData = useQuery(['admin-get-event', eventId], () => EventService.getById(eventId), {
         onSuccess: ({data}) => {
             setValue('title', data.title);
-            setValue('organizer', data.organizer);
+            setValue('organizer', String(data.organizer));
             setValue('founding_type', data.founding_type);
             setValue('co_founding_range.high', String(data.co_founding_range.high));
             setValue('co_founding_range.low', String(data.co_founding_range.low));

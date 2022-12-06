@@ -9,7 +9,6 @@ import AdminEventsNavbar from "@/webpages/admin/AdminEvents/AdminEventsNavbar/Ad
 const AdminEvents: FC = () => {
     const {data, isLoading} = useEventsFetch();
     const events = data?.data;
-    console.log(events)
 
     return (
         <>
