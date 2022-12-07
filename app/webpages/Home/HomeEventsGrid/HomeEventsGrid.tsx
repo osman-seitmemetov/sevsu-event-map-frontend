@@ -3,10 +3,48 @@ import styles from "@/webpages/Home/HomeEventsGrid/HomeEventsGrid.module.scss";
 import EventCard from "@/UI/EventCard/EventCard";
 import dynamic from "next/dynamic";
 import {OverlayScrollbarsComponent} from "overlayscrollbars-react";
+import {IEvent} from "@/models/IEvent";
 
 const DynamicScrollArea = dynamic(() => import('react-scrollbar'), {
     ssr: false
 });
+
+const event: IEvent = {
+    id: 5,
+    founding_range: {
+        id: 3,
+        low: 10,
+        high: 2555
+    },
+    co_founding_range: {
+        id: 3,
+        low: 44,
+        high: 45
+    },
+    subjects: [
+        "subject 36",
+        "subject 37",
+        "subject 38",
+        "subject 6545"
+    ],
+    title: "Название мероприятия",
+    submission_deadline: "2023-04-11",
+    consideration_period: "cons.period",
+    realisation_period: "real.period",
+    result: "result",
+    site: "site",
+    document: "doc",
+    internal_contacts: "IC",
+    trl: 6,
+    organizer: 1,
+    precursor: 1,
+    founding_type: [1],
+    competitors: [
+        1,
+        2,
+        3
+    ]
+}
 
 
 const HomeEventsGrid: FC = () => {
@@ -59,241 +97,241 @@ const HomeEventsGrid: FC = () => {
                     <div className={`${styles.eventGrid} ${isExtended && styles.eventGrid_extended}`}>
                         <div className={styles.columns} ref={scrollareaVerticalRef}>
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
 
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard link="/event/1"/>
-                                <EventCard link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
+                                <EventCard event={event} link="/event/1"/>
                             </div>
                         </div>
 
