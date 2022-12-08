@@ -1,10 +1,8 @@
-import React, {FC, ReactNode, useState} from "react";
+import React, {FC, useState} from "react";
 import styles from "./EventCard.module.scss";
 import DisabledBg from "@/assets/img/disabled_card.png";
 import Link from "next/link";
 import {IEvent} from "@/models/IEvent";
-import {useOrganizer} from "@/hooks/useOrganizer";
-import {useFetchOrganizerLevels} from "@/hooks/useFetchOrganizerLevels";
 import Logo from "@/assets/img/edu_rf.png"
 import {favouritesSlice} from "@/store/favourites/favouritesSlice";
 import {useDispatch} from "react-redux";
@@ -20,9 +18,9 @@ interface EventCardProps {
 }
 
 const EventCard: FC<EventCardProps> = ({className, link, event, checkbox, setEventId, setActiveModal}) => {
-    const {data: organizerData} = useOrganizer(Number(event?.organizer));
-    const {data: organizerLevelData} = useFetchOrganizerLevels();
-    const organizer = organizerData?.data;
+    // const {data: organizerData} = useOrganizer(Number(event?.organizer));
+    // const {data: organizerLevelData} = useFetchOrganizerLevels();
+    // const organizer = organizerData?.data;
     // console.log(organizerLevelData?.data);
     // const organizerLevel = organizerLevelData?.data.find(organizerLevel => organizerLevel.id === organizer?.level);
     // console.log(organizer)
@@ -50,11 +48,11 @@ const EventCard: FC<EventCardProps> = ({className, link, event, checkbox, setEve
     }
 
     return (
-        <div className={`${styles.item} ${styles.item_reg}`}>
+        <div className={`${styles.item} ${styles.item_reg} ${className}`}>
             <div className={styles.content}>
 
                 {/*ВРЕМЕННООООО*/}
-                <img className={styles.logo} src={organizer ? organizer?.logo : Logo.src} alt="logo"/>
+                <img className={styles.logo} src={Logo.src} alt="logo"/>
 
                 <div className={styles.title}>{event?.title}</div>
 
