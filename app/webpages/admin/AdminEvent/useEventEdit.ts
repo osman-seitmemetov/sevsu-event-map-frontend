@@ -1,13 +1,13 @@
 import {SubmitHandler, UseFormSetValue} from "react-hook-form";
 import {useMutation, useQuery} from "react-query";
 import {EventService} from "@/services/EventService";
-import {IEventFields, IEventFieldsClient} from "@/models/form";
+import {IEventFieldsClient} from "@/models/form";
 import {useRouter} from "next/router";
-import {getKeys} from "@/utils/object/getKeys";
 import {joinBySemicolons} from "@/utils/string/joinBySemicolons";
 import {convertPostgresDateWithoutTime} from "../../../helpers/date/convertPostgresDateWithoutTime";
 import {toastError} from "@/utils/api/withToastrErrorRedux";
 import {toastr} from "react-redux-toastr";
+
 
 export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
     const {push, query} = useRouter();
@@ -31,7 +31,8 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
             setValue('document', data.document);
             setValue('internal_contacts', data.internal_contacts);
             setValue('trl', String(data.trl));
-            setValue('competitors', data.competitors);
+            // @ts-ignore
+            setValue('competitors', String(data.competitors));
             setValue('subjects', joinBySemicolons(data.subjects));
         },
         onError: (error) => {
@@ -46,7 +47,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
         onError: (error) => {
             toastError(error, 'Возникла ошибка при редактировании мероприятия');
         },
-        onSuccess: ({data}) => {
+        onSuccess: () => {
             toastr.success('Редактирование мероприятия', 'Мероприятие успешно отредактировано')
             push('/admin/events');
         }

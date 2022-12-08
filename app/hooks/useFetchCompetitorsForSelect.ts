@@ -1,5 +1,4 @@
 import {useQuery} from "react-query";
-import {OrganizerService} from "@/services/OrganizerService";
 import {IOption} from "@/models/IOption";
 import {CompetitorService} from "@/services/CompetitorService";
 import {toastError} from "@/utils/api/withToastrErrorRedux";

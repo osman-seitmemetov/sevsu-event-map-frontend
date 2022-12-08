@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import SkeletonLoader from "@/UI/SkeletonLoader/SkeletonLoader";
 import FieldsSection from "@/UI/FieldsSection/FieldsSection";
-import styles from "./AdminFormLoader.module.scss"
+// import styles from "./AdminFormLoader.module.scss"
 
 
 const AdminFormLoader: FC = () => {
