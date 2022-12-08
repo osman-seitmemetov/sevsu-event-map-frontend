@@ -14,7 +14,7 @@ export const useFetchCompetitorsForSelect = () => {
             data.map(
                 (competitor): IOption => ({
                     label: competitor.name,
-                    value: competitor.id
+                    value: String(competitor.id)
                 })
             ),
     });
