@@ -20,10 +20,10 @@ const Meta: FC<ISEO> = ({title, image, description, children}) => {
                         name='description'
                         // content={onlyText(description, 152)}
                     />
-                    <link rel='canonical' href={currentUrl} />
-                    <meta property='og:locale' content='ru' />
+                    <link rel='canonical' href={currentUrl}/>
+                    <meta property='og:locale' content='ru'/>
                     {/*<meta property='og:title' content={titleMerge(title)} />*/}
-                    <meta property='og:url' content={currentUrl} />
+                    <meta property='og:url' content={currentUrl}/>
                     {/*<meta property='og:image' content={image || logoImage} />*/}
                     {/*<meta property='og:site_name' content={siteName} />*/}
                     <meta
@@ -31,7 +31,10 @@ const Meta: FC<ISEO> = ({title, image, description, children}) => {
                         // content={onlyText(description, 197)}
                     />
                 </Head>
-            ) : <meta name="robots" content="noindex, nofollow" />}
+            ) : <Head>
+                <title itemProp='headline'>{title}</title>
+                <meta name="robots" content="noindex, nofollow"/>
+            </Head>}
             {children}
         </>
     );

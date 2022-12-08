@@ -13,7 +13,6 @@ const AdminOrganizerNavbar: FC = () => {
                 </div>
 
                 <div className={styles.left}>
-                    <PrimaryButton>создать мероприятие</PrimaryButton>
                 </div>
             </Container>
         </nav>

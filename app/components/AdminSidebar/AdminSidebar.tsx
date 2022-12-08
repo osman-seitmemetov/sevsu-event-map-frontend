@@ -28,6 +28,14 @@ const AdminSidebar: FC = () => {
             >
                 Участники
             </NavLink>
+
+            <NavLink
+                href="/admin/founding"
+                className={styles.link}
+                activeClassName={styles.link_active}
+            >
+                Типы финансирования
+            </NavLink>
         </aside>
     );
 };

@@ -22,7 +22,8 @@ const FavouritesNav: FC = () => {
                         {/*<PrimaryButton className={styles.btn}>Поделиться выделенными мероприятиями</PrimaryButton>*/}
 
                         <ReactToPrint
-                            trigger={() => <PrimaryButton className={styles.btn}>Печать выделенных мероприятий</PrimaryButton>}
+                            trigger={() => <PrimaryButton className={styles.btn}>Печать выделенных
+                                мероприятий</PrimaryButton>}
                             content={() => selectedPrintContentRef.current}
                         />
                     </>
@@ -34,13 +35,8 @@ const FavouritesNav: FC = () => {
                     content={() => allPrintContentRef.current}
                 />
 
-                <div style={{display: "none"}}>
-                    <EventsPrint events={events} refContent={allPrintContentRef}/>
-                </div>
-
-                <div style={{display: "none"}}>
-                    <EventsPrint events={eventsSelected} refContent={selectedPrintContentRef}/>
-                </div>
+                <EventsPrint events={events} refContent={allPrintContentRef}/>
+                <EventsPrint events={eventsSelected} refContent={selectedPrintContentRef}/>
             </div>
         </nav>
     );

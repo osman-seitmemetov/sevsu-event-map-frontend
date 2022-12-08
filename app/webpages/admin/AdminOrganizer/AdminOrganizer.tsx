@@ -12,6 +12,7 @@ import {useEditOrganizer} from "@/webpages/admin/AdminOrganizer/useEditOrganizer
 import {useFetchOrganizerLevelsForSelect} from "@/hooks/useFetchOrganizerLevelsForSelect";
 import dynamic from "next/dynamic";
 import AdminOrganizerNavbar from "@/webpages/admin/AdminOrganizer/AdminOrganizerNavbar/AdminOrganizerNavbar";
+import AdminFormLoader from "@/components/AdminFormLoader/AdminFormLoader";
 
 const DynamicSelect = dynamic(() => import('@/UI/InputGroup/SelectCustom/SelectCustom'), {
     ssr: false
@@ -31,66 +32,70 @@ const AdminOrganizer: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit, data} = useEditOrganizer(setValue);
+    const {onSubmit, data, isLoading} = useEditOrganizer(setValue);
     const organizer = data?.data;
 
     return (
         <>
             <AdminOrganizerNavbar />
-            <AdminContent title={`Редактирование организатора ${organizer?.name}`}>
-                <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: '100%'}}>
-                    <FieldsSection>
-                        <InputGroup title="Название" autoMargin>
-                            <Input
-                                {...register('name', {
-                                    required: "Это поле обязательно"
-                                })}
-                                placeholder="Введите название"
-                                error={errors.name}
-                            />
-                        </InputGroup>
-
-                        <InputGroup title="Уровень">
-                            <Controller
-                                control={control}
-                                name="level"
-                                rules={{
-                                    required: "Это поле обязательно"
-                                }}
-                                render={({field, fieldState: {error}}) =>
-                                    <DynamicSelect
-                                        error={error}
-                                        field={field}
-                                        placeholder="Выберите уровень"
-                                        options={organizerLevels || []}
-                                        isLoading={isOrganizerLevelsLoading}
+            <AdminContent isLoading={isLoading} title={`Редактирование организатора ${organizer?.name}`}>
+                {
+                    isLoading
+                        ? <AdminFormLoader />
+                        : <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: '100%'}}>
+                            <FieldsSection>
+                                <InputGroup title="Название" autoMargin>
+                                    <Input
+                                        {...register('name', {
+                                            required: "Это поле обязательно"
+                                        })}
+                                        placeholder="Введите название"
+                                        error={errors.name}
                                     />
-                                }
-                            />
-                        </InputGroup>
+                                </InputGroup>
 
-                        <InputGroup title="Логотип">
-                            <Controller
-                                control={control}
-                                defaultValue=""
-                                name="logo"
-                                rules={{
-                                    required: "Это поле обязательно"
-                                }}
-                                render={({field: {onChange, value}, fieldState: {error}}) =>
-                                    <ImageUploader
-                                        onChange={onChange}
-                                        value={value}
-                                        error={error}
-                                        placeholder="Логотип"
+                                <InputGroup title="Уровень">
+                                    <Controller
+                                        control={control}
+                                        name="level"
+                                        rules={{
+                                            required: "Это поле обязательно"
+                                        }}
+                                        render={({field, fieldState: {error}}) =>
+                                            <DynamicSelect
+                                                error={error}
+                                                field={field}
+                                                placeholder="Выберите уровень"
+                                                options={organizerLevels || []}
+                                                isLoading={isOrganizerLevelsLoading}
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                        </InputGroup>
-                    </FieldsSection>
+                                </InputGroup>
 
-                    <PrimaryButton>Сохранить</PrimaryButton>
-                </Form>
+                                <InputGroup title="Логотип">
+                                    <Controller
+                                        control={control}
+                                        defaultValue=""
+                                        name="logo"
+                                        rules={{
+                                            required: "Это поле обязательно"
+                                        }}
+                                        render={({field: {onChange, value}, fieldState: {error}}) =>
+                                            <ImageUploader
+                                                onChange={onChange}
+                                                value={value}
+                                                error={error}
+                                                placeholder="Логотип"
+                                            />
+                                        }
+                                    />
+                                </InputGroup>
+                            </FieldsSection>
+
+                            <PrimaryButton>Сохранить</PrimaryButton>
+                        </Form>
+                }
             </AdminContent>
         </>
     );

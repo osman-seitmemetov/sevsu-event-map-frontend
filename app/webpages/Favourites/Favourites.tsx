@@ -20,7 +20,7 @@ const Favourites: FC = () => {
 
                 <div className={styles.items}>
                     {
-                        events.map(ev => <EventCard key={ev.id} checkbox link="/event/fdffd" event={ev} />)
+                        events.map(ev => <EventCard key={ev.id} checkbox link={`/favourites/${ev.id}`} event={ev} />)
                     }
                 </div>
             </Container>

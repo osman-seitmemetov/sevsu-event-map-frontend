@@ -1,4 +1,5 @@
 export interface ICompetitor {
-    "id": string,
-    "name": string
+    id: number,
+    name: string
+    code: number
 }

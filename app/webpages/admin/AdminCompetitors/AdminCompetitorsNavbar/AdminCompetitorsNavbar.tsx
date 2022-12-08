@@ -3,6 +3,7 @@ import styles from "./AdminCompetitorsNavbar.module.scss";
 import Logo from "@/components/Logo/Logo";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import Container from "@/components/Container/Container";
+import Link from "next/link";
 
 const AdminCompetitorsNavbar: FC = () => {
     return (
@@ -13,7 +14,7 @@ const AdminCompetitorsNavbar: FC = () => {
                 </div>
 
                 <div className={styles.left}>
-                    {/*<PrimaryButton>Создать участника</PrimaryButton>*/}
+                    <Link href="/admin/competitors/create"><PrimaryButton>Создать тип участника</PrimaryButton></Link>
                 </div>
             </Container>
         </nav>

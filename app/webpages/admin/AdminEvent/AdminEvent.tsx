@@ -19,6 +19,7 @@ import {useFetchOrganizerLevelsForSelect} from "@/hooks/useFetchOrganizerLevelsF
 import {useFetchCompetitorsForSelect} from "@/hooks/useFetchCompetitorsForSelect";
 import {useEventEdit} from "@/webpages/admin/AdminEvent/useEventEdit";
 import {useFetchFoundingTypesForSelect} from "@/hooks/useFetchFoundingTypesForSelect";
+import AdminFormLoader from "@/components/AdminFormLoader/AdminFormLoader";
 
 const DynamicSelect = dynamic(() => import('@/UI/InputGroup/SelectCustom/SelectCustom'), {
     ssr: false
@@ -32,11 +33,7 @@ const AdminEvent: FC = () => {
     const {data: foundingTypes, isLoading: isFoundingTypesLoading} = useFetchFoundingTypesForSelect();
 
     const {
-        register, handleSubmit,
-        formState: {errors, isValid, isDirty, isSubmitting, isSubmitSuccessful},
-        reset, resetField, control,
-        getValues, setValue,
-        watch
+        register, handleSubmit, formState: {errors}, control, setValue
     } = useForm<IEventFieldsClient>({
         mode: "onChange"
     });
@@ -44,292 +41,292 @@ const AdminEvent: FC = () => {
     const {onSubmit, data, isLoading} = useEventEdit(setValue);
     const event = data?.data;
 
-    const ft = watch("founding_type");
-    console.log(ft)
-
     return (
         <>
             <AdminEventNavbar />
-
-            <AdminContent title={`Редактирование мероприятия "${event?.title}"`}>
-                <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: '100%'}}>
-                    <FieldsSection>
-                        <InputGroup title="Название">
-                            <Input
-                                {...register('title', {
-                                    required: "Это поле обязательно"
-                                })}
-                                placeholder="Введите заголовок"
-                                error={errors.title}
-                            />
-                        </InputGroup>
-
-                        <InputGroup title="Организатор">
-                            <Controller
-                                control={control}
-                                name="organizer"
-                                rules={{
-                                    required: "Это поле обязательно",
-                                }}
-                                render={({field, fieldState: {error}}) =>
-                                    <DynamicSelect
-                                        error={error}
-                                        field={field}
-                                        placeholder="Выберите организатора"
-                                        options={organizers || []}
-                                        isLoading={isOrganizersLoading}
-                                        isSearchable
+            <AdminContent isLoading={isLoading} title={`Редактирование мероприятия "${event?.title}"`}>
+                {
+                    isLoading
+                        ? <AdminFormLoader />
+                        : <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: '100%'}}>
+                            <FieldsSection>
+                                <InputGroup title="Название">
+                                    <Input
+                                        {...register('title', {
+                                            required: "Это поле обязательно"
+                                        })}
+                                        placeholder="Введите заголовок"
+                                        error={errors.title}
                                     />
-                                }
-                            />
-                        </InputGroup>
+                                </InputGroup>
 
-                        <InputGroup title="Ссылка на сайт">
-                            <Input
-                                {...register('site')}
-                                placeholder="Введите ссылку"
-                                error={errors.site}
-                            />
-                        </InputGroup>
-
-                        <InputGroup title="Ссылка на сайт мероприятия-прекурсора">
-                            {/*<Input*/}
-                            {/*    {...register('precursor')}*/}
-                            {/*    placeholder="Введите ссылку"*/}
-                            {/*    error={errors.site}*/}
-                            {/*/>*/}
-                        </InputGroup>
-
-                        <InputGroup title="TRL / УГТ">
-                            <Controller
-                                control={control}
-                                name="trl"
-                                rules={{
-                                    required: "Это поле обязательно"
-                                }}
-                                render={({field, fieldState: {error}}) =>
-                                    <DynamicSelect
-                                        error={error}
-                                        field={field}
-                                        placeholder="Выберите TRL / УГТ"
-                                        options={TRLs || []}
+                                <InputGroup title="Организатор">
+                                    <Controller
+                                        control={control}
+                                        name="organizer"
+                                        rules={{
+                                            required: "Это поле обязательно",
+                                        }}
+                                        render={({field, fieldState: {error}}) =>
+                                            <DynamicSelect
+                                                error={error}
+                                                field={field}
+                                                placeholder="Выберите организатора"
+                                                options={organizers || []}
+                                                isLoading={isOrganizersLoading}
+                                                isSearchable
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                        </InputGroup>
+                                </InputGroup>
 
-                        <InputGroup title="Виды участников">
-                            <Controller
-                                control={control}
-                                name="competitors"
-                                rules={{
-                                    required: "Это поле обязательно"
-                                }}
-                                render={({field, fieldState: {error}}) =>
-                                    <DynamicSelect
-                                        error={error}
-                                        field={field}
-                                        placeholder="Выберите виды участников"
-                                        options={competitors || []}
-                                        isLoading={isCompetitorsLoading}
-                                        isMulti
-                                        isSearchable
+                                <InputGroup title="Ссылка на сайт">
+                                    <Input
+                                        {...register('site')}
+                                        placeholder="Введите ссылку"
+                                        error={errors.site}
                                     />
-                                }
-                            />
-                        </InputGroup>
+                                </InputGroup>
 
-                        <InputGroup title="Финансирование">
-                            {/*<InputRangeGroup*/}
-                            {/*    register={register}*/}
-                            {/*    nameHigh="foundingRangeHigh"*/}
-                            {/*    nameLow="foundingRangeLow"*/}
-                            {/*    errorHigh={errors.foundingRangeHigh}*/}
-                            {/*    errorLow={errors.foundingRangeLow}*/}
-                            {/*/>*/}
-                            <InputRangeGroup>
-                                <InputRange
-                                    {...register('founding_range.low', {
-                                        required: "Это поле обязательное",
-                                        valueAsNumber: true,
-                                        // onChange: (e) => {
-                                        //     if (
-                                        //         /^[0-9]+$/.test(e.target.value)
-                                        //         // && Number(e.target.value) >= min
-                                        //         // && Number(e.target.value) <= max
-                                        //     ) {
-                                        //         e.target.value
-                                        //     }
-                                        // }
-                                    })}
-                                    error={errors.founding_range?.low}
-                                    label="от"
-                                />
-                                <InputRange
-                                    {...register('founding_range.high', {
-                                        required: "Это поле обязательно",
-                                        valueAsNumber: true,
-                                    })}
-                                    error={errors.founding_range?.high}
-                                    label="до"
-                                />
-                            </InputRangeGroup>
-                        </InputGroup>
+                                <InputGroup title="Ссылка на сайт мероприятия-прекурсора">
+                                    {/*<Input*/}
+                                    {/*    {...register('precursor')}*/}
+                                    {/*    placeholder="Введите ссылку"*/}
+                                    {/*    error={errors.site}*/}
+                                    {/*/>*/}
+                                </InputGroup>
 
-                        <InputGroup title="Софинансирование">
-                            <InputRangeGroup>
-                                <InputRange
-                                    {...register('co_founding_range.low', {
-                                        required: "Это поле обязательно",
-                                        valueAsNumber: true,
-                                    })}
-                                    error={errors.co_founding_range?.low}
-                                    label="от"
-                                />
-                                <InputRange
-                                    {...register('co_founding_range.high', {
-                                        required: "Это поле обязательно",
-                                        valueAsNumber: true,
-                                    })}
-                                    error={errors.co_founding_range?.high}
-                                    label="до"
-                                />
-                            </InputRangeGroup>
-                        </InputGroup>
-
-                        <InputGroup title="Срок рассмотрения">
-                            <Input
-                                {...register('consideration_period', {
-                                    required: "Это поле обязательное"
-                                })}
-                                placeholder="Введите текст"
-                                error={errors.consideration_period}
-                            />
-                        </InputGroup>
-
-                        <InputGroup title="Длительность реализации">
-                            <Input
-                                {...register('realisation_period', {
-                                    required: "Это поле обязательное"
-                                })}
-                                placeholder="Введите текст"
-                                error={errors.realisation_period}
-                            />
-                        </InputGroup>
-
-                        <InputGroup title="Срок подачи документов">
-                            <Controller
-                                control={control}
-                                name="submission_deadline"
-                                rules={{
-                                    required: "Это поле обязательно"
-                                }}
-                                render={({field, fieldState: {error}}) =>
-                                    <InputDate
-                                        dateFormat="dd.MM.yyyy"
-                                        placeholder="дд.мм.гггг"
-                                        mask="11.11.1111"
-                                        selected={field.value}
-                                        onChange={(date: Date) => field.onChange(date)}
-                                        error={error}
+                                <InputGroup title="TRL / УГТ">
+                                    <Controller
+                                        control={control}
+                                        name="trl"
+                                        rules={{
+                                            required: "Это поле обязательно"
+                                        }}
+                                        render={({field, fieldState: {error}}) =>
+                                            <DynamicSelect
+                                                error={error}
+                                                field={field}
+                                                placeholder="Выберите TRL / УГТ"
+                                                options={TRLs || []}
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                        </InputGroup>
+                                </InputGroup>
 
-                        {/*<InputGroup title="fddfdffdd">*/}
-                        {/*    <Controller*/}
-                        {/*        control={control}*/}
-                        {/*        name="foundingRangeLow"*/}
-                        {/*        rules={{*/}
-                        {/*            required: "Это поле обязательно"*/}
-                        {/*        }}*/}
-                        {/*        render={({field, fieldState: {error}}) =>*/}
-                        {/*            // <InputDate*/}
-                        {/*            //     dateFormat="dd.MM.yyyy"*/}
-                        {/*            //     placeholder="дд.мм.гггг"*/}
-                        {/*            //     mask="11.11.1111"*/}
-                        {/*            //     selected={field.value}*/}
-                        {/*            //     onChange={(date: Date) => field.onChange(date)}*/}
-                        {/*            //     error={error}*/}
-                        {/*            // />*/}
-                        {/*            <input*/}
-                        {/*                {...field}*/}
-                        {/*                onChange={(e: ChangeEvent<HTMLInputElement>) => {*/}
-                        {/*                    console.log(/^[0-9]+$/.test(e.target.value))*/}
-                        {/*                    if (/^[0-9]+$/.test(e.target.value)) {*/}
-                        {/*                        return field.onChange(e.target.value)*/}
-                        {/*                    }*/}
-                        {/*                }}*/}
-                        {/*                type="text"*/}
-                        {/*            />*/}
-                        {/*        }*/}
-                        {/*    />*/}
-                        {/*</InputGroup>*/}
-                        <InputGroup title="Тип финансирования">
-                            <Controller
-                                control={control}
-                                name="founding_type"
-                                rules={{
-                                    required: "Это поле обязательно"
-                                }}
-                                render={({field, fieldState: {error}}) =>
-                                    <DynamicSelect
-                                        error={error}
-                                        field={field}
-                                        placeholder="Выберите типы финансирования"
-                                        options={foundingTypes || []}
-                                        isLoading={isFoundingTypesLoading}
-                                        isMulti
-                                        isSearchable
+                                <InputGroup title="Виды участников">
+                                    <Controller
+                                        control={control}
+                                        name="competitors"
+                                        rules={{
+                                            required: "Это поле обязательно"
+                                        }}
+                                        render={({field, fieldState: {error}}) =>
+                                            <DynamicSelect
+                                                error={error}
+                                                field={field}
+                                                placeholder="Выберите виды участников"
+                                                options={competitors || []}
+                                                isLoading={isCompetitorsLoading}
+                                                isMulti
+                                                isSearchable
+                                            />
+                                        }
                                     />
-                                }
-                            />
-                        </InputGroup>
-                    </FieldsSection>
+                                </InputGroup>
 
-                    <FieldsSection>
-                        <InputGroup title="Результат">
-                            <Textarea
-                                {...register('result', {
-                                    required: "Это поле обязательно"
-                                })}
-                                placeholder="Введите результат"
-                                error={errors.result}
-                            />
-                        </InputGroup>
+                                <InputGroup title="Финансирование">
+                                    {/*<InputRangeGroup*/}
+                                    {/*    register={register}*/}
+                                    {/*    nameHigh="foundingRangeHigh"*/}
+                                    {/*    nameLow="foundingRangeLow"*/}
+                                    {/*    errorHigh={errors.foundingRangeHigh}*/}
+                                    {/*    errorLow={errors.foundingRangeLow}*/}
+                                    {/*/>*/}
+                                    <InputRangeGroup>
+                                        <InputRange
+                                            {...register('founding_range.low', {
+                                                required: "Это поле обязательное",
+                                                valueAsNumber: true,
+                                                // onChange: (e) => {
+                                                //     if (
+                                                //         /^[0-9]+$/.test(e.target.value)
+                                                //         // && Number(e.target.value) >= min
+                                                //         // && Number(e.target.value) <= max
+                                                //     ) {
+                                                //         e.target.value
+                                                //     }
+                                                // }
+                                            })}
+                                            error={errors.founding_range?.low}
+                                            label="от"
+                                        />
+                                        <InputRange
+                                            {...register('founding_range.high', {
+                                                required: "Это поле обязательно",
+                                                valueAsNumber: true,
+                                            })}
+                                            error={errors.founding_range?.high}
+                                            label="до"
+                                        />
+                                    </InputRangeGroup>
+                                </InputGroup>
 
-                        <InputGroup title="Регламентирующие документы">
-                            <Textarea
-                                {...register('document')}
-                                placeholder="Введите ссылки на документы"
-                                error={errors.document}
-                            />
-                        </InputGroup>
+                                <InputGroup title="Софинансирование">
+                                    <InputRangeGroup>
+                                        <InputRange
+                                            {...register('co_founding_range.low', {
+                                                required: "Это поле обязательно",
+                                                valueAsNumber: true,
+                                            })}
+                                            error={errors.co_founding_range?.low}
+                                            label="от"
+                                        />
+                                        <InputRange
+                                            {...register('co_founding_range.high', {
+                                                required: "Это поле обязательно",
+                                                valueAsNumber: true,
+                                            })}
+                                            error={errors.co_founding_range?.high}
+                                            label="до"
+                                        />
+                                    </InputRangeGroup>
+                                </InputGroup>
 
-                        <InputGroup title="Контакты для консультаций внутри СевГУ">
-                            <Textarea
-                                {...register('internal_contacts', {
-                                    required: "Это поле обязательно"
-                                })}
-                                placeholder="Введите контакты"
-                                error={errors.internal_contacts}
-                            />
-                        </InputGroup>
+                                <InputGroup title="Срок рассмотрения">
+                                    <Input
+                                        {...register('consideration_period', {
+                                            required: "Это поле обязательное"
+                                        })}
+                                        placeholder="Введите текст"
+                                        error={errors.consideration_period}
+                                    />
+                                </InputGroup>
 
-                        <InputGroup title="Тематики (каждая тематика разделяется точкой с запятой)">
-                            <Textarea
-                                {...register('subjects', {
-                                    required: "Это поле обязательно"
-                                })}
-                                placeholder="Введите текст"
-                                error={errors.subjects}
-                            />
-                        </InputGroup>
-                    </FieldsSection>
+                                <InputGroup title="Длительность реализации">
+                                    <Input
+                                        {...register('realisation_period', {
+                                            required: "Это поле обязательное"
+                                        })}
+                                        placeholder="Введите текст"
+                                        error={errors.realisation_period}
+                                    />
+                                </InputGroup>
 
-                    <PrimaryButton>Сохранить</PrimaryButton>
-                </Form>
+                                <InputGroup title="Срок подачи документов">
+                                    <Controller
+                                        control={control}
+                                        name="submission_deadline"
+                                        rules={{
+                                            required: "Это поле обязательно"
+                                        }}
+                                        render={({field, fieldState: {error}}) =>
+                                            <InputDate
+                                                dateFormat="dd.MM.yyyy"
+                                                placeholder="дд.мм.гггг"
+                                                mask="11.11.1111"
+                                                selected={field.value}
+                                                onChange={(date: Date) => field.onChange(date)}
+                                                error={error}
+                                            />
+                                        }
+                                    />
+                                </InputGroup>
+
+                                {/*<InputGroup title="fddfdffdd">*/}
+                                {/*    <Controller*/}
+                                {/*        control={control}*/}
+                                {/*        name="foundingRangeLow"*/}
+                                {/*        rules={{*/}
+                                {/*            required: "Это поле обязательно"*/}
+                                {/*        }}*/}
+                                {/*        render={({field, fieldState: {error}}) =>*/}
+                                {/*            // <InputDate*/}
+                                {/*            //     dateFormat="dd.MM.yyyy"*/}
+                                {/*            //     placeholder="дд.мм.гггг"*/}
+                                {/*            //     mask="11.11.1111"*/}
+                                {/*            //     selected={field.value}*/}
+                                {/*            //     onChange={(date: Date) => field.onChange(date)}*/}
+                                {/*            //     error={error}*/}
+                                {/*            // />*/}
+                                {/*            <input*/}
+                                {/*                {...field}*/}
+                                {/*                onChange={(e: ChangeEvent<HTMLInputElement>) => {*/}
+                                {/*                    console.log(/^[0-9]+$/.test(e.target.value))*/}
+                                {/*                    if (/^[0-9]+$/.test(e.target.value)) {*/}
+                                {/*                        return field.onChange(e.target.value)*/}
+                                {/*                    }*/}
+                                {/*                }}*/}
+                                {/*                type="text"*/}
+                                {/*            />*/}
+                                {/*        }*/}
+                                {/*    />*/}
+                                {/*</InputGroup>*/}
+                                <InputGroup title="Тип финансирования">
+                                    <Controller
+                                        control={control}
+                                        name="founding_type"
+                                        rules={{
+                                            required: "Это поле обязательно"
+                                        }}
+                                        render={({field, fieldState: {error}}) =>
+                                            <DynamicSelect
+                                                error={error}
+                                                field={field}
+                                                placeholder="Выберите типы финансирования"
+                                                options={foundingTypes || []}
+                                                isLoading={isFoundingTypesLoading}
+                                                isMulti
+                                                isSearchable
+                                            />
+                                        }
+                                    />
+                                </InputGroup>
+                            </FieldsSection>
+
+                            <FieldsSection>
+                                <InputGroup title="Результат">
+                                    <Textarea
+                                        {...register('result', {
+                                            required: "Это поле обязательно"
+                                        })}
+                                        placeholder="Введите результат"
+                                        error={errors.result}
+                                    />
+                                </InputGroup>
+
+                                <InputGroup title="Регламентирующие документы">
+                                    <Textarea
+                                        {...register('document')}
+                                        placeholder="Введите ссылки на документы"
+                                        error={errors.document}
+                                    />
+                                </InputGroup>
+
+                                <InputGroup title="Контакты для консультаций внутри СевГУ">
+                                    <Textarea
+                                        {...register('internal_contacts', {
+                                            required: "Это поле обязательно"
+                                        })}
+                                        placeholder="Введите контакты"
+                                        error={errors.internal_contacts}
+                                    />
+                                </InputGroup>
+
+                                <InputGroup title="Тематики (каждая тематика разделяется точкой с запятой)">
+                                    <Textarea
+                                        {...register('subjects', {
+                                            required: "Это поле обязательно"
+                                        })}
+                                        placeholder="Введите текст"
+                                        error={errors.subjects}
+                                    />
+                                </InputGroup>
+                            </FieldsSection>
+
+                            <PrimaryButton>Сохранить</PrimaryButton>
+                        </Form>
+                }
             </AdminContent>
         </>
     );

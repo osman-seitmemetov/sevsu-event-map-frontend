@@ -10,8 +10,10 @@ interface EventsPrintProps {
 
 const EventsPrint: FC<EventsPrintProps> = ({refContent, events}) => {
     return (
-        <div ref={refContent}>
-            {events.map(ev => <EventsPrintItem key={ev.id} event={ev} />)}
+        <div style={{display: "none"}}>
+            <div ref={refContent}>
+                {events.map(ev => <EventsPrintItem key={ev.id} event={ev}/>)}
+            </div>
         </div>
     );
 };

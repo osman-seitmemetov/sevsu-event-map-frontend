@@ -1,11 +1,12 @@
 import {NextPageAuth} from "@/types/authProvider";
 import AdminEvent from "@/webpages/admin/AdminEvent/AdminEvent";
+import Meta from "@/utils/Meta/Meta";
 
 const AdminHomePage: NextPageAuth = () => {
     return (
-        // <div className="main">
+        <Meta title="Мероприятия | Административная панель">
             <AdminEvent/>
-        // </div>
+        </Meta>
     )
 }
 // AdminHomePage.isOnlyAdmin = true;

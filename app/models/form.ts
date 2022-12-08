@@ -49,3 +49,12 @@ export interface IEventFieldsClient extends IEventFields {
     organizer: string,
     founding_type: string[],
 }
+
+export interface ICompetitorFields {
+    name: string,
+    code: number
+}
+
+export interface IFoundingTypeFields {
+    name: string,
+}

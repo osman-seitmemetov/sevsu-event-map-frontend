@@ -12,7 +12,7 @@ export const useOrganizersFetch = () => {
     });
 
     const { mutateAsync: deleteAsync } = useMutation(
-        'admin delete article',
+        'admin-delete-organizer',
         (organizerId: string) => OrganizerService.delete(organizerId),
         {
             onError(error) {
