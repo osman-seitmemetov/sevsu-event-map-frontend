@@ -4,7 +4,7 @@ import Home from "@/webpages/Home/Home";
 
 const HomePage: NextPage = () => {
     return (
-        <Meta title="Главная" description="Карта мероприятий">
+        <Meta title="Главная" description="Карта инновационных мероприятий">
             <Home />
         </Meta>
     )

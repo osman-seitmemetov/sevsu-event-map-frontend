@@ -12,7 +12,7 @@ export const EventService = {
         return await axios.get<IEvent[]>('https://event-map-django.onrender.com/api/v1/event/');
     },
 
-    async getById(id: string) {
+    async getById(id: number) {
         return await axios.get<IEventFieldsServer>(`https://event-map-django.onrender.com/api/v1/event/${id}`);
     },
 
@@ -30,6 +30,7 @@ export const EventService = {
             },
             trl: Number(data.trl),
             founding_type: String(data.founding_type).split(',').map(ft => +ft),
+            competitors: String(data.competitors).split(',').map(ft => +ft),
             organizer: Number(data.organizer)
         });
     },
@@ -52,6 +53,7 @@ export const EventService = {
             },
             trl: Number(data.trl),
             founding_type: String(data.founding_type).split(',').map(ft => +ft),
+            competitors: String(data.competitors).split(',').map(ft => +ft),
             organizer: Number(data.organizer)
         });
     },

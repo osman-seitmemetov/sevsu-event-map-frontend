@@ -5,112 +5,119 @@ import EventNav from "@/webpages/Event/EventNav/EventNav";
 import MinRF from "@/assets/img/min_rf.png"
 import EventInfo from "@/webpages/Event/EventInfo/EventInfo";
 import Dropdown from "@/UI/Dropdown/Dropdown";
+import {useEvent} from "@/webpages/Event/useEvent";
+import {useOrganizer} from "@/hooks/useOrganizer";
+import {joinByVerticalLine} from "@/utils/string/joinByVerticalLine";
+import {convertPostgresDateToNormalDate} from "../../helpers/date/convertPostgresDateToNormalDate";
 
 
 const Event: FC = () => {
+    const {data: eventData, isLoading: isEventLoading} = useEvent();
+    const event = eventData?.data;
+    const {data: organizerData, isLoading: isOrganizerLoading} = useOrganizer(Number(event?.organizer));
+    const organizer = organizerData?.data;
+
     return (
         <section className={styles.event}>
             <Container>
                 <EventNav/>
 
-                <img
-                    src={MinRF.src}
-                    className={styles.logo}
-                    alt="eventName"
-                />
+                {
+                    isEventLoading
+                        ? <div>loading...</div>
+                        : event && <>
+                        {
+                            isOrganizerLoading
+                                ? <div>loading...</div>
+                                : organizer && <img
+                                src={organizer.logo}
+                                className={styles.logo}
+                                alt={organizer.name}
+                            />
+                        }
 
-                <div className={styles.title}>Название мероприятия</div>
+                        <div className={styles.title}>{event.title}</div>
 
-                <div className={styles.infos}>
-                    <div className={styles.info}>
-                        <EventInfo
-                            title="Организатор" text="Минцифры России"
-                            hint="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
-                        />
+                        <div className={styles.infos}>
+                            <div className={styles.info}>
+                                <EventInfo
+                                    title="Организатор" text={organizer?.name}
+                                    // hint="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
+                                />
 
-                        <EventInfo
-                            title="Тип финансирования" text="грант, субсидирование банковского процента"
-                        />
+                                <EventInfo
+                                    title="Тип финансирования" text="грант, субсидирование банковского процента"
+                                />
 
-                        <EventInfo
-                            title="Виды участников" text="частное лицо, университет"
-                        />
+                                <EventInfo
+                                    title="Виды участников" text="частное лицо, университет"
+                                />
 
-                        <EventInfo
-                            title="Финансирование" text="20 - 100млн"
-                        />
+                                <EventInfo
+                                    title="Финансирование" text={`${event.founding_range.low} - ${event.founding_range.high}р`}
+                                />
 
-                        <EventInfo
-                            title="Софинансирование" text="10 - 50"
-                        />
+                                <EventInfo
+                                    title="Софинансирование" text={`${event.co_founding_range.low} - ${event.co_founding_range.high}%`}
+                                />
 
-                        <EventInfo
-                            title="Срок подачи документов" text="до 12.12.2023"
-                        />
-                        <EventInfo
-                            title="Длительность реализации" text="3 года"
-                        />
+                                <EventInfo
+                                    title="Срок подачи документов" text={`до ${convertPostgresDateToNormalDate(event.submission_deadline)}`}
+                                />
+                                <EventInfo
+                                    title="Длительность реализации" text={event.realisation_period}
+                                />
 
-                        <EventInfo
-                            title="Тематики" text="тематика 1, тематика 2, тематика 3"
-                        />
+                                <EventInfo
+                                    title="Тематики" text={joinByVerticalLine(event.subjects)}
+                                />
 
-                        <EventInfo
-                            title="Срок рассмотрения" text="до 12.12.2023"
-                        />
+                                <EventInfo
+                                    title="Срок рассмотрения" text={event.consideration_period}
+                                />
 
-                        <EventInfo
-                            title="Мероприятие-прекурсор" text="Минцифры России"
-                        />
+                                {
+                                    event.precursor && <EventInfo
+                                        title="Мероприятие-прекурсор" text="Минцифры России"
+                                    />
+                                }
 
-                        <EventInfo
-                            title="TRL/УГТ" text="4"
-                        />
+                                <EventInfo
+                                    title="TRL/УГТ" text={String(event.trl)}
+                                />
 
-                        <EventInfo
-                            title="Сайт мероприятия-прекурсора" link="Минцифры России"
-                        />
+                                {
+                                    event.precursor && <EventInfo
+                                        title="Сайт мероприятия-прекурсора" link="Минцифры России"
+                                    />
+                                }
 
-                        <EventInfo
-                            title="Сайт мероприятия" link="Минцифры России"
-                        />
-                    </div>
-
-                    <div className={`${styles.info} ${styles.info_scrollable}`}>
-                        <Dropdown isBig title="Регламентирующие документы">
-                            <div className={styles.docs}>
-                                <a href="" target="_blank" className={styles.doc}>Ссылка 1</a>
-                                <a href="" target="_blank" className={styles.doc}>Ссылка 2</a>
-                                <a href="" target="_blank" className={styles.doc}>Ссылка 3</a>
-                                <a href="" target="_blank" className={styles.doc}>Ссылка 4</a>
+                                <EventInfo
+                                    title="Сайт мероприятия" link={event.site}
+                                />
                             </div>
-                        </Dropdown>
 
-                        <Dropdown isBig title="Контакты для консультаций внутри СевГУ">
+                            <div className={`${styles.info} ${styles.info_scrollable}`}>
+                                <Dropdown isBig title="Регламентирующие документы">
+                                    <div className={styles.docs}>
+                                        <a href="" target="_blank" className={styles.doc}>Ссылка 1</a>
+                                        <a href="" target="_blank" className={styles.doc}>Ссылка 2</a>
+                                        <a href="" target="_blank" className={styles.doc}>Ссылка 3</a>
+                                        <a href="" target="_blank" className={styles.doc}>Ссылка 4</a>
+                                    </div>
+                                </Dropdown>
 
-                        </Dropdown>
+                                <Dropdown isBig title="Контакты для консультаций внутри СевГУ">
+                                    dd
+                                </Dropdown>
 
-                        <Dropdown isBig title="Результат">
-
-                        </Dropdown>
-
-                        <Dropdown isBig title="Результат">
-
-                        </Dropdown>
-
-                        <Dropdown isBig title="Результат">
-
-                        </Dropdown>
-
-                        <Dropdown isBig title="Результат">
-
-                        </Dropdown>
-
-                        <Dropdown isBig title="Результат">
-
-                        </Dropdown>
-                    </div>
-                </div>
+                                <Dropdown isBig title="Результат">
+                                    dd
+                                </Dropdown>
+                            </div>
+                        </div>
+                    </>
+                }
             </Container>
         </section>
     );
