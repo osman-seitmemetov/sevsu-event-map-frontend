@@ -11,7 +11,7 @@ import {toastr} from "react-redux-toastr";
 
 export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
     const {push, query} = useRouter();
-    const eventId = String(query.id);
+    const eventId = Number(query.id);
 
     const queryData = useQuery(['admin-get-event', eventId], () => EventService.getById(eventId), {
         onSuccess: ({data}) => {

@@ -16,7 +16,7 @@ export const EventService = {
         return await axios.get<IEventFieldsServer>(`https://event-map-django.onrender.com/api/v1/event/${id}`);
     },
 
-    async edit(id: string, data: IEventFieldsClient) {
+    async edit(id: number, data: IEventFieldsClient) {
         return await axios.put<IEventFields>(`https://event-map-django.onrender.com/api/v1/event/${id}`, {
             ...data, submission_deadline: convertInputDateToPostgresDate(data.submission_deadline),
             subjects: separateBySemicolons(data.subjects),
