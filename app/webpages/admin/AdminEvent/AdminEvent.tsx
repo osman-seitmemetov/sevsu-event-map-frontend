@@ -38,7 +38,7 @@ const AdminEvent: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit, data, isLoading} = useEventEdit(setValue);
+    const {onSubmit, data, isLoading, isUpdateLoading} = useEventEdit(setValue);
     const event = data?.data;
 
     return (
@@ -324,7 +324,7 @@ const AdminEvent: FC = () => {
                                 </InputGroup>
                             </FieldsSection>
 
-                            <PrimaryButton>Сохранить</PrimaryButton>
+                            <PrimaryButton disabled={isUpdateLoading}>Сохранить</PrimaryButton>
                         </Form>
                 }
             </AdminContent>

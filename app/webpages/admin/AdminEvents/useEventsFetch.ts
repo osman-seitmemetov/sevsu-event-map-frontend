@@ -12,6 +12,7 @@ export const useEventsFetch = () => {
         },
 
         onSuccess: ({data}) => {
+            console.log(data)
         }
     });
 

@@ -4,12 +4,17 @@ import Container from "@/components/Container/Container";
 import FavouritesNav from "@/webpages/Favourites/FavouritesNav/FavouritesNav";
 import EventCard from "@/UI/EventCard/EventCard";
 import {useTypedSelector} from "@/hooks/useTypedSelector";
-import {favouritesSlice} from "@/store/favourites/favouritesSlice";
-import {useDispatch} from "react-redux";
+import QRCode from "react-qr-code";
+import {IEventMin} from "@/models/IEvent";
+import {useEventMinsByIds} from "@/hooks/useEventMinsByIds";
 
 
 const Favourites: FC = () => {
-    const {events, eventsSelected} = useTypedSelector(state => state.favouritesReducer);
+    const {eventIds} = useTypedSelector(state => state.favouritesReducer);
+
+
+    const {data, isLoading} = useEventMinsByIds(eventIds);
+    const eventMins = data?.data;
 
     return (
         <section className={styles.favourites}>
@@ -20,7 +25,15 @@ const Favourites: FC = () => {
 
                 <div className={styles.items}>
                     {
-                        events.map(ev => <EventCard key={ev.id} checkbox link={`/favourites/${ev.id}`} event={ev} />)
+                        eventIds.length > 0 ? isLoading
+                                ? <div>loading...</div>
+                                : eventMins && eventIds.length > 0 && eventMins.map(ev =>
+                                <EventCard
+                                    key={ev.id}
+                                    checkbox={eventIds.length > 1}
+                                    link={`/favourites/${ev.id}`} eventMin={ev}
+                                />)
+                            : <div>Нет мероприятий</div>
                     }
                 </div>
             </Container>

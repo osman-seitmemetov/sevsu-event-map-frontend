@@ -1,44 +1,29 @@
-import React, {FC, useContext, useEffect, useRef, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import styles from "@/webpages/Home/HomeEventsGrid/HomeEventsGrid.module.scss";
 import EventCard from "@/UI/EventCard/EventCard";
-import dynamic from "next/dynamic";
-import {OverlayScrollbarsComponent} from "overlayscrollbars-react";
-import {IEvent} from "@/models/IEvent";
+import {IEventMin} from "@/models/IEvent";
+import {useEvents} from "@/webpages/Home/HomeEventsGrid/useEvents";
+import Logo from "@/assets/img/min_rf.png"
 
-const DynamicScrollArea = dynamic(() => import('react-scrollbar'), {
-    ssr: false
-});
 
-const event: IEvent = {
+const event: IEventMin = {
     id: 5,
     founding_range: {
-        id: 3,
         low: 10,
         high: 2555
     },
     co_founding_range: {
-        id: 3,
         low: 44,
         high: 45
     },
-    subjects: [
-        "subject 36",
-        "subject 37",
-        "subject 38",
-        "subject 6545"
-    ],
     title: "Название мероприятия",
     submission_deadline: "2023-04-11",
-    consideration_period: "cons.period",
     realisation_period: "real.period",
-    result: "result",
-    site: "site",
-    document: "doc",
-    internal_contacts: "IC",
-    trl: 6,
-    organizer: 1,
-    precursor: 1,
-    founding_type: [1],
+    organizer: {
+        logo: Logo.src,
+        level: "REG"
+    },
+    founding_type: ["cvdsvdv", "vsdvddsvsvd", "vsvdvsvvsvds"],
     competitors: [
         1,
         2,
@@ -52,12 +37,17 @@ const HomeEventsGrid: FC = () => {
     const scrollareaHorizontalRef = useRef<HTMLDivElement | null>(null);
     const scrollareaVerticalRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
+    const scrollToStart = () => {
         scrollareaHorizontalRef.current?.scroll({
             top: scrollareaHorizontalRef.current?.scrollHeight,
             left: 0,
             behavior: "smooth"
         })
+    }
+
+    useEffect(() => {
+        scrollToStart();
+        window.addEventListener('resize', scrollToStart);
     }, [])
 
     const resizeHandler = (left: number = 288) => {
@@ -70,6 +60,9 @@ const HomeEventsGrid: FC = () => {
                 behavior: "smooth"
             }), 400)
     }
+
+    const {data, isLoading} = useEvents();
+    const events = data?.data;
 
     return (
         <>
@@ -97,108 +90,111 @@ const HomeEventsGrid: FC = () => {
                     <div className={`${styles.eventGrid} ${isExtended && styles.eventGrid_extended}`}>
                         <div className={styles.columns} ref={scrollareaVerticalRef}>
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                {
+                                    isLoading
+                                        ? <div>loading...</div>
+                                        : events && events.map((ev) => <EventCard key={ev.id} eventMin={ev}
+                                                                                  link={`/event/${ev.id}`}/>)
+                                }
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
 
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
 
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
 
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
 
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
 
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
 
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
 
                             <div className={styles.column}>
-                                <EventCard event={event} link="/event/1"/>
-                                <EventCard event={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
+                                <EventCard eventMin={event} link="/event/1"/>
                             </div>
                         </div>
 

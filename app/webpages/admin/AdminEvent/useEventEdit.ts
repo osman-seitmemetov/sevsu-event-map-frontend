@@ -41,7 +41,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
         enabled: !!query.id
     });
 
-    const {mutateAsync} = useMutation('admin-update-product', (data: IEventFieldsClient) => {
+    const {mutateAsync, isLoading: isUpdateLoading} = useMutation('admin-update-event', (data: IEventFieldsClient) => {
         return EventService.edit(eventId, data)
     }, {
         onError: (error) => {
@@ -57,5 +57,5 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
         await mutateAsync(data);
     }
 
-    return {onSubmit, ...queryData};
+    return {onSubmit, ...queryData, isUpdateLoading};
 }

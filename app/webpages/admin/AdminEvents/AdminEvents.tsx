@@ -8,6 +8,7 @@ import SkeletonLoader from "@/UI/SkeletonLoader/SkeletonLoader";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import ButtonTransparent from "@/UI/buttons/ButtonTransparent/ButtonTransparent";
 import Modal from "@/UI/modals/Modal/Modal";
+import AdminEventsLoader from "@/webpages/admin/AdminEvents/AdminEventsLoader/AdminEventsLoader";
 
 
 const AdminEvents: FC = () => {
@@ -23,66 +24,10 @@ const AdminEvents: FC = () => {
                 <div className={styles.items}>
                     {
                         isLoading
-                            ? <>
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-
-                                <SkeletonLoader
-                                    style={{
-                                        borderRadius: 16,
-                                        paddingTop: '94.5%'
-                                    }}
-                                />
-                            </>
+                            ? <AdminEventsLoader />
                             : events?.length
-                                ? events?.map(ev => <EventCard
-                                    event={ev}
+                                ? events.map(ev => <EventCard
+                                    eventMin={ev}
                                     key={ev.id}
                                     link={`/admin/events/${ev.id}`}
                                     setEventId={setEventId}

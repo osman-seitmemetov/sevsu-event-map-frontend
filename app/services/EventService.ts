@@ -1,18 +1,31 @@
 import axios from "axios";
-import {IEvent} from "@/models/IEvent";
+import {IEvent, IEventMin} from "@/models/IEvent";
 import {IEventFields, IEventFieldsClient, IEventFieldsServer} from "@/models/form";
 import {convertInputDateToPostgresDate} from "../helpers/date/convertInputDateToPostgresDate";
 import {separateBySemicolons} from "@/utils/string/separateBySemicolons";
 import {IFoundingType} from "@/models/IFoundingType";
-import {API_URL} from "@/config/API";
+import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
+import {IEventOrganizer} from "@/models/IEventOrganizer";
 
 
 export const EventService = {
     async getAll() {
-        return await axios.get<IEvent[]>('https://event-map-django.onrender.com/api/v1/event/');
+        return await axios.get<IEventMin[]>('https://event-map-django.onrender.com/api/v1/event_minimal');
     },
 
     async getById(id: number) {
+        return await axios.get<IEvent>(`https://event-map-django.onrender.com/api/v1/event/${id}`);
+    },
+
+    async getByIds(ids: number[]) {
+        return await axios.get<IEventOrganizer[]>(`https://event-map-django.onrender.com/api/v1/event_print${convertIdsToURL(ids)}`);
+    },
+
+    async getMinByIds(ids: number[]) {
+        return await axios.get<IEventMin[]>(`https://event-map-django.onrender.com/api/v1/event_minimal${convertIdsToURL(ids)}`);
+    },
+
+    async getByIdFields(id: number) {
         return await axios.get<IEventFieldsServer>(`https://event-map-django.onrender.com/api/v1/event/${id}`);
     },
 

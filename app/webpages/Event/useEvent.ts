@@ -8,11 +8,11 @@ import {toastError} from "@/utils/api/withToastrErrorRedux";
 import {toastr} from "react-redux-toastr";
 
 
-export const useEvent = () => {
+export const useEvent = (id?: number) => {
     const {query} = useRouter();
-    const eventId = Number(query.id);
+    const eventId = id ? id : Number(query.id);
 
-    const queryData = useQuery(['get-event', eventId], () => EventService.getById(eventId), {
+    const queryData = useQuery(['get-event', eventId], () => EventService.getByIds([eventId]), {
         onError: (error) => {
             toastError(error, 'Возникла ошибка при загрузке данных мероприятия');
         },

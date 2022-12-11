@@ -2,88 +2,70 @@ import React, {FC, useState} from "react";
 import styles from "./EventCard.module.scss";
 import DisabledBg from "@/assets/img/disabled_card.png";
 import Link from "next/link";
-import {IEvent} from "@/models/IEvent";
-import Logo from "@/assets/img/edu_rf.png"
+import {IEventMin} from "@/models/IEvent";
 import {favouritesSlice} from "@/store/favourites/favouritesSlice";
 import {useDispatch} from "react-redux";
+import {joinBySemicolons} from "@/utils/string/joinBySemicolons";
+import {convertPostgresDateToNormalDate} from "../../../helpers/date/convertPostgresDateToNormalDate";
 
 
 interface EventCardProps {
     className?: string,
     link: string,
-    event: IEvent,
+    eventMin: IEventMin,
     checkbox?: boolean,
     setEventId?: (eventId: number) => void;
     setActiveModal?: (activeModal: boolean) => void,
 }
 
-const EventCard: FC<EventCardProps> = ({className, link, event, checkbox, setEventId, setActiveModal}) => {
-    // const {data: organizerData} = useOrganizer(Number(event?.organizer));
-    // const {data: organizerLevelData} = useFetchOrganizerLevels();
-    // const organizer = organizerData?.data;
-    // console.log(organizerLevelData?.data);
-    // const organizerLevel = organizerLevelData?.data.find(organizerLevel => organizerLevel.id === organizer?.level);
-    // console.log(organizer)
-
+const EventCard: FC<EventCardProps> = ({className, link, eventMin, checkbox, setEventId, setActiveModal}) => {
     const {favouritesSelect, favouritesDeselect} = favouritesSlice.actions;
     const dispatch = useDispatch();
-
-    const [isActive, setIsActive] = useState<boolean>(false);
+    const [isCheckboxActive, setIsCheckboxActive] = useState<boolean>(false);
+    const sortedCompetitors = eventMin.competitors.sort((a, b) => a - b);
 
     const checkboxHandler = () => {
-        if (isActive) {
-            setIsActive(false);
-            dispatch(favouritesDeselect(event));
+        if (isCheckboxActive) {
+            setIsCheckboxActive(false);
+            dispatch(favouritesDeselect(eventMin.id));
         } else {
-            setIsActive(true);
-            dispatch(favouritesSelect(event));
+            setIsCheckboxActive(true);
+            dispatch(favouritesSelect(eventMin.id));
         }
     }
 
     const deleteHandler = () => {
         if (setEventId && setActiveModal) {
-            setEventId(event.id);
+            setEventId(eventMin.id);
             setActiveModal(true);
         }
     }
 
     return (
-        <div className={`${styles.item} ${styles.item_reg} ${className}`}>
+        <div className={`${styles.item} ${eventMin.organizer.level === "FED" ? styles.item_fed : eventMin.organizer.level === "REG" ? styles.item_reg : eventMin.organizer.level === "SCI" ? styles.item_sci : eventMin.organizer.level === "EDU" && styles.item_edu} ${className}`}>
             <div className={styles.content}>
+                <img className={styles.logo} src={eventMin.organizer.logo} alt={eventMin.title}/>
 
-                {/*ВРЕМЕННООООО*/}
-                <img className={styles.logo} src={Logo.src} alt="logo"/>
-
-                <div className={styles.title}>{event?.title}</div>
+                <div className={styles.title}>{eventMin?.title}</div>
 
                 <div className={styles.property}>
-                    <span>Финансирование:</span>&nbsp;
-                    {event?.founding_range.low} - {event?.founding_range.high}р
+                    <span>Финансирование:</span> {new Intl.NumberFormat('ru-RU').format(eventMin.founding_range.low)}р - {new Intl.NumberFormat('ru-RU').format(eventMin.founding_range.high)}р
                 </div>
 
                 <div className={styles.property}>
-                    <span>Софинансирование:</span>&nbsp;
-                    {event?.co_founding_range.low} - {event?.co_founding_range.high}₽
+                    <span>Софинансирование:</span> {eventMin.co_founding_range.low}% - {eventMin.co_founding_range.high}%
                 </div>
 
                 <div className={styles.property}>
-                    <span>Финансирование:</span>&nbsp;
-                    20 - 100млн
+                    <span>Тип финансирования:</span> {joinBySemicolons(eventMin.founding_type)}
                 </div>
 
                 <div className={styles.property}>
-                    <span>Финансирование:</span>&nbsp;
-                    20 - 100млн
+                    <span>Срок подачи документов:</span> до {convertPostgresDateToNormalDate(eventMin.submission_deadline)}
                 </div>
 
                 <div className={styles.property}>
-                    <span>Финансирование:</span>&nbsp;
-                    20 - 100млн
-                </div>
-
-                <div className={styles.property}>
-                    <span>Финансирование:</span>&nbsp;
-                    20 - 100млн
+                    <span>Длительность реализации:</span> {eventMin.realisation_period}
                 </div>
             </div>
 
@@ -92,12 +74,13 @@ const EventCard: FC<EventCardProps> = ({className, link, event, checkbox, setEve
             <Link href={link} className={styles.link}></Link>
 
             <div className={styles.trls}>
-                <div className={styles.trl}>1</div>
-                <div className={styles.trl}>2</div>
+                {
+                    sortedCompetitors.map(competitor => <div key={competitor} className={styles.trl}>{competitor}</div>)
+                }
             </div>
 
             {checkbox && <div onClick={checkboxHandler} className={styles.checkbox}>
-                {isActive && <div className={styles.checkbox__dot}></div>}
+                {isCheckboxActive && <div className={styles.checkbox__dot}></div>}
             </div>}
 
             {

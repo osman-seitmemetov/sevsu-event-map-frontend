@@ -28,12 +28,21 @@ export interface IEvent {
 
 export interface IEventMin {
     id: number,
-    "organizer": number,
-    "founding_type": number,
-    "founding_range": 1,
-    "co_founding_range": 1,
-    "submission_deadline": string,
-    "consideration_period": string,
-    "realisation_period": string,
-    "trl": 7
+    title: string,
+    organizer: {
+        logo: string,
+        level: string
+    },
+    founding_type: string[],
+    founding_range: {
+        low: number,
+        high: number
+    },
+    co_founding_range: {
+        low: number,
+        high: number
+    },
+    submission_deadline: string,
+    realisation_period: string,
+    competitors: number[]
 }

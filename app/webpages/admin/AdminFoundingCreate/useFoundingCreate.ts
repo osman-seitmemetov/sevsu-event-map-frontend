@@ -18,7 +18,7 @@ export const useFoundingCreate = () => {
             },
             onSuccess() {
                 toastr.success('Создание типа финансирования', 'Тип финансирования успешно создан');
-                push('/admin/competitors');
+                push('/admin/founding');
             },
         }
     )
