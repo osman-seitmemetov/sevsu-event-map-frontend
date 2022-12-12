@@ -15,6 +15,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
 
     const queryData = useQuery(['admin-get-event', eventId], () => EventService.getById(eventId), {
         onSuccess: ({data}) => {
+            // const convertedData = convertServerToClient(data) // плюс минус так должно выглядеть
             setValue('title', data.title);
             setValue('organizer', String(data.organizer));
             // @ts-ignore
@@ -34,6 +35,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
             // @ts-ignore
             setValue('competitors', String(data.competitors));
             setValue('subjects', joinBySemicolons(data.subjects));
+            setValue('precursor', String(data.precursor));
         },
         onError: (error) => {
             toastError(error, 'Возникла ошибка при загрузке данных мероприятия');

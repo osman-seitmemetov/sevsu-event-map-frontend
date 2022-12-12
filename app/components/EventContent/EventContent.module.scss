@@ -54,18 +54,9 @@
     max-height: min-content;
 }
 
-.docs {
-
-}
-
-.doc {
-    display: block;
-    margin-bottom: 7px;
+.dropContent {
     font-size: 20px;
-    text-decoration-line: underline;
+    line-height: 30px;
     color: #000000;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
+    white-space: pre-wrap
 }

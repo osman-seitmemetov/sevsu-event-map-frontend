@@ -3,8 +3,6 @@ import Input from "@/UI/InputGroup/Input/Input";
 import InputGroup from "@/UI/InputGroup/InputGroup";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import AdminContent from "@/components/AdminContent/AdminContent";
-import AdminCompetitorCreateNavbar
-    from "@/webpages/admin/AdminCompetitorCreate/AdminCompetitorCreateNavbar/AdminCompetitorCreateNavbar";
 import Form from "@/UI/Form/Form";
 import FieldsSection from "@/UI/FieldsSection/FieldsSection";
 import {useForm} from "react-hook-form";
@@ -38,7 +36,7 @@ const AdminFoundingCreate: FC = () => {
                         </InputGroup>
                     </FieldsSection>
 
-                    <PrimaryButton>Сохранить</PrimaryButton>
+                    <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
                 </Form>
             </AdminContent>
         </>

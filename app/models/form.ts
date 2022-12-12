@@ -4,7 +4,7 @@ export interface IOrganizerFields {
     level: string
 }
 
-export interface IEventFields {
+interface IEventFields {
     id: number,
     internal_university_contacts: string,
     title: string,
@@ -14,7 +14,6 @@ export interface IEventFields {
     site: string,
     document: string,
     internal_contacts: string,
-    precursor: number,
     competitors: number[]
 }
 
@@ -32,6 +31,7 @@ export interface IEventFieldsServer extends IEventFields {
     subjects: string[],
     organizer: number,
     founding_type: number[],
+    precursor: number,
 }
 
 export interface IEventFieldsClient extends IEventFields {
@@ -48,6 +48,7 @@ export interface IEventFieldsClient extends IEventFields {
     subjects: string,
     organizer: string,
     founding_type: string[],
+    precursor: string
 }
 
 export interface ICompetitorFields {

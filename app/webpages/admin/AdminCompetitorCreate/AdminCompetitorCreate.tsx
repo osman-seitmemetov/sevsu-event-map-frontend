@@ -44,7 +44,7 @@ const AdminCompetitorCreate: FC = () => {
                         </InputGroup>
                     </FieldsSection>
 
-                    <PrimaryButton>Сохранить</PrimaryButton>
+                    <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
                 </Form>
             </AdminContent>
         </>

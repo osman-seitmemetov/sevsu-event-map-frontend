@@ -17,7 +17,7 @@ const AdminFounding: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit, isLoading, data} = useFoundingEdit(setValue);
+    const {onSubmit, isLoading, data, } = useFoundingEdit(setValue);
     const foundingType = data?.data;
 
     return (
@@ -40,7 +40,7 @@ const AdminFounding: FC = () => {
                                 </InputGroup>
                             </FieldsSection>
 
-                            <PrimaryButton>Сохранить</PrimaryButton>
+                            <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
                         </Form>
                 }
             </AdminContent>

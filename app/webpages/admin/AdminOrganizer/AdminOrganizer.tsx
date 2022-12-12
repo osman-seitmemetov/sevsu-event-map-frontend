@@ -23,11 +23,7 @@ const AdminOrganizer: FC = () => {
     const {data: organizerLevels, isLoading: isOrganizerLevelsLoading} = useFetchOrganizerLevelsForSelect();
 
     const {
-        register, handleSubmit,
-        formState: {errors, isValid, isDirty, isSubmitting, isSubmitSuccessful},
-        reset, resetField, control,
-        getValues, setValue,
-        watch
+        register, handleSubmit, formState: {errors}, control, setValue
     } = useForm<IOrganizerFields>({
         mode: "onChange"
     });
@@ -93,7 +89,7 @@ const AdminOrganizer: FC = () => {
                                 </InputGroup>
                             </FieldsSection>
 
-                            <PrimaryButton>Сохранить</PrimaryButton>
+                            <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
                         </Form>
                 }
             </AdminContent>

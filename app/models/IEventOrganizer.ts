@@ -24,5 +24,10 @@ export interface IEventOrganizer {
     document: string,
     internal_contacts: string,
     trl: number,
-    precursor?: string
+    subjects: string[],
+    precursor: {
+        id: number,
+        title: string,
+        site: string
+    },
 }

@@ -1,12 +1,12 @@
-import React, {ChangeEvent, FC} from "react";
-import {useForm, Controller} from "react-hook-form";
+import React, {FC} from "react";
+import {Controller, useForm} from "react-hook-form";
 import InputGroup from "@/UI/InputGroup/InputGroup";
 import Input from "@/UI/InputGroup/Input/Input";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import FieldsSection from "@/UI/FieldsSection/FieldsSection";
 import AdminContent from "@/components/AdminContent/AdminContent";
 import AdminEventCreateNavbar from "@/webpages/admin/AdminEventCreate/AdminEventCreateNavbar/AdminEventCreateNavbar";
-import {IEventFields, IEventFieldsClient} from "@/models/form";
+import {IEventFieldsClient} from "@/models/form";
 import dynamic from "next/dynamic";
 import {useFetchOrganizersForSelect} from "@/hooks/useFetchOrganizersForSelect";
 import {TRLs} from "@/utils/TRLs";
@@ -132,28 +132,12 @@ const AdminEventCreate: FC = () => {
                             />
                         </InputGroup>
 
-                        <InputGroup title="Финансирование">
-                            {/*<InputRangeGroup*/}
-                            {/*    register={register}*/}
-                            {/*    nameHigh="foundingRangeHigh"*/}
-                            {/*    nameLow="foundingRangeLow"*/}
-                            {/*    errorHigh={errors.foundingRangeHigh}*/}
-                            {/*    errorLow={errors.foundingRangeLow}*/}
-                            {/*/>*/}
+                        <InputGroup title="Финансирование (в рублях)">
                             <InputRangeGroup>
                                 <InputRange
                                     {...register('founding_range.low', {
                                         required: "Это поле обязательное",
                                         valueAsNumber: true,
-                                        // onChange: (e) => {
-                                        //     if (
-                                        //         /^[0-9]+$/.test(e.target.value)
-                                        //         // && Number(e.target.value) >= min
-                                        //         // && Number(e.target.value) <= max
-                                        //     ) {
-                                        //         e.target.value
-                                        //     }
-                                        // }
                                     })}
                                     error={errors.founding_range?.low}
                                     label="от"
@@ -169,7 +153,7 @@ const AdminEventCreate: FC = () => {
                             </InputRangeGroup>
                         </InputGroup>
 
-                        <InputGroup title="Софинансирование">
+                        <InputGroup title="Софинансирование (в процентах)">
                             <InputRangeGroup>
                                 <InputRange
                                     {...register('co_founding_range.low', {
@@ -210,7 +194,7 @@ const AdminEventCreate: FC = () => {
                             />
                         </InputGroup>
 
-                        <InputGroup title="Срок подачи документов">
+                        <InputGroup title="Крайний срок подачи документов">
                             <Controller
                                 control={control}
                                 name="submission_deadline"
@@ -321,7 +305,7 @@ const AdminEventCreate: FC = () => {
                         </InputGroup>
                     </FieldsSection>
 
-                    <PrimaryButton>Сохранить</PrimaryButton>
+                    <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
                 </Form>
             </AdminContent>
         </>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import {IEvent, IEventMin} from "@/models/IEvent";
-import {IEventFields, IEventFieldsClient, IEventFieldsServer} from "@/models/form";
+import {IEventFieldsClient, IEventFieldsServer} from "@/models/form";
 import {convertInputDateToPostgresDate} from "../helpers/date/convertInputDateToPostgresDate";
 import {separateBySemicolons} from "@/utils/string/separateBySemicolons";
 import {IFoundingType} from "@/models/IFoundingType";
@@ -30,7 +30,7 @@ export const EventService = {
     },
 
     async edit(id: number, data: IEventFieldsClient) {
-        return await axios.put<IEventFields>(`https://event-map-django.onrender.com/api/v1/event/${id}`, {
+        return await axios.put<IEvent>(`https://event-map-django.onrender.com/api/v1/event/${id}`, {
             ...data, submission_deadline: convertInputDateToPostgresDate(data.submission_deadline),
             subjects: separateBySemicolons(data.subjects),
             founding_range: {
@@ -44,7 +44,8 @@ export const EventService = {
             trl: Number(data.trl),
             founding_type: String(data.founding_type).split(',').map(ft => +ft),
             competitors: String(data.competitors).split(',').map(ft => +ft),
-            organizer: Number(data.organizer)
+            organizer: Number(data.organizer),
+            precursor: Number(data.precursor)
         });
     },
 
@@ -67,7 +68,8 @@ export const EventService = {
             trl: Number(data.trl),
             founding_type: String(data.founding_type).split(',').map(ft => +ft),
             competitors: String(data.competitors).split(',').map(ft => +ft),
-            organizer: Number(data.organizer)
+            organizer: Number(data.organizer),
+            precursor: Number(data.precursor)
         });
     },
 

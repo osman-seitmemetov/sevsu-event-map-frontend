@@ -1,9 +1,6 @@
 import axios from "axios";
 import {ICompetitor} from "@/models/ICompetitor";
-import {ICompetitorFields, IEventFields, IEventFieldsClient} from "@/models/form";
-import {IEvent} from "@/models/IEvent";
-import {convertInputDateToPostgresDate} from "../helpers/date/convertInputDateToPostgresDate";
-import {separateBySemicolons} from "@/utils/string/separateBySemicolons";
+import {ICompetitorFields} from "@/models/form";
 
 
 export const CompetitorService = {

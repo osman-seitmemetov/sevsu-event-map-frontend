@@ -1,7 +1,7 @@
 import {SubmitHandler} from "react-hook-form";
-import {useMutation, useQuery} from "react-query";
+import {useMutation} from "react-query";
 import {EventService} from "@/services/EventService";
-import {IEventFields, IEventFieldsClient} from "@/models/form";
+import {IEventFieldsClient} from "@/models/form";
 import {useRouter} from "next/router";
 import {toastError} from "@/utils/api/withToastrErrorRedux";
 import {toastr} from "react-redux-toastr";
