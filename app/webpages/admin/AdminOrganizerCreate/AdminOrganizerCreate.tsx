@@ -33,7 +33,7 @@ const AdminOrganizerCreate: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit} = useCreateOrganizers();
+    const {onSubmit, isLoading} = useCreateOrganizers();
 
     return (
         <>
@@ -90,7 +90,7 @@ const AdminOrganizerCreate: FC = () => {
                         </InputGroup>
                     </FieldsSection>
 
-                    <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
+                    <PrimaryButton style={{maxWidth: 400}} disabled={isLoading}>Сохранить</PrimaryButton>
                 </Form>
             </AdminContent>
         </>

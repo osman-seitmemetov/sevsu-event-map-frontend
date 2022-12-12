@@ -17,7 +17,7 @@ const AdminFoundingCreate: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit} = useFoundingCreate();
+    const {onSubmit, isLoading} = useFoundingCreate();
 
     return (
         <>
@@ -36,7 +36,7 @@ const AdminFoundingCreate: FC = () => {
                         </InputGroup>
                     </FieldsSection>
 
-                    <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
+                    <PrimaryButton style={{maxWidth: 400}} disabled={isLoading}>Сохранить</PrimaryButton>
                 </Form>
             </AdminContent>
         </>

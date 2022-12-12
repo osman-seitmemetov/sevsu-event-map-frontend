@@ -23,7 +23,7 @@ export const useCompetitorEdit = (setValue: UseFormSetValue<ICompetitorFields>) 
         enabled: !!query.id
     });
 
-    const {mutateAsync} = useMutation('admin-update-competitor', (data: ICompetitorFields) => CompetitorService.edit(competitorId, data), {
+    const {mutateAsync, isLoading: isUpdateLoading} = useMutation('admin-update-competitor', (data: ICompetitorFields) => CompetitorService.edit(competitorId, data), {
         onError: (error) => {
             toastError(error, 'Возникла ошибка при редактировании типа участника');
         },
@@ -37,5 +37,5 @@ export const useCompetitorEdit = (setValue: UseFormSetValue<ICompetitorFields>) 
         await mutateAsync(data);
     }
 
-    return {onSubmit, ...queryData};
+    return {onSubmit, isUpdateLoading, ...queryData};
 }

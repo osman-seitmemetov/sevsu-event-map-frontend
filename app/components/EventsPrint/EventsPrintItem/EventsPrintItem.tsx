@@ -80,24 +80,6 @@ const EventsPrintItem: FC<{ event: IEventOrganizer }> = ({event}) => {
 
                         <div className={styles.infoBlock__items}>
                             {event.internal_contacts}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 1</a>*/}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 2</a>*/}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 3</a>*/}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 4</a>*/}
-                        </div>
-                    </div>
-
-                    <div className={styles.infoBlock}>
-                        <div className={styles.infoBlock__head}>
-                            Результат
-                        </div>
-
-                        <div className={styles.infoBlock__items}>
-                            {event.result}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 1</a>*/}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 2</a>*/}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 3</a>*/}
-                            {/*<a href="" target="_blank" className={styles.infoBlock__item}>Ссылка 4</a>*/}
                         </div>
                     </div>
                 </div>
@@ -106,6 +88,16 @@ const EventsPrintItem: FC<{ event: IEventOrganizer }> = ({event}) => {
                     <img className={styles.logo} src={event.organizer.logo} alt="logo"/>
                     <QRCode size={300} value={`https://sevsu-event-map.onrender.com/event/${event.id}`}/>
                     <div className={styles.annotation}>Отсканируйте QR код, чтобы увидеть ссылки на файлы и сайты</div>
+                </div>
+            </div>
+
+            <div className={styles.infoBlock}>
+                <div className={styles.infoBlock__head}>
+                    Результат
+                </div>
+
+                <div className={styles.infoBlock__items}>
+                    {event.result}
                 </div>
             </div>
         </section>

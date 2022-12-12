@@ -17,7 +17,7 @@ const AdminCompetitor: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit, isLoading, data} = useCompetitorEdit(setValue);
+    const {onSubmit, isLoading, data, isUpdateLoading} = useCompetitorEdit(setValue);
     const competitor = data?.data;
 
     return (
@@ -48,7 +48,7 @@ const AdminCompetitor: FC = () => {
                                 </InputGroup>
                             </FieldsSection>
 
-                            <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
+                            <PrimaryButton style={{maxWidth: 400}} disabled={isUpdateLoading}>Сохранить</PrimaryButton>
                         </Form>
                 }
             </AdminContent>

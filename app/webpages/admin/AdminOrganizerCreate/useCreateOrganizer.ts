@@ -9,7 +9,7 @@ import {toastError} from "@/utils/api/withToastrErrorRedux";
 export const useCreateOrganizers = () => {
     const {push} = useRouter();
 
-    const { mutateAsync } = useMutation(
+    const { mutateAsync, isLoading } = useMutation(
         'admin-create-organizer',
         (data: IOrganizerFields) => OrganizerService.create(data),
         {
@@ -26,5 +26,5 @@ export const useCreateOrganizers = () => {
         await mutateAsync(data);
     }
 
-    return {onSubmit};
+    return {onSubmit, isLoading};
 }

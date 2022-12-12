@@ -23,7 +23,7 @@ export const useEditOrganizer = (setValue: UseFormSetValue<IOrganizerFields>) =>
         enabled: !!query.id
     });
 
-    const {mutateAsync} = useMutation('admin-put-organizer', (data: IOrganizerFields) => OrganizerService.edit(organizerId, data), {
+    const {mutateAsync, isLoading: isUpdateLoading} = useMutation('admin-put-organizer', (data: IOrganizerFields) => OrganizerService.edit(organizerId, data), {
         onError: (error) => {
             alert(error)
         },
@@ -37,5 +37,5 @@ export const useEditOrganizer = (setValue: UseFormSetValue<IOrganizerFields>) =>
         await mutateAsync(data);
     }
 
-    return {onSubmit, ...queryData};
+    return {onSubmit, isUpdateLoading, ...queryData};
 }

@@ -9,7 +9,7 @@ import {FoundingService} from "@/services/FoundingService";
 export const useFoundingCreate = () => {
     const {push} = useRouter();
 
-    const { mutateAsync } = useMutation(
+    const { mutateAsync, isLoading } = useMutation(
         'admin-create-founding-type',
         (data: IFoundingTypeFields) => FoundingService.create(data),
         {
@@ -27,5 +27,5 @@ export const useFoundingCreate = () => {
         await mutateAsync(data);
     }
 
-    return {onSubmit};
+    return {onSubmit, isLoading};
 }

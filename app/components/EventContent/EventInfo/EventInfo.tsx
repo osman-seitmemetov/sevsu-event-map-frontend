@@ -11,19 +11,23 @@ interface EventInfoProps {
 
 const EventInfo: FC<EventInfoProps> = ({title, hint, text, link}) => {
     return (
-        link
-            ? <a href={link} rel="noreferrer" target="_blank" className={styles.link}>{title}</a>
-            : <div className={styles.info}>
-                <span className={styles.title}>{title}:&nbsp;</span>
-                {text}
-                {
-                    hint && <div className={styles.hint}>
-                        ?
+        <div className={styles.info}>
+            <span className={styles.title}>{title}:&nbsp;</span>
+            {
+                link
+                    ? <a href={link} rel="noreferrer" target="_blank" className={styles.link}>
+                        {link}
+                    </a>
+                    : text
+            }
+            {
+                hint && <div className={styles.hint}>
+                    ?
 
-                        <div className={styles.hintText}>{hint}</div>
-                    </div>
-                }
-            </div>
+                    <div className={styles.hintText}>{hint}</div>
+                </div>
+            }
+        </div>
     );
 }
 

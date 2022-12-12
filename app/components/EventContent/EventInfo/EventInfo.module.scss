@@ -1,25 +1,23 @@
-.nav {
+.info {
     width: 100%;
-    min-height: 40px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 12px;
-    margin-bottom: 30px;
-}
+    max-width: 100%;
+    font-weight: 300;
+    font-size: 20px;
+    color: #232323;
+    margin-bottom: 7px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 
-.btn {
-    margin-left: 10px;
+    span {
+        font-weight: 600;
+    }
 }
 
 .link {
-    display: flex;
-    max-width: max-content;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 23px;
     text-decoration: underline;
-    margin-bottom: 7px;
-    color: #232323;
+    line-height: normal;
 }
 
 .hint {
@@ -60,18 +58,4 @@
     left: 20px;
     bottom: 0;
     display: none;
-}
-
-.info {
-}
-
-.info {
-    font-weight: 300;
-    font-size: 20px;
-    color: #232323;
-    margin-bottom: 7px;
-
-    span {
-        font-weight: 600;
-    }
 }

@@ -9,7 +9,7 @@ import {toastr} from "react-redux-toastr";
 export const useEventCreate = () => {
     const {push} = useRouter();
 
-    const { mutateAsync } = useMutation(
+    const { mutateAsync, isLoading } = useMutation(
         'admin-create-event',
         (data: IEventFieldsClient) => EventService.create(data),
         {
@@ -27,5 +27,5 @@ export const useEventCreate = () => {
         await mutateAsync(data);
     }
 
-    return {onSubmit};
+    return {onSubmit, isLoading};
 }

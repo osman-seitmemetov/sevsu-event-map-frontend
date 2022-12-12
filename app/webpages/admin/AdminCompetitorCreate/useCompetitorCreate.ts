@@ -9,7 +9,7 @@ import {CompetitorService} from "@/services/CompetitorService";
 export const useCompetitorCreate = () => {
     const {push} = useRouter();
 
-    const { mutateAsync } = useMutation(
+    const { mutateAsync, isLoading } = useMutation(
         'admin-create-competitor-type',
         (data: ICompetitorFields) => CompetitorService.create(data),
         {
@@ -27,5 +27,5 @@ export const useCompetitorCreate = () => {
         await mutateAsync(data);
     }
 
-    return {onSubmit};
+    return {onSubmit, isLoading};
 }

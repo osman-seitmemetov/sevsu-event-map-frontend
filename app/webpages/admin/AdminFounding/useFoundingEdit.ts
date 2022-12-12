@@ -23,7 +23,7 @@ export const useFoundingEdit = (setValue: UseFormSetValue<IFoundingTypeFields>) 
         enabled: !!query.id
     });
 
-    const {mutateAsync} = useMutation('admin-update-founding-type', (data: IFoundingTypeFields) => FoundingService.edit(foundingTypeId, data), {
+    const {mutateAsync, isLoading: isUpdateLoading} = useMutation('admin-update-founding-type', (data: IFoundingTypeFields) => FoundingService.edit(foundingTypeId, data), {
         onError: (error) => {
             toastError(error, 'Возникла ошибка при редактировании типа финансирования');
         },
@@ -38,5 +38,5 @@ export const useFoundingEdit = (setValue: UseFormSetValue<IFoundingTypeFields>) 
         await mutateAsync(data);
     }
 
-    return {onSubmit, ...queryData};
+    return {onSubmit, isUpdateLoading, ...queryData};
 }

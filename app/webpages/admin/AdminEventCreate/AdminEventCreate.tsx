@@ -11,7 +11,6 @@ import dynamic from "next/dynamic";
 import {useFetchOrganizersForSelect} from "@/hooks/useFetchOrganizersForSelect";
 import {TRLs} from "@/utils/TRLs";
 import Textarea from "@/UI/InputGroup/Textarea/Textarea";
-import {useFetchOrganizerLevelsForSelect} from "@/hooks/useFetchOrganizerLevelsForSelect";
 import {useFetchCompetitorsForSelect} from "@/hooks/useFetchCompetitorsForSelect";
 import InputRange from "@/UI/InputGroup/InputRangeGroup/InputRange/InputRange";
 import InputRangeGroup from "@/UI/InputGroup/InputRangeGroup/InputRangeGroup";
@@ -19,26 +18,26 @@ import InputDate from "@/UI/InputGroup/InputDate/InputDate";
 import {useEventCreate} from "@/webpages/admin/AdminEventCreate/useEventCreate";
 import Form from "@/UI/Form/Form";
 import {useFetchFoundingTypesForSelect} from "@/hooks/useFetchFoundingTypesForSelect";
+import {useFetchEventsForSelect} from "@/hooks/useFetchEventsForSelect";
 
 const DynamicSelect = dynamic(() => import('@/UI/InputGroup/SelectCustom/SelectCustom'), {
     ssr: false
 });
 
-console.log("ppppp", process.env.APP_SERVER_URL);
 
 const AdminEventCreate: FC = () => {
     const {data: organizers, isLoading: isOrganizersLoading} = useFetchOrganizersForSelect();
-    const {data: organizerLevels, isLoading: isOrganizerLevelsLoading} = useFetchOrganizerLevelsForSelect();
     const {data: competitors, isLoading: isCompetitorsLoading} = useFetchCompetitorsForSelect();
     const {data: foundingTypes, isLoading: isFoundingTypesLoading} = useFetchFoundingTypesForSelect();
+    const {data: events, isLoading: isEventsLoading} = useFetchEventsForSelect();
 
     const {
-        register, handleSubmit, formState: {errors}, control, watch
+        register, handleSubmit, formState: {errors}, control
     } = useForm<IEventFieldsClient>({
         mode: "onChange"
     });
 
-    const {onSubmit} = useEventCreate();
+    const {onSubmit, isLoading} = useEventCreate();
 
     return (
         <>
@@ -85,12 +84,22 @@ const AdminEventCreate: FC = () => {
                             />
                         </InputGroup>
 
-                        <InputGroup title="Ссылка на сайт мероприятия-прекурсора">
-                            {/*<Input*/}
-                            {/*    {...register('precursor')}*/}
-                            {/*    placeholder="Введите ссылку"*/}
-                            {/*    error={errors.site}*/}
-                            {/*/>*/}
+                        <InputGroup title="Мероприятие-прекурсор">
+                            <Controller
+                                control={control}
+                                name="precursor"
+                                rules={{}}
+                                render={({field, fieldState: {error}}) =>
+                                    <DynamicSelect
+                                        error={error}
+                                        field={field}
+                                        placeholder="Выберите мероприятие"
+                                        options={events || []}
+                                        isLoading={isEventsLoading}
+                                        isSearchable
+                                    />
+                                }
+                            />
                         </InputGroup>
 
                         <InputGroup title="TRL / УГТ">
@@ -133,11 +142,27 @@ const AdminEventCreate: FC = () => {
                         </InputGroup>
 
                         <InputGroup title="Финансирование (в рублях)">
+                            {/*<InputRangeGroup*/}
+                            {/*    register={register}*/}
+                            {/*    nameHigh="foundingRangeHigh"*/}
+                            {/*    nameLow="foundingRangeLow"*/}
+                            {/*    errorHigh={errors.foundingRangeHigh}*/}
+                            {/*    errorLow={errors.foundingRangeLow}*/}
+                            {/*/>*/}
                             <InputRangeGroup>
                                 <InputRange
                                     {...register('founding_range.low', {
                                         required: "Это поле обязательное",
                                         valueAsNumber: true,
+                                        // onChange: (e) => {
+                                        //     if (
+                                        //         /^[0-9]+$/.test(e.target.value)
+                                        //         // && Number(e.target.value) >= min
+                                        //         // && Number(e.target.value) <= max
+                                        //     ) {
+                                        //         e.target.value
+                                        //     }
+                                        // }
                                     })}
                                     error={errors.founding_range?.low}
                                     label="от"
@@ -214,35 +239,6 @@ const AdminEventCreate: FC = () => {
                             />
                         </InputGroup>
 
-                        {/*<InputGroup title="fddfdffdd">*/}
-                        {/*    <Controller*/}
-                        {/*        control={control}*/}
-                        {/*        name="foundingRangeLow"*/}
-                        {/*        rules={{*/}
-                        {/*            required: "Это поле обязательно"*/}
-                        {/*        }}*/}
-                        {/*        render={({field, fieldState: {error}}) =>*/}
-                        {/*            // <InputDate*/}
-                        {/*            //     dateFormat="dd.MM.yyyy"*/}
-                        {/*            //     placeholder="дд.мм.гггг"*/}
-                        {/*            //     mask="11.11.1111"*/}
-                        {/*            //     selected={field.value}*/}
-                        {/*            //     onChange={(date: Date) => field.onChange(date)}*/}
-                        {/*            //     error={error}*/}
-                        {/*            // />*/}
-                        {/*            <input*/}
-                        {/*                {...field}*/}
-                        {/*                onChange={(e: ChangeEvent<HTMLInputElement>) => {*/}
-                        {/*                    console.log(/^[0-9]+$/.test(e.target.value))*/}
-                        {/*                    if (/^[0-9]+$/.test(e.target.value)) {*/}
-                        {/*                        return field.onChange(e.target.value)*/}
-                        {/*                    }*/}
-                        {/*                }}*/}
-                        {/*                type="text"*/}
-                        {/*            />*/}
-                        {/*        }*/}
-                        {/*    />*/}
-                        {/*</InputGroup>*/}
                         <InputGroup title="Тип финансирования">
                             <Controller
                                 control={control}
@@ -305,7 +301,7 @@ const AdminEventCreate: FC = () => {
                         </InputGroup>
                     </FieldsSection>
 
-                    <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
+                    <PrimaryButton style={{maxWidth: 400}} disabled={isLoading}>Сохранить</PrimaryButton>
                 </Form>
             </AdminContent>
         </>

@@ -28,7 +28,7 @@ const AdminOrganizer: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit, data, isLoading} = useEditOrganizer(setValue);
+    const {onSubmit, data, isLoading, isUpdateLoading} = useEditOrganizer(setValue);
     const organizer = data?.data;
 
     return (
@@ -89,7 +89,7 @@ const AdminOrganizer: FC = () => {
                                 </InputGroup>
                             </FieldsSection>
 
-                            <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
+                            <PrimaryButton style={{maxWidth: 400}} disabled={isUpdateLoading}>Сохранить</PrimaryButton>
                         </Form>
                 }
             </AdminContent>

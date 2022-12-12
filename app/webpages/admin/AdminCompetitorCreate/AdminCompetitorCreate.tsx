@@ -17,7 +17,7 @@ const AdminCompetitorCreate: FC = () => {
         mode: "onChange"
     });
 
-    const {onSubmit} = useCompetitorCreate();
+    const {onSubmit, isLoading} = useCompetitorCreate();
 
     return (
         <>
@@ -44,7 +44,7 @@ const AdminCompetitorCreate: FC = () => {
                         </InputGroup>
                     </FieldsSection>
 
-                    <PrimaryButton style={{maxWidth: 400}}>Сохранить</PrimaryButton>
+                    <PrimaryButton style={{maxWidth: 400}} disabled={isLoading}>Сохранить</PrimaryButton>
                 </Form>
             </AdminContent>
         </>
