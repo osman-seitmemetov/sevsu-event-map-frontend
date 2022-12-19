@@ -6,7 +6,7 @@
     transition: all .4s;
     position: relative;
     z-index: 3;
-    min-height: 100%;/////
+    width: 100%;
 }
 
 .resizeBtn {
@@ -39,7 +39,9 @@
 .scrollareaHorizontal {
     overflow: scroll;
     width: 100%;
-    max-height: 100%;
+    height: 100%;
+    display: grid;
+    align-items: end;
 
     scrollbar-color: #458245 transparent;
     scrollbar-width: thin;
@@ -64,7 +66,6 @@
     height: max-content;
 
     .columns {
-        width: 100%;
         grid-column-gap: 15px;
 
         .column {
@@ -113,9 +114,10 @@
 
 .columns {
     display: grid;
-    //grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     grid-column-gap: 15px;
     align-items: flex-end;
+    transition: all .4s;
 
     width: 100%;
 
@@ -128,7 +130,7 @@
 }
 
 .column {
-    //display: grid;
+    transition: all .4s;
     display: flex;
     flex-direction: column;
     grid-template-columns: repeat(1, 1fr);

@@ -62,8 +62,6 @@ const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
         })
     }
 
-    const checkIsLastColumn = (columnLength: number) => {}
-
     useEffect(() => {
         scrollToStart();
         window.addEventListener('resize', scrollToStart);
@@ -83,7 +81,7 @@ const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
         <>
             {
                 isLoading
-                    ? <HomeEventsGridLoader />
+                    ? <HomeEventsGridLoader/>
                     : events.length ? <div
                             className={styles.scrollareaWrapper}
                             style={{boxShadow: isScrollable ? '4px -4px 15px rgba(0, 0, 0, 0.1)' : "none"}}
@@ -107,214 +105,183 @@ const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
                                 </button>
                             }
 
-                            <div
-                                className={styles.scrollareaHorizontal}
-                                ref={scrollareaHorizontalRef}
-                            >
-                                <div
-                                    style={{
-                                        width: isExtended
-                                            ? `${columnsCount > 4
-                                                ? (columnsCount * 400)
-                                                : (columnsCount * 400)}px`
-                                            : columnsCount < 4
-                                                ? `${columnsCount * 280}px` : '100%'
-                                    }}
-                                    className={`${styles.eventGrid} ${isExtended && styles.eventGrid_extended}`}
-                                >
-                                    <div
-                                        style={{
-                                            gridTemplateColumns: `repeat(${columnsCount}, 1fr)`,
-                                        }}
-                                        className={styles.columns} ref={scrollareaVerticalRef}
-                                    >
-                                        {
-                                            eventsTrl0.length > 0 && <div className={`${styles.column} ${styles.column_line}`}>
-                                                {
-                                                    eventsTrl0.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                            <div className={styles.scrollareaHorizontal} ref={scrollareaHorizontalRef}>
+                                <div className={`${styles.eventGrid} ${isExtended && styles.eventGrid_extended}`}>
+                                    <div className={styles.columns} ref={scrollareaVerticalRef}>
+                                        <div className={`${styles.column} ${styles.column_line}`}>
+                                            {
+                                                eventsTrl0.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl1.length > 0 && <div className={`${styles.column} ${eventsTrl2.length === 0 && styles.column_line}`}>
-                                                {
-                                                    eventsTrl1.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                                        <div className={`${styles.column}`}>
+                                            {
+                                                eventsTrl1.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl2.length > 0 && <div className={`${styles.column} ${styles.column_line}`}>
-                                                {
-                                                    eventsTrl2.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                                        <div className={`${styles.column} ${styles.column_line}`}>
+                                            {
+                                                eventsTrl2.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl3.length > 0 && <div className={`${styles.column} ${eventsTrl4.length === 0 && eventsTrl5.length === 0 && styles.column_line}`}>
-                                                {
-                                                    eventsTrl3.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                                {/*<div style={{width: `100%`, height: 200, background: "#000000"}}></div>*/}
-                                                {/*<div style={{width: `100%`, height: 200, background: "#000000"}}></div>*/}
-                                                {/*<div style={{width: `100%`, height: 200, background: "#000000"}}></div>*/}
-                                                {/*<div style={{width: `100%`, height: 200, background: "#000000"}}></div>*/}
-                                            </div>
-                                        }
+                                        <div
+                                            className={`${styles.column}`}>
+                                            {
+                                                eventsTrl3.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl4.length > 0 && <div className={`${styles.column} ${eventsTrl5.length === 0 && styles.column_line}`}>
-                                                {
-                                                    eventsTrl4.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                                        <div className={`${styles.column}`}>
+                                            {
+                                                eventsTrl4.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl5.length > 0 && <div className={`${styles.column} ${styles.column_line}`}>
-                                                {
-                                                    eventsTrl5.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                                        <div className={`${styles.column} ${styles.column_line}`}>
+                                            {
+                                                eventsTrl5.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl6.length > 0 && <div className={`${styles.column} ${eventsTrl7.length === 0 && eventsTrl8.length === 0 && styles.column_line}`}>
-                                                {
-                                                    eventsTrl6.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                                        <div
+                                            className={`${styles.column}`}>
+                                            {
+                                                eventsTrl6.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
+                                        <div
+                                            className={`${styles.column}`}>
+                                            {
+                                                eventsTrl7.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl7.length > 0 && <div className={`${styles.column} ${eventsTrl8.length === 0 && styles.column_line}`}>
-                                                {
-                                                    eventsTrl7.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                                        <div className={`${styles.column} ${styles.column_line}`}>
+                                            {
+                                                eventsTrl8.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
 
-                                        {
-                                            eventsTrl8.length > 0 && <div className={`${styles.column} ${styles.column_line}`}>
-                                                {
-                                                    eventsTrl8.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
-
-                                        {
-                                            eventsTrl9.length > 0 && <div className={styles.column}>
-                                                {
-                                                    eventsTrl9.map((ev) =>
-                                                        <EventCard
-                                                            isSmall={!isExtended}
-                                                            key={ev.id}
-                                                            eventMin={ev}
-                                                            link={`/event/${ev.id}`}
-                                                            className={styles.eventCard}
-                                                        />)
-                                                }
-                                            </div>
-                                        }
+                                        <div className={styles.column}>
+                                            {
+                                                eventsTrl9.map((ev) =>
+                                                    <EventCard
+                                                        isSmall={!isExtended}
+                                                        key={ev.id}
+                                                        eventMin={ev}
+                                                        link={`/event/${ev.id}`}
+                                                        className={styles.eventCard}
+                                                    />)
+                                            }
+                                        </div>
                                     </div>
 
                                     <div className={styles.scale}>
                                         <div className={styles.line}></div>
 
-                                        <div className={styles.trls}
-                                             style={{gridTemplateColumns: `repeat(${columnsCount}, 1fr)`}}>
-                                            {eventsTrl0.length > 0 && <div className={styles.trl} ref={trl0Ref}
-                                                                           onClick={() => resizeHandler(trl0Ref.current?.offsetLeft)}>0</div>}
-                                            {eventsTrl1.length > 0 && <div className={styles.trl} ref={trl1Ref}
-                                                                           onClick={() => resizeHandler(trl1Ref.current?.offsetLeft)}>1</div>}
-                                            {eventsTrl2.length > 0 && <div className={styles.trl} ref={trl2Ref}
-                                                                           onClick={() => resizeHandler(trl2Ref.current?.offsetLeft)}>2</div>}
-                                            {eventsTrl3.length > 0 && <div className={styles.trl} ref={trl3Ref}
-                                                                           onClick={() => resizeHandler(trl3Ref.current?.offsetLeft)}>3</div>}
-                                            {eventsTrl4.length > 0 && <div className={styles.trl} ref={trl4Ref}
-                                                                           onClick={() => resizeHandler(trl4Ref.current?.offsetLeft)}>4</div>}
-                                            {eventsTrl5.length > 0 && <div className={styles.trl} ref={trl5Ref}
-                                                                           onClick={() => resizeHandler(trl5Ref.current?.offsetLeft)}>5</div>}
-                                            {eventsTrl6.length > 0 && <div className={styles.trl} ref={trl6Ref}
-                                                                           onClick={() => resizeHandler(trl6Ref.current?.offsetLeft)}>6</div>}
-                                            {eventsTrl7.length > 0 && <div className={styles.trl} ref={trl7Ref}
-                                                                           onClick={() => resizeHandler(trl7Ref.current?.offsetLeft)}>7</div>}
-                                            {eventsTrl8.length > 0 && <div className={styles.trl} ref={trl8Ref}
-                                                                           onClick={() => resizeHandler(trl8Ref.current?.offsetLeft)}>8</div>}
-                                            {eventsTrl9.length > 0 && <div className={styles.trl} ref={trl9Ref}
-                                                                           onClick={() => resizeHandler(trl9Ref.current?.offsetLeft)}>9</div>}
+                                        <div className={styles.trls}>
+                                            <div className={styles.trl} ref={trl0Ref}
+                                                 onClick={() => resizeHandler()}>0
+                                            </div>
+                                            <div className={styles.trl} ref={trl1Ref}
+                                                 onClick={() => resizeHandler(311)}>1
+                                            </div>
+                                            <div className={styles.trl} ref={trl2Ref}
+                                                 onClick={() => resizeHandler(311 * 2)}>2
+                                            </div>
+                                            <div className={styles.trl} ref={trl3Ref}
+                                                 onClick={() => resizeHandler(311 * 3)}>3
+                                            </div>
+                                            <div className={styles.trl} ref={trl4Ref}
+                                                 onClick={() => resizeHandler(311 * 4)}>4
+                                            </div>
+                                            <div className={styles.trl} ref={trl5Ref}
+                                                 onClick={() => resizeHandler(311 * 5)}>5
+                                            </div>
+                                            <div className={styles.trl} ref={trl6Ref}
+                                                 onClick={() => resizeHandler(311 * 6)}>6
+                                            </div>
+                                            <div className={styles.trl} ref={trl7Ref}
+                                                 onClick={() => resizeHandler(311 * 7)}>7
+                                            </div>
+                                            <div className={styles.trl} ref={trl8Ref}
+                                                 onClick={() => resizeHandler(311 * 8)}>8
+                                            </div>
+                                            <div className={styles.trl} ref={trl9Ref}
+                                                 onClick={() => resizeHandler(311 * 9)}>9
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        : <HomeEventsGridNotFound />
+                        : <HomeEventsGridNotFound/>
             }
         </>
     );
