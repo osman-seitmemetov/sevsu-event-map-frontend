@@ -1,0 +1,36 @@
+.checkboxWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+
+    background: #FFFFFF;
+
+    border: 1px solid #26358C;
+    border-radius: 4px;
+    padding: 2px;
+    z-index: 6;
+
+    &__dot {
+        width: 100%;
+        height: 100%;
+        border-radius: 2px;
+        background: #26358C;
+    }
+}
+
+.title {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    color: #232323;
+    margin-left: 6px;
+}

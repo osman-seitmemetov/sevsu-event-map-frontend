@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, MutableRefObject, useEffect, useRef, useState} from "react";
 import styles from "./EventCard.module.scss";
 import DisabledBg from "@/assets/img/disabled_card.png";
 import Link from "next/link";
@@ -16,9 +16,10 @@ interface EventCardProps {
     checkbox?: boolean,
     setEventId?: (eventId: number) => void;
     setActiveModal?: (activeModal: boolean) => void,
+    isSmall?: boolean
 }
 
-const EventCard: FC<EventCardProps> = ({className, link, eventMin, checkbox, setEventId, setActiveModal}) => {
+const EventCard: FC<EventCardProps> = ({className, link, eventMin, checkbox, setEventId, setActiveModal, isSmall}) => {
     const {favouritesSelect, favouritesDeselect} = favouritesSlice.actions;
     const dispatch = useDispatch();
     const [isCheckboxActive, setIsCheckboxActive] = useState<boolean>(false);
@@ -42,14 +43,15 @@ const EventCard: FC<EventCardProps> = ({className, link, eventMin, checkbox, set
     }
 
     return (
-        <div className={`${styles.item} ${eventMin.organizer.level === "FED" ? styles.item_fed : eventMin.organizer.level === "REG" ? styles.item_reg : eventMin.organizer.level === "SCI" ? styles.item_sci : eventMin.organizer.level === "EDU" && styles.item_edu} ${className}`}>
+        <div className={`${styles.item} ${isSmall && styles.item_small} ${eventMin.organizer.level === "FED" ? styles.item_fed : eventMin.organizer.level === "REG" ? styles.item_reg : eventMin.organizer.level === "SCI" ? styles.item_sci : eventMin.organizer.level === "EDU" && styles.item_edu} ${className}`}>
             <div className={styles.content}>
                 <img className={styles.logo} src={eventMin.organizer.logo} alt={eventMin.title}/>
 
                 <div className={styles.title}>{eventMin?.title}</div>
 
                 <div className={styles.property}>
-                    <span>Финансирование:</span> {new Intl.NumberFormat('ru-RU').format(eventMin.founding_range.low)}р - {new Intl.NumberFormat('ru-RU').format(eventMin.founding_range.high)}р
+                    <span>Финансирование:</span> {String(eventMin.founding_range.low).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')}р
+                    - {String(eventMin.founding_range.high).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')}р
                 </div>
 
                 <div className={styles.property}>
@@ -69,7 +71,8 @@ const EventCard: FC<EventCardProps> = ({className, link, eventMin, checkbox, set
                 </div>
             </div>
 
-            <div className={styles.disabledBg} style={{backgroundImage: `url(${DisabledBg})`}}></div>
+            {new Date(eventMin.submission_deadline) < new Date() &&
+                <div className={styles.disabledBg} style={{backgroundImage: `url(${DisabledBg.src})`}}></div>}
 
             <Link href={link} className={styles.link}></Link>
 

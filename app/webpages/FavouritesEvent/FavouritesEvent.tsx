@@ -1,11 +1,8 @@
 import React, {FC} from "react";
 import styles from "./FavouritesEvent.module.scss";
 import Container from "@/components/Container/Container";
-import MinRF from "@/assets/img/min_rf.png"
-import Dropdown from "@/UI/Dropdown/Dropdown";
 import {useRouter} from "next/router";
 import {useTypedSelector} from "@/hooks/useTypedSelector";
-import FavouritesEventInfo from "@/webpages/FavouritesEvent/FavouritesEventInfo/FavouritesEventInfo";
 import FavouritesEventNav from "@/webpages/FavouritesEvent/FavouritesEventNav/FavouritesEventNav";
 import Error404 from "../../../pages/404";
 import {useEventsByIds} from "@/hooks/useEventsByIds";
@@ -25,7 +22,6 @@ const FavouritesEvent: FC = () => {
         <section className={styles.event}>
             <Container>
                 <FavouritesEventNav/>
-
                 <EventContent isLoading={isLoading} event={event} />
             </Container>
         </section>

@@ -4,14 +4,12 @@ import {FieldError} from "react-hook-form";
 
 interface InputRangeProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: FieldError,
-    label: string
+    label: string,
 }
 
 const InputRange = forwardRef<HTMLInputElement, InputRangeProps>((
     {error, className, label, ...rest}, ref
 ) => {
-
-
     return (
         <div>
             <div className={styles.wrapper}>

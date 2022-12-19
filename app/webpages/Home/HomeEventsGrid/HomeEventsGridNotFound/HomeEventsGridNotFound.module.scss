@@ -1,0 +1,19 @@
+.eventGrid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all .4s;
+    position: relative;
+    z-index: 3;
+    height: calc(100% - 70px);
+    width: 100%;
+}
+
+.title {
+    text-align: center;
+    font-weight: 900;
+    font-size: 44px;
+    line-height: normal;
+    color: #000000;
+}

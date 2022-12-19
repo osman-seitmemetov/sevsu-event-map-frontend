@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, {ParamsSerializerOptions} from "axios";
+import qs from 'qs';
 import {IEvent, IEventMin} from "@/models/IEvent";
 import {IEventFieldsClient, IEventFieldsServer} from "@/models/form";
 import {convertInputDateToPostgresDate} from "../helpers/date/convertInputDateToPostgresDate";
@@ -6,6 +7,7 @@ import {separateBySemicolons} from "@/utils/string/separateBySemicolons";
 import {IFoundingType} from "@/models/IFoundingType";
 import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
 import {IEventOrganizer} from "@/models/IEventOrganizer";
+import {filterState} from "@/store/filter/filterSlice";
 
 
 export const EventService = {
@@ -18,11 +20,28 @@ export const EventService = {
     },
 
     async getByIds(ids: number[]) {
-        return await axios.get<IEventOrganizer[]>(`https://event-map-django.onrender.com/api/v1/event_print${convertIdsToURL(ids)}`);
+        return await axios.get<IEventOrganizer[]>(`https://event-map-django.onrender.com/api/v1/event_print?${ids.length > 0 ? convertIdsToURL(ids, "id") : ""}`);
     },
 
-    async getMinByIds(ids: number[]) {
-        return await axios.get<IEventMin[]>(`https://event-map-django.onrender.com/api/v1/event_minimal${convertIdsToURL(ids)}`);
+    async getMinByIds(ids: number[], filterParams?: filterState) {
+        const organizersURL = filterParams?.organizers ? convertIdsToURL(filterParams.organizers, "organizer") : "";
+        const competitorTypesURL = filterParams?.competitorTypes ? convertIdsToURL(filterParams.competitorTypes, "competitors") : "";
+        const foundingRangeMinURL = filterParams?.foundingRange.low ? `f_range_min=${filterParams.foundingRange.low}&)` : "";
+        const foundingRangeMaxURL = filterParams?.foundingRange.high ? `f_range_max=${filterParams.foundingRange.high}&)` : "";
+        const coFoundingRangeMinURL = filterParams?.foundingRange.low ? `f_range_min=${filterParams.foundingRange.low}&)` : "";
+        const coFoundingRangeMaxURL = filterParams?.foundingRange.high ? `f_range_max=${filterParams.foundingRange.high}&)` : "";
+        const foundingTypesURL = filterParams?.foundingType ? convertIdsToURL(filterParams.foundingType, "founding") : "";
+        const TRLsURL = filterParams?.trls ? convertIdsToURL(filterParams.trls, "trl") : "";
+        const submissionDeadlineBeforeURL = filterParams?.submissionDeadlineBefore ? `submission_deadline_before=${convertInputDateToPostgresDate(filterParams.submissionDeadlineBefore)}&` : "";
+        const submissionDeadlineAfterURL = filterParams?.submissionDeadlineAfter ? `submission_deadline_after=${convertInputDateToPostgresDate(filterParams.submissionDeadlineAfter)}&` : "";
+
+        return await axios.get<IEventMin[]>(
+            `https://event-map-django.onrender.com/api/v1/event_minimal?${organizersURL}${competitorTypesURL}${foundingRangeMinURL}${foundingRangeMaxURL}${coFoundingRangeMinURL}${coFoundingRangeMaxURL}${foundingTypesURL}${TRLsURL}${submissionDeadlineBeforeURL}${submissionDeadlineAfterURL}`, {
+            params: {
+                // ...filterParams,
+                ids
+            },
+        });
     },
 
     async getByIdFields(id: number) {

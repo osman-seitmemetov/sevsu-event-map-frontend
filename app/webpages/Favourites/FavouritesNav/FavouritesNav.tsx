@@ -78,7 +78,7 @@ const FavouritesNav: FC = () => {
                         <ShareModal
                             modalTitle="Поделиться мероприятиями"
                             title=""
-                            url={`https://sevsu-event-map.onrender.com/shared${convertIdsToURL(eventIds)}`}
+                            url={`https://sevsu-event-map.onrender.com/shared${convertIdsToURL(eventIds, "id")}`}
                             setIsActive={setIsAllActive}
                             isActive={isAllActive}
                         />
@@ -86,7 +86,7 @@ const FavouritesNav: FC = () => {
                         <ShareModal
                             modalTitle="Поделиться мероприятиями"
                             title=""
-                            url={`https://sevsu-event-map.onrender.com/shared${convertIdsToURL(eventIdsSelected)}`}
+                            url={`https://sevsu-event-map.onrender.com/shared${convertIdsToURL(eventIdsSelected, "id")}`}
                             setIsActive={setIsSelectedActive}
                             isActive={isSelectedActive}
                         />

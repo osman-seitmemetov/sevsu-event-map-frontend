@@ -4,7 +4,6 @@ import Container from "@/components/Container/Container";
 import EventNav from "@/webpages/Event/EventNav/EventNav";
 import {useEvent} from "@/webpages/Event/useEvent";
 import EventContent from "@/components/EventContent/EventContent";
-import EventsPrint from "@/components/EventsPrint/EventsPrint";
 import EventsPrintItem from "@/components/EventsPrint/EventsPrintItem/EventsPrintItem";
 
 

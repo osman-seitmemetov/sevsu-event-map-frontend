@@ -1,10 +1,53 @@
 .item {
     width: 100%;
-    border-radius: 16px;
+    border-radius: 20px;
     position: relative;
     background-color: #fff;
     font-family: "Roboto", sans-serif;
     cursor: pointer;
+
+    &_small {
+        border-radius: 12px;
+
+        .content {
+            padding: 8px;
+        }
+
+        .logo {
+            height: 3vh;
+            padding: 0;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            font-size: 80%;
+            -webkit-line-clamp: 4;
+        }
+
+        .property {
+            font-size: 70%;
+            margin-bottom: 1%;
+
+            @media (max-width: 1600px) {
+                display: none;
+            }
+        }
+
+        .disabledBg {
+            border-radius: 12px;
+        }
+
+        .trl {
+            width: 18px;
+            height: 18px;
+            font-size: 8px;
+        }
+
+        .trls {
+            right: -9px;
+            top: -9px;
+        }
+    }
 
     &:after {
         content: "";
@@ -108,7 +151,7 @@
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 12px;
+    border-radius: 20px;
 }
 
 .checkbox {

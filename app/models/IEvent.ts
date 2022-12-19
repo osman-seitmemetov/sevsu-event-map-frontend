@@ -45,4 +45,5 @@ export interface IEventMin {
     submission_deadline: string,
     realisation_period: string,
     competitors: number[]
+    trl: number
 }

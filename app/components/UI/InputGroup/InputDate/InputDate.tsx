@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {CSSProperties, FC} from 'react';
 import MaskedInput from "react-maskedinput";
 import DatePicker from "react-datepicker";
 import styles from "@/components/UI/InputGroup/Input/Input.module.scss";
@@ -11,10 +11,11 @@ interface InputDateProps {
     error?: FieldError,
     onChange?: any,
     selected: Date | null,
-    disabled?: boolean
+    disabled?: boolean,
+    style?: CSSProperties
 }
 
-const InputDate: FC<InputDateProps> = ({dateFormat, placeholder, mask, error, onChange, selected, ...rest}) => {
+const InputDate: FC<InputDateProps> = ({dateFormat, placeholder, mask, error, onChange, style, selected, ...rest}) => {
     return (
         <>
             <DatePicker
@@ -23,7 +24,7 @@ const InputDate: FC<InputDateProps> = ({dateFormat, placeholder, mask, error, on
                 dateFormat={dateFormat}
                 placeholderText={placeholder}
                 customInput={
-                    <MaskedInput mask={mask} placeholder={placeholder}/>
+                    <MaskedInput style={style} mask={mask} placeholder={placeholder}/>
                 }
                 className={`input-date ${error && styles.input_error}`}
                 {...rest}

@@ -59,3 +59,28 @@ export interface ICompetitorFields {
 export interface IFoundingTypeFields {
     name: string,
 }
+
+export interface IFilterFields {
+    organizers: {
+        id: number,
+        name: string
+    }[],
+    competitorTypes: {
+        id: number,
+        name: string
+    }[],
+    foundingRange: {
+        low: number,
+        high: number
+    },
+    coFoundingRange: {
+        low: number,
+        high: number
+    },
+    foundingType: {
+        id: number,
+        name: string
+    }[],
+    submissionDeadline: Date,
+    trl: number[]
+}

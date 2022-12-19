@@ -11,7 +11,7 @@ interface EventInfoProps {
 
 const EventInfo: FC<EventInfoProps> = ({title, hint, text, link}) => {
     return (
-        <div className={styles.info}>
+        <div className={`${styles.info} ${link && styles.info_link}`}>
             <span className={styles.title}>{title}:&nbsp;</span>
             {
                 link

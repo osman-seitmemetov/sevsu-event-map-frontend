@@ -11,8 +11,6 @@ import {useEventMinsByIds} from "@/hooks/useEventMinsByIds";
 
 const Favourites: FC = () => {
     const {eventIds} = useTypedSelector(state => state.favouritesReducer);
-
-
     const {data, isLoading} = useEventMinsByIds(eventIds);
     const eventMins = data?.data;
 
