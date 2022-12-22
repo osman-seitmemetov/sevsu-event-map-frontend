@@ -1,11 +1,14 @@
 import {NextPageAuth} from "@/types/authProvider";
 import AdminFounding from "@/webpages/admin/AdminFounding/AdminFounding";
+import Meta from "@/utils/Meta/Meta";
 
-const AdminHomePage: NextPageAuth = () => {
+const AdminFoundingPage: NextPageAuth = () => {
     return (
-        <AdminFounding/>
+        <Meta title="Редактирование типа финансирования | Административная панель">
+            <AdminFounding/>
+        </Meta>
     )
 }
-// AdminHomePage.isOnlyAdmin = true;
+AdminFoundingPage.isOnlyAdmin = true;
 
-export default AdminHomePage;
+export default AdminFoundingPage;

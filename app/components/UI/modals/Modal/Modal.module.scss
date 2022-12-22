@@ -1,8 +1,6 @@
 .modalWrapper {
     height: 100vh;
     width: 100vw;
-    //background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(6px);
     position: fixed;
     top: 0;
     left: 0;
@@ -13,6 +11,16 @@
     transform: scale(0);
     z-index: 30000;
     transition: opacity 100ms;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(63, 63, 63, 0.49);
+    box-shadow: 0 10px 15px rgb(0 0 0 / 20%);
+    backdrop-filter: blur(6px);
+    background-blend-mode: overlay;
 }
 
 .modalWrapper.active {

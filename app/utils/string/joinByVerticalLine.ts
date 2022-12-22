@@ -1,1 +1,0 @@
-export const joinByVerticalLine = (arrStr: string[]) => arrStr.join(' | ');

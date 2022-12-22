@@ -14,6 +14,7 @@ const Modal: FC<IModal> = ({active, setActive, title, children}) => {
             className={`${styles.modalWrapper} ${active && styles.active}`}
             onClick={() => setActive(false)}
         >
+            <div className={styles.background}></div>
             <div className={styles.modal} onClick={(e) => {e.stopPropagation()}}>
                 <div className={styles.head}>
                     <div className={styles.title}>{title}</div>

@@ -1,13 +1,13 @@
-import axios, {ParamsSerializerOptions} from "axios";
-import qs from 'qs';
+import axios from "axios";
 import {IEvent, IEventMin} from "@/models/IEvent";
 import {IEventFieldsClient, IEventFieldsServer} from "@/models/form";
 import {convertInputDateToPostgresDate} from "../helpers/date/convertInputDateToPostgresDate";
-import {separateBySemicolons} from "@/utils/string/separateBySemicolons";
 import {IFoundingType} from "@/models/IFoundingType";
 import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
 import {IEventOrganizer} from "@/models/IEventOrganizer";
 import {filterState} from "@/store/filter/filterSlice";
+import {ISubject} from "@/models/ISubject";
+import {convertSubjectsToIds} from "@/utils/string/convertSubjectsToIds";
 
 
 export const EventService = {
@@ -34,9 +34,10 @@ export const EventService = {
         const TRLsURL = filterParams?.trls ? convertIdsToURL(filterParams.trls, "trl") : "";
         const submissionDeadlineBeforeURL = filterParams?.submissionDeadlineBefore ? `submission_deadline_before=${convertInputDateToPostgresDate(filterParams.submissionDeadlineBefore)}&` : "";
         const submissionDeadlineAfterURL = filterParams?.submissionDeadlineAfter ? `submission_deadline_after=${convertInputDateToPostgresDate(filterParams.submissionDeadlineAfter)}&` : "";
+        const eventIds = filterParams?.subjects ? convertIdsToURL(convertSubjectsToIds(filterParams.subjects), "id") : "";
 
         return await axios.get<IEventMin[]>(
-            `https://event-map-django.onrender.com/api/v1/event_minimal?${organizersURL}${competitorTypesURL}${foundingRangeMinURL}${foundingRangeMaxURL}${coFoundingRangeMinURL}${coFoundingRangeMaxURL}${foundingTypesURL}${TRLsURL}${submissionDeadlineBeforeURL}${submissionDeadlineAfterURL}`, {
+            `https://event-map-django.onrender.com/api/v1/event_minimal?${organizersURL}${competitorTypesURL}${foundingRangeMinURL}${foundingRangeMaxURL}${coFoundingRangeMinURL}${coFoundingRangeMaxURL}${foundingTypesURL}${TRLsURL}${submissionDeadlineBeforeURL}${submissionDeadlineAfterURL}${eventIds}`, {
             params: {
                 // ...filterParams,
                 ids
@@ -51,7 +52,7 @@ export const EventService = {
     async edit(id: number, data: IEventFieldsClient) {
         return await axios.put<IEvent>(`https://event-map-django.onrender.com/api/v1/event/${id}`, {
             ...data, submission_deadline: convertInputDateToPostgresDate(data.submission_deadline),
-            subjects: separateBySemicolons(data.subjects),
+            subjects: data.subjects.split(';\n'),
             founding_range: {
                 low: Number(data.founding_range.low),
                 high: Number(data.founding_range.high),
@@ -75,7 +76,7 @@ export const EventService = {
     async create(data: IEventFieldsClient) {
         return await axios.post<IEvent>(`https://event-map-django.onrender.com/api/v1/event/`, {
             ...data, submission_deadline: convertInputDateToPostgresDate(data.submission_deadline),
-            subjects: separateBySemicolons(data.subjects),
+            subjects: data.subjects.split(';\n'),
             founding_range: {
                 low: Number(data.founding_range.low),
                 high: Number(data.founding_range.high),
@@ -94,5 +95,9 @@ export const EventService = {
 
     async getAllFoundingTypes() {
         return await axios.get<IFoundingType[]>('https://event-map-django.onrender.com/api/v1/founding_type');
-    }
+    },
+
+    async getAllSubjects() {
+        return await axios.get<ISubject[]>('https://event-map-django.onrender.com/api/v1/subjects/');
+    },
 }

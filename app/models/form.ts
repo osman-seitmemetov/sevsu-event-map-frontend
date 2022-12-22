@@ -84,3 +84,13 @@ export interface IFilterFields {
     submissionDeadline: Date,
     trl: number[]
 }
+
+export interface ILoginFields {
+    username: string,
+    password: string
+}
+
+export interface ILogin {
+    username: string,
+    password: string
+}

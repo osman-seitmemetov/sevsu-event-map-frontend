@@ -1,7 +1,17 @@
-import React, {FC, useState} from "react";
-import {EmailIcon, EmailShareButton, TelegramIcon, TelegramShareButton, VKIcon, VKShareButton} from "react-share";
+import React, {FC} from "react";
+import {
+    EmailIcon,
+    TelegramIcon,
+    VKIcon,
+    EmailShareButton,
+    TelegramShareButton,
+    ViberShareButton,
+    VKShareButton,
+    WhatsappShareButton, ViberIcon, WhatsappIcon
+} from "react-share";
 import Modal from "@/UI/modals/Modal/Modal";
 import QRCode from "react-qr-code";
+import styles from "./ShareModal.module.scss";
 
 
 interface ShareModalProps {
@@ -15,19 +25,34 @@ interface ShareModalProps {
 const ShareModal: FC<ShareModalProps> = ({modalTitle, title, url, isActive, setIsActive}) => {
     return (
         <Modal title={modalTitle} active={isActive} setActive={setIsActive}>
-            <TelegramShareButton url={url} title={title}>
-                <TelegramIcon size={32} round/>
-            </TelegramShareButton>
+            <div className={styles.content}>
+                <div className={styles.section}>
+                    <div className={styles.title}>В соцсетях и мессенджерах</div>
 
-            <VKShareButton url={url} title={title}>
-                <VKIcon size={32} round/>
-            </VKShareButton>
+                    <div className={styles.socials}>
+                        <TelegramShareButton url={url} title={title}>
+                            <TelegramIcon size={"100%"} round/>
+                        </TelegramShareButton>
 
-            <EmailShareButton url={url} title={title} subject="vvsvdsvd" body="sv dsvd" separator=" ">
-                <EmailIcon size={32} round/>
-            </EmailShareButton>
+                        <VKShareButton url={url} title={title}>
+                            <VKIcon size={"100%"} round/>
+                        </VKShareButton>
 
-            <QRCode size={300} value={url}/>
+                        <WhatsappShareButton url={url} title={title}>
+                            <WhatsappIcon size={"100%"} round/>
+                        </WhatsappShareButton>
+
+                        <ViberShareButton url={url} title={title}>
+                            <ViberIcon size={"100%"} round/>
+                        </ViberShareButton>
+                    </div>
+                </div>
+
+                <div className={styles.section}>
+                    <div className={styles.title}>Через QR код</div>
+                    <QRCode size={300} value={url}/>
+                </div>
+            </div>
         </Modal>
     );
 }

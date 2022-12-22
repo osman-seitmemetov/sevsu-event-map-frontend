@@ -294,7 +294,7 @@ const AdminEvent: FC = () => {
                                     />
                                 </InputGroup>
 
-                                <InputGroup title="Тематики (каждая тематика разделяется точкой с запятой)">
+                                <InputGroup title="Тематики (каждая тематика разделяется точкой с запятой и переносом строки)">
                                     <Textarea
                                         {...register('subjects', {
                                             required: "Это поле обязательно"

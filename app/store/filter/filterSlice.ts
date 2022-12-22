@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {ISubject} from "@/models/ISubject";
 
 export interface filterState {
     organizers: number[],
@@ -14,7 +15,8 @@ export interface filterState {
     foundingType: number[],
     submissionDeadlineBefore: Date | undefined,
     submissionDeadlineAfter: Date | undefined,
-    trls: number[]
+    trls: number[],
+    subjects: ISubject[]
 }
 
 const initialState: filterState = {
@@ -31,7 +33,8 @@ const initialState: filterState = {
     foundingType: [],
     submissionDeadlineBefore: undefined,
     submissionDeadlineAfter: undefined,
-    trls: []
+    trls: [],
+    subjects: []
 }
 
 export const filterSlice = createSlice({
@@ -85,7 +88,14 @@ export const filterSlice = createSlice({
         },
         changeSubmissionDeadlineAfter(state, action: PayloadAction<Date>) {
             state.submissionDeadlineAfter = action.payload;
-        }
+        },
+
+        subjectSelect(state, action: PayloadAction<ISubject>) {
+            state.subjects = [...state.subjects, action.payload];
+        },
+        subjectDeselect(state, action: PayloadAction<ISubject>) {
+            state.subjects = state.subjects.filter(id => id !== action.payload);
+        },
     }
 })
 

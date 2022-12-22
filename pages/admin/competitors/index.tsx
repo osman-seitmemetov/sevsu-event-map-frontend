@@ -1,13 +1,14 @@
 import {NextPageAuth} from "@/types/authProvider";
 import AdminCompetitors from "@/webpages/admin/AdminCompetitors/AdminCompetitors";
+import Meta from "@/utils/Meta/Meta";
 
-const AdminHomePage: NextPageAuth = () => {
+const AdminCompetitorsPage: NextPageAuth = () => {
     return (
-        // <div className="main">
+        <Meta title="Типы участников | Административная панель">
             <AdminCompetitors/>
-        // </div>
+        </Meta>
     )
 }
-// AdminHomePage.isOnlyAdmin = true;
+AdminCompetitorsPage.isOnlyAdmin = true;
 
-export default AdminHomePage;
+export default AdminCompetitorsPage;

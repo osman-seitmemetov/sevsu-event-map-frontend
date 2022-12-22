@@ -10,6 +10,10 @@ import InputRangeGroup from "@/UI/InputGroup/InputRangeGroup/InputRangeGroup";
 import {useActions} from "@/hooks/useActions";
 import InputDate from "@/UI/InputGroup/InputDate/InputDate";
 import CheckboxFilter, {CheckboxFilterOption} from "@/UI/CheckboxFilter/CheckboxFilter";
+import {ISubject} from "@/models/ISubject";
+import HomeEventsFilterSubject from "@/webpages/Home/HomeEventsFilter/HomeEventsFilterSubject/HomeEventsFilterSubject";
+import {useSubjects} from "@/webpages/Home/HomeEventsFilter/useSubjects";
+import {useEvents} from "@/webpages/Home/HomeEventsGrid/useEvents";
 
 
 const TRLsForFilter: CheckboxFilterOption[] = [
@@ -62,6 +66,8 @@ const HomeEventsFilter: FC = () => {
     const competitorTypes = competitorTypesData || [];
     const {data: foundingTypesData, isLoading: isFoundingTypesLoading} = useFetchFoundingTypesForFilter();
     const foundingTypes = foundingTypesData || [];
+    const {data: subjectsData, isLoading: isSubjectsLoading} = useSubjects();
+    const subjects = subjectsData || [];
 
     const state = useTypedSelector(state => state.filterReducer);
 
@@ -244,14 +250,22 @@ const HomeEventsFilter: FC = () => {
                 </Dropdown>
             </div>
 
-            {/*<div className={styles.subjects}>*/
-            }
-
-            {/*</div>*/
-            }
+            <div className={styles.subjectsWrapper}>
+                {
+                    isSubjectsLoading
+                        ? <div>loading...</div>
+                        : subjects ? <div className={styles.subjects}>
+                            {
+                                subjects.map(s =>
+                                    <HomeEventsFilterSubject key={s.id} subject={s} subjects={state.subjects} />
+                                )
+                            }
+                        </div>
+                        : <div>Тематики не найдены</div>
+                }
+            </div>
         </aside>
-    )
-        ;
+    );
 }
 
 export default HomeEventsFilter;

@@ -2,13 +2,13 @@ import {NextPageAuth} from "@/types/authProvider";
 import Meta from "@/utils/Meta/Meta";
 import AdminEventCreate from "@/webpages/admin/AdminEventCreate/AdminEventCreate";
 
-const AdminHomePage: NextPageAuth = () => {
+const AdminEventCreatePage: NextPageAuth = () => {
     return (
-        <Meta title="Мероприятия | Административная панель">
+        <Meta title="Создание мероприятия | Административная панель">
             <AdminEventCreate/>
         </Meta>
     )
 }
-// AdminHomePage.isOnlyAdmin = true;
+AdminEventCreatePage.isOnlyAdmin = true;
 
-export default AdminHomePage;
+export default AdminEventCreatePage;

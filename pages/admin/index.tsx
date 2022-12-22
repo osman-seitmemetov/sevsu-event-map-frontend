@@ -3,11 +3,9 @@ import {NextPageAuth} from "@/types/authProvider";
 
 const AdminHomePage: NextPageAuth = () => {
     return (
-        <div className="main">
-            <AdminHome/>
-        </div>
+        <AdminHome/>
     )
 }
-// AdminHomePage.isOnlyAdmin = true;
+AdminHomePage.isOnlyAdmin = true;
 
 export default AdminHomePage;

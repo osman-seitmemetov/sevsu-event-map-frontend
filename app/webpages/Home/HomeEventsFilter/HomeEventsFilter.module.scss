@@ -4,6 +4,9 @@
     height: 100%;
     border-radius: 12px;
     margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .title {
@@ -21,8 +24,7 @@
     padding: 10px;
     width: 100%;
     max-width: 100%;
-    //height: calc(100% - 295px);
-    height: calc(100% - 50px);
+    height: calc(100% - 320px);
     filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.07));
     scrollbar-color: #458245 transparent;
     scrollbar-width: thin;
@@ -41,13 +43,38 @@
     }
 }
 
+.subjectsWrapper {
+    height: 240px;
+    width: 100%;
+    padding: 10px;
+}
+
 .subjects {
     background: #FFFFFF;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.07), -1px -1px 15px rgba(0, 0, 0, 0.07);
     border-radius: 10px;
-    height: 240px;
     width: 100%;
-    margin: 15px 10px 0 10px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    overflow-y: scroll;
+    max-height: 100%;
+    scrollbar-color: #458245 transparent;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #C1C1C1;
+        border-radius: 10px;
+        width: 6px;
+        height: 6px;
+    }
 }
 
 .inputDateWrapper {

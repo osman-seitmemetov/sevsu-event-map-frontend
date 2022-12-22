@@ -34,7 +34,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
             setValue('trl', String(data.trl));
             // @ts-ignore
             setValue('competitors', String(data.competitors));
-            setValue('subjects', joinBySemicolons(data.subjects));
+            setValue('subjects', data.subjects.join(';\n'));
             setValue('precursor', String(data.precursor));
         },
         onError: (error) => {

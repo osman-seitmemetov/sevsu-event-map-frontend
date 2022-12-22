@@ -18,3 +18,4 @@ export const CART_ORDER_ROUTE = '/cart/order';
 export const CART_ORDER_PAY_ROUTE = '/cart/order/pay';
 export const SEARCH_ROUTE = '/search';
 export const CONTACTS_ROUTE = '/contacts';
+export const REQUIRE_ERROR = 'Это поле обязательное';

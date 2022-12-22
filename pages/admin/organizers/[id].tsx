@@ -1,13 +1,14 @@
 import {NextPageAuth} from "@/types/authProvider";
 import AdminOrganizer from "@/webpages/admin/AdminOrganizer/AdminOrganizer";
+import Meta from "@/utils/Meta/Meta";
 
-const AdminHomePage: NextPageAuth = () => {
+const AdminOrganizerPage: NextPageAuth = () => {
     return (
-        // <div className="main">
+        <Meta title="Редактирование организатора | Административная панель">
             <AdminOrganizer/>
-        // </div>
+        </Meta>
     )
 }
-// AdminHomePage.isOnlyAdmin = true;
+AdminOrganizerPage.isOnlyAdmin = true;
 
-export default AdminHomePage;
+export default AdminOrganizerPage;

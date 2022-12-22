@@ -14,7 +14,6 @@ const queryClient = new QueryClient({
             refetchOnWindowFocus: false,
         },
     },
-    // queryCache
 });
 
 const MainProvider: FC<TypeComponentAuthFields> = ({children, Component}) => {
