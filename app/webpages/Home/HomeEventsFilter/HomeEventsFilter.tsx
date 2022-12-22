@@ -10,10 +10,9 @@ import InputRangeGroup from "@/UI/InputGroup/InputRangeGroup/InputRangeGroup";
 import {useActions} from "@/hooks/useActions";
 import InputDate from "@/UI/InputGroup/InputDate/InputDate";
 import CheckboxFilter, {CheckboxFilterOption} from "@/UI/CheckboxFilter/CheckboxFilter";
-import {ISubject} from "@/models/ISubject";
 import HomeEventsFilterSubject from "@/webpages/Home/HomeEventsFilter/HomeEventsFilterSubject/HomeEventsFilterSubject";
 import {useSubjects} from "@/webpages/Home/HomeEventsFilter/useSubjects";
-import {useEvents} from "@/webpages/Home/HomeEventsGrid/useEvents";
+import SkeletonLoader from "@/UI/SkeletonLoader/SkeletonLoader";
 
 
 const TRLsForFilter: CheckboxFilterOption[] = [
@@ -83,185 +82,243 @@ const HomeEventsFilter: FC = () => {
             <div className={styles.title}>Фильтры</div>
 
             <div className={styles.scrollarea}>
-                <Dropdown title="Организатор мероприятия">
-                    {
-                        isOrganizersLoading
-                            ? <div>loading...</div>
-                            : organizers.map(option =>
-                                <CheckboxFilter
-                                    actionDeselect={organizerDeselect}
-                                    actionSelect={organizerSelect}
-                                    ids={state.organizers}
-                                    key={option.id}
-                                    option={option}
-                                />
-                            )
-                    }
-                </Dropdown>
-
-                <Dropdown title="Требования к виду участника">
-                    {
-                        isCompetitorTypesLoading
-                            ? <div>loading...</div>
-                            : competitorTypes.map(option =>
-                                <CheckboxFilter
-                                    actionDeselect={competitorTypeDeselect}
-                                    actionSelect={competitorTypeSelect}
-                                    ids={state.competitorTypes}
-                                    key={option.id}
-                                    option={option}
-                                />
-                            )
-                    }
-                </Dropdown>
-
-                <Dropdown title="Финансирование (в рублях)">
-                    <InputRangeGroup>
-                        <InputRange
-                            label="от"
-                            value={state.foundingRange.low.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')}
-                            onChange={(e) => {
-                                if (!isNaN(Number(e.target.value.split(" ").join("")))) {
-                                    changeFoundingRangeLow(e.target.value.split(" ").join(""));
-                                }
-                            }}
-                            style={{
-                                marginTop: 0,
-                                height: 40
-                            }}
-                        />
-                        <InputRange
-                            label="до"
-                            value={state.foundingRange.high.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')}
-                            onChange={(e) => {
-                                if (!isNaN(Number(e.target.value.split(" ").join("")))) {
-                                    changeFoundingRangeHigh(e.target.value.split(" ").join(""));
-                                }
-                            }}
-                            style={{
-                                marginTop: 0,
-                                height: 40
-                            }}
-                        />
-                    </InputRangeGroup>
-                    {Number(state.foundingRange.low) > Number(state.foundingRange.high) && (state.foundingRange.high !== "") &&
-                        <div>Значение слева не может быть больше чем справа</div>}
-                </Dropdown>
-
-                <Dropdown title="Софинансирование (в процентах)">
-                    <InputRangeGroup>
-                        <InputRange
-                            label="от"
-                            value={state.coFoundingRange.low}
-                            onChange={(e) => {
-                                if (!isNaN(Number(e.target.value)) && Number(e.target.value) <= 100) {
-                                    changeCoFoundingRangeLow(e.target.value);
-                                }
-                            }}
-                            style={{
-                                marginTop: 0,
-                                height: 40
-                            }}
-                        />
-                        <InputRange
-                            label="до"
-                            value={state.coFoundingRange.high}
-                            onChange={(e) => {
-                                if (!isNaN(Number(e.target.value)) && Number(e.target.value) <= 100) {
-                                    changeCoFoundingRangeHigh(e.target.value);
-                                }
-                            }}
-                            style={{
-                                marginTop: 0,
-                                height: 40
-                            }}
-                        />
-                    </InputRangeGroup>
-                    {Number(state.coFoundingRange.low) > Number(state.coFoundingRange.high) && (state.coFoundingRange.high !== "") &&
-                        <div>Значение слева не может быть больше чем справа</div>}
-                </Dropdown>
-
-                <Dropdown title="Тип финансирования">
-                    {
-                        isFoundingTypesLoading
-                            ? <div>loading...</div>
-                            : foundingTypes.map(option =>
-                                <CheckboxFilter
-                                    actionDeselect={foundingTypeDeselect}
-                                    actionSelect={foundingTypeSelect}
-                                    ids={state.foundingType}
-                                    key={option.id}
-                                    option={option}
-                                />
-                            )
-                    }
-                </Dropdown>
-
-                <Dropdown title="Срок подачи документов">
-                    <InputRangeGroup>
-                        <div className={styles.inputDateWrapper}>
-                            <div className={styles.inputDateWrapper__label}>от</div>
-                            <InputDate
-                                dateFormat="dd.MM.yyyy"
-                                placeholder="дд.мм.гггг"
-                                mask="11.11.1111"
-                                selected={(state.submissionDeadlineAfter) || null}
-                                onChange={(date: Date) => {
-                                    changeSubmissionDeadlineAfter(date)
-                                }}
+                {
+                    (isOrganizersLoading && isCompetitorTypesLoading && isFoundingTypesLoading)
+                        ? <>
+                            <SkeletonLoader
                                 style={{
-                                    marginTop: 0,
-                                    height: 40
+                                    marginBottom: 15,
+                                    height: 50,
+                                    width: '100%',
+                                    borderRadius: 12
                                 }}
                             />
-                        </div>
 
-                        <div className={styles.inputDateWrapper}>
-                            <div className={styles.inputDateWrapper__label}>до</div>
-                            <InputDate
-                                dateFormat="dd.MM.yyyy"
-                                placeholder="дд.мм.гггг"
-                                mask="11.11.1111"
-                                selected={(state.submissionDeadlineBefore) || null}
-                                onChange={(date: Date) => {
-                                    changeSubmissionDeadlineBefore(date)
-                                }}
+                            <SkeletonLoader
                                 style={{
-                                    marginTop: 0,
-                                    height: 40
+                                    marginBottom: 15,
+                                    height: 50,
+                                    width: '100%',
+                                    borderRadius: 12
                                 }}
                             />
-                        </div>
-                    </InputRangeGroup>
-                </Dropdown>
 
-                <Dropdown title="TRL/УГТ">
-                    {
-                        TRLsForFilter.map(option =>
-                            <CheckboxFilter
-                                actionDeselect={TRLDeselect}
-                                actionSelect={TRLSelect}
-                                ids={state.trls}
-                                key={option.id}
-                                option={option}
+                            <SkeletonLoader
+                                style={{
+                                    marginBottom: 15,
+                                    height: 50,
+                                    width: '100%',
+                                    borderRadius: 12
+                                }}
                             />
-                        )
-                    }
-                </Dropdown>
+
+                            <SkeletonLoader
+                                style={{
+                                    marginBottom: 15,
+                                    height: 50,
+                                    width: '100%',
+                                    borderRadius: 12
+                                }}
+                            />
+
+                            <SkeletonLoader
+                                style={{
+                                    marginBottom: 15,
+                                    height: 50,
+                                    width: '100%',
+                                    borderRadius: 12
+                                }}
+                            />
+                        </>
+                        : <>
+                            <Dropdown title="Организатор мероприятия">
+                                {
+                                    isOrganizersLoading
+                                        ? <div>loading...</div>
+                                        : organizers.map(option =>
+                                            <CheckboxFilter
+                                                actionDeselect={organizerDeselect}
+                                                actionSelect={organizerSelect}
+                                                ids={state.organizers}
+                                                key={option.id}
+                                                option={option}
+                                            />
+                                        )
+                                }
+                            </Dropdown>
+
+                            <Dropdown title="Требования к виду участника">
+                                {
+                                    isCompetitorTypesLoading
+                                        ? <div>loading...</div>
+                                        : competitorTypes.map(option =>
+                                            <CheckboxFilter
+                                                actionDeselect={competitorTypeDeselect}
+                                                actionSelect={competitorTypeSelect}
+                                                ids={state.competitorTypes}
+                                                key={option.id}
+                                                option={option}
+                                            />
+                                        )
+                                }
+                            </Dropdown>
+
+                            <Dropdown title="Финансирование (в рублях)">
+                                <InputRangeGroup>
+                                    <InputRange
+                                        label="от"
+                                        value={state.foundingRange.low.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')}
+                                        onChange={(e) => {
+                                            if (!isNaN(Number(e.target.value.split(" ").join("")))) {
+                                                changeFoundingRangeLow(e.target.value.split(" ").join(""));
+                                            }
+                                        }}
+                                        style={{
+                                            marginTop: 0,
+                                            height: 40
+                                        }}
+                                    />
+                                    <InputRange
+                                        label="до"
+                                        value={state.foundingRange.high.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')}
+                                        onChange={(e) => {
+                                            if (!isNaN(Number(e.target.value.split(" ").join("")))) {
+                                                changeFoundingRangeHigh(e.target.value.split(" ").join(""));
+                                            }
+                                        }}
+                                        style={{
+                                            marginTop: 0,
+                                            height: 40
+                                        }}
+                                    />
+                                </InputRangeGroup>
+                                {Number(state.foundingRange.low) > Number(state.foundingRange.high) && (state.foundingRange.high !== "") &&
+                                    <div>Значение слева не может быть больше чем справа</div>}
+                            </Dropdown>
+
+                            <Dropdown title="Софинансирование (в процентах)">
+                                <InputRangeGroup>
+                                    <InputRange
+                                        label="от"
+                                        value={state.coFoundingRange.low}
+                                        onChange={(e) => {
+                                            if (!isNaN(Number(e.target.value)) && Number(e.target.value) <= 100) {
+                                                changeCoFoundingRangeLow(e.target.value);
+                                            }
+                                        }}
+                                        style={{
+                                            marginTop: 0,
+                                            height: 40
+                                        }}
+                                    />
+                                    <InputRange
+                                        label="до"
+                                        value={state.coFoundingRange.high}
+                                        onChange={(e) => {
+                                            if (!isNaN(Number(e.target.value)) && Number(e.target.value) <= 100) {
+                                                changeCoFoundingRangeHigh(e.target.value);
+                                            }
+                                        }}
+                                        style={{
+                                            marginTop: 0,
+                                            height: 40
+                                        }}
+                                    />
+                                </InputRangeGroup>
+                                {Number(state.coFoundingRange.low) > Number(state.coFoundingRange.high) && (state.coFoundingRange.high !== "") &&
+                                    <div>Значение слева не может быть больше чем справа</div>}
+                            </Dropdown>
+
+                            <Dropdown title="Тип финансирования">
+                                {
+                                    isFoundingTypesLoading
+                                        ? <div>loading...</div>
+                                        : foundingTypes.map(option =>
+                                            <CheckboxFilter
+                                                actionDeselect={foundingTypeDeselect}
+                                                actionSelect={foundingTypeSelect}
+                                                ids={state.foundingType}
+                                                key={option.id}
+                                                option={option}
+                                            />
+                                        )
+                                }
+                            </Dropdown>
+
+                            <Dropdown title="Срок подачи документов">
+                                <InputRangeGroup>
+                                    <div className={styles.inputDateWrapper}>
+                                        <div className={styles.inputDateWrapper__label}>от</div>
+                                        <InputDate
+                                            dateFormat="dd.MM.yyyy"
+                                            placeholder="дд.мм.гггг"
+                                            mask="11.11.1111"
+                                            selected={(state.submissionDeadlineAfter) || null}
+                                            onChange={(date: Date) => {
+                                                changeSubmissionDeadlineAfter(date)
+                                            }}
+                                            style={{
+                                                marginTop: 0,
+                                                height: 40
+                                            }}
+                                        />
+                                    </div>
+
+                                    <div className={styles.inputDateWrapper}>
+                                        <div className={styles.inputDateWrapper__label}>до</div>
+                                        <InputDate
+                                            dateFormat="dd.MM.yyyy"
+                                            placeholder="дд.мм.гггг"
+                                            mask="11.11.1111"
+                                            selected={(state.submissionDeadlineBefore) || null}
+                                            onChange={(date: Date) => {
+                                                changeSubmissionDeadlineBefore(date)
+                                            }}
+                                            style={{
+                                                marginTop: 0,
+                                                height: 40
+                                            }}
+                                        />
+                                    </div>
+                                </InputRangeGroup>
+                            </Dropdown>
+
+                            <Dropdown title="TRL/УГТ">
+                                {
+                                    TRLsForFilter.map(option =>
+                                        <CheckboxFilter
+                                            actionDeselect={TRLDeselect}
+                                            actionSelect={TRLSelect}
+                                            ids={state.trls}
+                                            key={option.id}
+                                            option={option}
+                                        />
+                                    )
+                                }
+                            </Dropdown>
+                        </>
+                }
             </div>
 
             <div className={styles.subjectsWrapper}>
                 {
                     isSubjectsLoading
-                        ? <div>loading...</div>
-                        : subjects ? <div className={styles.subjects}>
-                            {
-                                subjects.map(s =>
-                                    <HomeEventsFilterSubject key={s.id} subject={s} subjects={state.subjects} />
-                                )
-                            }
-                        </div>
-                        : <div>Тематики не найдены</div>
+                        ? <SkeletonLoader
+                            style={{
+                                height: 240,
+                                width: '100%',
+                                borderRadius: 12
+                            }}
+                        />
+                        : subjects
+                            ? <div className={styles.subjects}>
+                                {
+                                    subjects.map(s =>
+                                        <HomeEventsFilterSubject key={s.id} subject={s} subjects={state.subjects}/>
+                                    )
+                                }
+                            </div>
+                            : <div>Тематики не найдены</div>
                 }
             </div>
         </aside>

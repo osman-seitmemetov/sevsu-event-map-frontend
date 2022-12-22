@@ -94,7 +94,7 @@ export const filterSlice = createSlice({
             state.subjects = [...state.subjects, action.payload];
         },
         subjectDeselect(state, action: PayloadAction<ISubject>) {
-            state.subjects = state.subjects.filter(id => id !== action.payload);
+            state.subjects = state.subjects.filter(s => s.id !== action.payload.id);
         },
     }
 })
