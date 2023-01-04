@@ -1,7 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IUser} from "@/models/IUser";
 import {checkAuth, login, logout} from "@/store/auth/AuthActionCreators";
-import {getStoreLocal} from "@/utils/localStorage";
 
 
 interface authState {
@@ -12,7 +10,7 @@ interface authState {
 
 const initialState: authState = {
     // user: getStoreLocal('user'),
-    isAuthorized: true,
+    isAuthorized: false,
     isLoading: false
 }
 
@@ -26,6 +24,7 @@ export const authSlice = createSlice({
         }).addCase(login.fulfilled, (state, {payload}) => {
             state.isLoading = false;
             // state.user = payload.user
+            state.isAuthorized = true;
         }).addCase(login.rejected, state => {
             state.isLoading = false;
             // state.user = null;
@@ -35,11 +34,11 @@ export const authSlice = createSlice({
             // state.user = null
             state.isAuthorized = false;
         }).addCase(checkAuth.fulfilled, (state, {payload}) => {
-            if(localStorage.getItem('token') !== payload.access)
+            // if (localStorage.getItem('token') !== payload.access)
                 // state.user = payload.user;
-                state.isAuthorized = true;
+            if(payload.access) state.isAuthorized = true;
         })
     }
 })
 
-export const { reducer } = authSlice;
+export const {reducer} = authSlice;

@@ -13,7 +13,7 @@ const AdminOrganizerCreateNavbar: FC = () => {
                 </div>
 
                 <div className={styles.left}>
-                    {/*<PrimaryButton>создать мероприятие</PrimaryButton>*/}
+                    {/*<FavouritesButton>создать мероприятие</FavouritesButton>*/}
                 </div>
             </Container>
         </nav>

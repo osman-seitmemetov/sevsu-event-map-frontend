@@ -2,7 +2,7 @@ import {FC} from "react";
 import {TypeComponentAuthFields} from "@/types/authProvider";
 // import {useAuth} from "@/hooks/useAuth";
 import {useRouter} from "next/router";
-import Error404 from "../../../pages/404";
+import Error404Page from "../../../pages/404";
 import {useAuth} from "@/hooks/useAuth";
 
 const CheckRole: FC<TypeComponentAuthFields> = ({children, Component: {isOnlyAdmin, isOnlyUser}}) => {
@@ -15,7 +15,7 @@ const CheckRole: FC<TypeComponentAuthFields> = ({children, Component: {isOnlyAdm
     if (isAuthorized) return <Children/>
 
     if (isOnlyAdmin) {
-        return <Error404/>
+        return <Error404Page/>
     }
 
     // const isUser = user && user.role !== "ADMIN";

@@ -12,6 +12,8 @@ export const login = createAsyncThunk<LoginResponse, ILogin>('auth/login', async
     try {
         const response = await AuthService.login(username, password);
 
+        if(response.data) localStorage.setItem('refresh', response.data.refresh);
+
         return response.data;
     } catch (error) {
         console.log(error);
@@ -20,14 +22,16 @@ export const login = createAsyncThunk<LoginResponse, ILogin>('auth/login', async
 })
 
 export const logout = createAsyncThunk('auth/logout', async () => {
-    await AuthService.logout();
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh');
+    // await AuthService.logout();
 })
 
 export const checkAuth = createAsyncThunk<LoginResponse>('auth/check', async (
     _, thunkAPI
 ) => {
     try {
-        const response = await axiosClassic.get<LoginResponse>(`/user/refresh`);
+        const response = await axiosClassic.post<LoginResponse>(`/token/refresh/`, {refresh: localStorage.getItem('refresh')});
         localStorage.setItem('token', response.data.access);
         if (response.data.access) {
             saveToStorage(response.data)

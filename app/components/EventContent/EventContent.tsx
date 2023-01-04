@@ -9,7 +9,7 @@ import EventContentLoader from "@/components/EventContent/EvenContentLoader/Even
 
 
 interface EventContentProps {
-    isLoading: boolean,
+    isLoading?: boolean,
     event?: IEventOrganizer
 }
 

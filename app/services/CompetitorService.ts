@@ -1,30 +1,30 @@
-import axios from "axios";
 import {ICompetitor} from "@/models/ICompetitor";
 import {ICompetitorFields} from "@/models/form";
+import {axiosClassic, instance} from "../api/interceptots";
 
 
 export const CompetitorService = {
     async getAll() {
-        return await axios.get<ICompetitor[]>('https://event-map-django.onrender.com/api/v1/competitor');
+        return await axiosClassic.get<ICompetitor[]>('/v1/competitor');
     },
 
     async getById(id: number) {
-        return await axios.get<ICompetitorFields>(`https://event-map-django.onrender.com/api/v1/competitor/${id}`);
+        return await axiosClassic.get<ICompetitorFields>(`/v1/competitor/${id}`);
     },
 
     async create(data: ICompetitorFields) {
-        return await axios.post<ICompetitor>(`https://event-map-django.onrender.com/api/v1/competitor/`, {
+        return await instance.post<ICompetitor>(`/v1/competitor/`, {
             ...data, code: Number(data.code)
         });
     },
 
     async edit(id: number, data: ICompetitorFields) {
-        return await axios.put<ICompetitor>(`https://event-map-django.onrender.com/api/v1/competitor/${id}`, {
+        return await instance.put<ICompetitor>(`/v1/competitor/${id}`, {
             ...data, code: Number(data.code)
         });
     },
 
     async delete(id: number) {
-        return await axios.delete<string>(`https://event-map-django.onrender.com/api/v1/competitor/${id}`);
+        return await instance.delete<string>(`/v1/competitor/${id}`);
     },
 }

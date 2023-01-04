@@ -11,7 +11,7 @@ import {favouritesSlice} from "@/store/favourites/favouritesSlice";
 import {useDispatch} from "react-redux";
 import PrintButton from "@/UI/PrintButton/PrintButton";
 import ShareModal from "@/UI/modals/ShareModal/ShareModal";
-import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
+import FavouritesButton from "@/components/FavouritesButton/FavouritesButton";
 
 
 const FavouritesEventNav: FC = () => {
@@ -26,7 +26,7 @@ const FavouritesEventNav: FC = () => {
     const prevEventId = eventIdIndex > 0 ? eventIds[eventIdIndex - 1] : eventIds[eventIds.length - 1];
     const nextEventId = eventIdIndex < eventIds.length - 1 ? eventIds[eventIdIndex + 1] : eventIds[0];
 
-    const {favouritesAdd, favouritesDelete} = favouritesSlice.actions;
+    const {favouritesDelete} = favouritesSlice.actions;
     const dispatch = useDispatch();
 
     const prevHandler = () => {
@@ -59,9 +59,11 @@ const FavouritesEventNav: FC = () => {
 
                 <PrimaryButton onClick={deleteHandler} className={styles.btn}>удалить из избранного</PrimaryButton>
 
-                <Link href="/favourites">
-                    <PrimaryButton className={styles.btn}>избранное</PrimaryButton>
-                </Link>
+                {/*<Link href="/favourites">*/}
+                {/*    <PrimaryButton className={styles.btn}>избранное</PrimaryButton>*/}
+                {/*</Link>*/}
+
+                <FavouritesButton className={styles.btn} />
 
                 <EventsPrint setIsLoading={setIsLoading} eventIds={eventIds.filter(id => id === eventId)}
                              refContent={printContentRef}/>

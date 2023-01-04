@@ -16,6 +16,7 @@ import Modal from "@/UI/modals/Modal/Modal";
 import QRCode from "react-qr-code";
 import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
 import ShareModal from "@/UI/modals/ShareModal/ShareModal";
+import FavouritesButton from "@/components/FavouritesButton/FavouritesButton";
 
 
 export interface EventNavProps {
@@ -63,9 +64,7 @@ const EventNav: FC<EventNavProps> = () => {
 
                 <EventsPrint setIsLoading={setIsLoading} eventIds={[eventId]} refContent={printContentRef}/>
 
-                <Link href="/favourites">
-                    <PrimaryButton className={styles.btn}>избранное</PrimaryButton>
-                </Link>
+                <FavouritesButton className={styles.btn} />
             </div>
 
             <ShareModal
@@ -75,9 +74,6 @@ const EventNav: FC<EventNavProps> = () => {
                 setIsActive={setIsActive}
                 isActive={isActive}
             />
-            {/*<Modal title="Отсканируйте QR код" active={isActive} setActive={setIsActive}>*/}
-            {/*    <QRCode size={400} value={`https://sevsu-event-map.onrender.com${asPath}`} />*/}
-            {/*</Modal>*/}
         </nav>
     );
 }

@@ -33,8 +33,8 @@ const AdminCompetitors: FC = () => {
                     {/*        />*/}
                     {/*    </InputGroup>*/}
 
-                    {/*    <PrimaryButton style={{height: 50}} className={styles.form__button}>создать тип*/}
-                    {/*        участника</PrimaryButton>*/}
+                    {/*    <FavouritesButton style={{height: 50}} className={styles.form__button}>создать тип*/}
+                    {/*        участника</FavouritesButton>*/}
                     {/*</div>*/}
 
                     <div className={styles.items}>

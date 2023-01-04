@@ -7,18 +7,20 @@ import {ILoginFields} from "@/models/form";
 import InputGroup from "@/UI/InputGroup/InputGroup";
 import Input from "@/UI/InputGroup/Input/Input";
 import {useAuth} from "@/hooks/useAuth";
-import {useRouter} from "next/router";
 import {useAuthRedirect} from "@/hooks/useAuthRedirect";
 import {useActions} from "@/hooks/useActions";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import {REQUIRE_ERROR} from "@/utils/consts";
+import {useRouter} from "next/router";
 
 
 const Login: FC = () => {
     useAuthRedirect();
     const router = useRouter();
-    const {isAuthorized} = useAuth();
-    if (isAuthorized) router.push('/');
+    const {isAuthorized, isLoading} = useAuth();
+    if (typeof window !== 'undefined' && isAuthorized) router.push('/');
+
+    console.log(isAuthorized)
 
     const {
         register,
@@ -35,15 +37,14 @@ const Login: FC = () => {
 
     const onSubmit: SubmitHandler<ILoginFields> = ({password, username}) => {
         login({username, password});
-        reset();
     }
 
     return (
-        <section className={styles.favourites}>
+        <section className={styles.login}>
             <Container>
-                <h1>Вход</h1>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <InputGroup title="Логин">
+                <h1 className={styles.title}>Вход</h1>
+                <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: 450}}>
+                    <InputGroup style={{marginBottom: 20}} title="Логин">
                         <Input
                             {...register('username', {
                                 required: REQUIRE_ERROR,
@@ -53,8 +54,9 @@ const Login: FC = () => {
                         />
                     </InputGroup>
 
-                    <InputGroup title="Пароль">
+                    <InputGroup style={{marginBottom: 20}} title="Пароль">
                         <Input
+                            type="password"
                             {...register('password', {
                                 required: REQUIRE_ERROR,
                             })}
@@ -63,7 +65,7 @@ const Login: FC = () => {
                         />
                     </InputGroup>
 
-                    <PrimaryButton>Войти</PrimaryButton>
+                    <PrimaryButton disabled={isLoading}>Войти</PrimaryButton>
                 </Form>
             </Container>
         </section>
