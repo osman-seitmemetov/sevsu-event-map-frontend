@@ -6,7 +6,8 @@ export const useEvents = () => {
     const queryData = useQuery('get-all-events', () => EventService.getAll(), {
         onError: (error: any) => {
             toastError(error, 'Возникла ошибка при получении мероприятий');
-        }
+        },
+        keepPreviousData: true
     });
 
     return queryData;

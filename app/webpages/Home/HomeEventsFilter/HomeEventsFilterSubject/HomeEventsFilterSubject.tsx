@@ -1,17 +1,17 @@
 import React, {FC} from "react";
 import styles from "./HomeEventsFilterSubject.module.scss";
-import {ISubject} from "@/models/ISubject";
+import {ISubjectClient} from "@/models/ISubject";
 import {useActions} from "@/hooks/useActions";
 
 
 interface HomeEventsFilterSubjectProps {
-    subject: ISubject,
-    subjects: ISubject[],
+    subject: ISubjectClient,
+    selectedSubjects: ISubjectClient[],
 }
 
-const HomeEventsFilterSubject: FC<HomeEventsFilterSubjectProps> = ({subject, subjects}) => {
+const HomeEventsFilterSubject: FC<HomeEventsFilterSubjectProps> = ({subject, selectedSubjects}) => {
     const {subjectSelect, subjectDeselect} = useActions();
-    const isSubjectSelected = subjects.filter(s => s.id === subject.id).length > 0;
+    const isSubjectSelected = selectedSubjects.filter(s => s.id === subject.id).length > 0;
 
     const onClickHandler = () => {
         if (isSubjectSelected) {

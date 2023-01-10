@@ -5,7 +5,7 @@ import {IFoundingType} from "@/models/IFoundingType";
 import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
 import {IEventOrganizer} from "@/models/IEventOrganizer";
 import {filterState} from "@/store/filter/filterSlice";
-import {ISubject} from "@/models/ISubject";
+import {ISubjectServer} from "@/models/ISubject";
 import {convertSubjectsToIds} from "@/utils/string/convertSubjectsToIds";
 import {axiosClassic, instance} from "../api/interceptots";
 
@@ -34,7 +34,7 @@ export const EventService = {
         const TRLsURL = filterParams?.trls ? convertIdsToURL(filterParams.trls, "trl") : "";
         const submissionDeadlineBeforeURL = filterParams?.submissionDeadlineBefore ? `submission_deadline_before=${convertInputDateToPostgresDate(filterParams.submissionDeadlineBefore)}&` : "";
         const submissionDeadlineAfterURL = filterParams?.submissionDeadlineAfter ? `submission_deadline_after=${convertInputDateToPostgresDate(filterParams.submissionDeadlineAfter)}&` : "";
-        const eventIds = filterParams?.subjects ? convertIdsToURL(convertSubjectsToIds(filterParams.subjects), "id") : "";
+        const eventIds = filterParams?.selectedSubjects ? convertIdsToURL(convertSubjectsToIds(filterParams.selectedSubjects), "id") : "";
         const iDs = ids ? convertIdsToURL(ids, "id") : "";
 
         return await axiosClassic.get<IEventMin[]>(
@@ -99,6 +99,6 @@ export const EventService = {
     },
 
     async getAllSubjects() {
-        return await axiosClassic.get<ISubject[]>('/v1/subjects/');
+        return await axiosClassic.get<ISubjectServer[]>('/v1/subjects/');
     },
 }

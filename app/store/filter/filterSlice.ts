@@ -1,5 +1,41 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ISubject} from "@/models/ISubject";
+import {createSlice, current, PayloadAction} from "@reduxjs/toolkit";
+import {ISubjectClient, ISubjectServer} from "@/models/ISubject";
+import {loadAllSubjects} from "@/store/filter/filterAC";
+
+
+const removeDublicatedSubjects = (subjects: ISubjectServer[]) => {
+    let sortedSubjects: ISubjectClient[] = [];
+    for (let i = 0; i < subjects.length; i++) {
+        if (sortedSubjects.filter(({subject}) => subject === subjects[i].subject).length > 0) {
+            const index = sortedSubjects.indexOf(sortedSubjects.filter(({subject}) => subject === subjects[i].subject)[0]);
+            sortedSubjects[index].event.push(subjects[i].event);
+        } else {
+            sortedSubjects.push({...subjects[i], event: [subjects[i].event]});
+        }
+    }
+
+    return sortedSubjects;
+}
+
+const sortSubjects = (eventIds: number[], subjects: ISubjectClient[]) => {
+    console.log("s", subjects)
+    console.log("ids", eventIds)
+    const sortedSubjects: ISubjectClient[] = [];
+    for (let i = 0; i < eventIds.length; i++) {
+        console.log(i)
+        for (let j = 0; j < subjects.length; j++) {
+            for (let k = 0; k < subjects[j].event.length; k++) {
+                if (eventIds[i] === subjects[j].event[k]) {
+                    sortedSubjects.push(subjects[j]);
+                    break;
+                }
+            }
+        }
+    }
+    console.log(sortedSubjects)
+
+    return sortedSubjects;
+}
 
 export interface filterState {
     organizers: number[],
@@ -16,7 +52,12 @@ export interface filterState {
     submissionDeadlineBefore: Date | undefined,
     submissionDeadlineAfter: Date | undefined,
     trls: number[],
-    subjects: ISubject[]
+    allSubjects: ISubjectClient[],
+    sortedSubjects: ISubjectClient[],
+    selectedSubjects: ISubjectClient[],
+    isSubjectsLoading: boolean,
+    isEventsLoading: boolean,
+    eventIds: number[]
 }
 
 const initialState: filterState = {
@@ -34,7 +75,12 @@ const initialState: filterState = {
     submissionDeadlineBefore: undefined,
     submissionDeadlineAfter: undefined,
     trls: [],
-    subjects: []
+    selectedSubjects: [],
+    sortedSubjects: [],
+    allSubjects: [],
+    isSubjectsLoading: false,
+    isEventsLoading: false,
+    eventIds: []
 }
 
 export const filterSlice = createSlice({
@@ -90,12 +136,32 @@ export const filterSlice = createSlice({
             state.submissionDeadlineAfter = action.payload;
         },
 
-        subjectSelect(state, action: PayloadAction<ISubject>) {
-            state.subjects = [...state.subjects, action.payload];
+        subjectSelect(state, action: PayloadAction<ISubjectClient>) {
+            state.selectedSubjects = [...state.selectedSubjects, action.payload];
         },
-        subjectDeselect(state, action: PayloadAction<ISubject>) {
-            state.subjects = state.subjects.filter(s => s.id !== action.payload.id);
+        subjectDeselect(state, action: PayloadAction<ISubjectClient>) {
+            state.selectedSubjects = state.selectedSubjects.filter(s => s.id !== action.payload.id);
         },
+        subjectsSort(state, action: PayloadAction<number[]>) {
+            console.log("change")
+            state.sortedSubjects = sortSubjects(action.payload, current(state.allSubjects));
+        },
+
+        loadEventIds(state, action: PayloadAction<{ ids?: number[], isLoading?: boolean }>) {
+            state.eventIds = action.payload.ids || [];
+            state.isEventsLoading = action.payload.isLoading || false;
+            state.sortedSubjects = sortSubjects(action.payload.ids || [], current(state.allSubjects));
+        },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loadAllSubjects.pending, state => {
+            state.isSubjectsLoading = true;
+        }).addCase(loadAllSubjects.fulfilled, (state, {payload}) => {
+            state.isSubjectsLoading = false;
+            state.allSubjects = removeDublicatedSubjects(payload);
+        }).addCase(loadAllSubjects.rejected, (state) => {
+            state.isSubjectsLoading = false;
+        })
     }
 })
 

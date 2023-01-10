@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import styles from "@/webpages/Home/HomeEventsFilter/HomeEventsFilter.module.scss";
 import Dropdown from "@/UI/Dropdown/Dropdown";
 import {useFetchOrganizersForFilter} from "@/hooks/useFetchOrganizersForFilter";
@@ -11,8 +11,8 @@ import {useActions} from "@/hooks/useActions";
 import InputDate from "@/UI/InputGroup/InputDate/InputDate";
 import CheckboxFilter, {CheckboxFilterOption} from "@/UI/CheckboxFilter/CheckboxFilter";
 import HomeEventsFilterSubject from "@/webpages/Home/HomeEventsFilter/HomeEventsFilterSubject/HomeEventsFilterSubject";
-import {useSubjects} from "@/webpages/Home/HomeEventsFilter/useSubjects";
 import SkeletonLoader from "@/UI/SkeletonLoader/SkeletonLoader";
+import {useSubjects} from "@/webpages/Home/HomeEventsFilter/useSubjects";
 
 
 const TRLsForFilter: CheckboxFilterOption[] = [
@@ -74,8 +74,14 @@ const HomeEventsFilter: FC = () => {
         changeSubmissionDeadlineAfter, changeSubmissionDeadlineBefore, changeCoFoundingRangeHigh,
         changeCoFoundingRangeLow, changeFoundingRangeLow, changeFoundingRangeHigh, organizerSelect,
         organizerDeselect, foundingTypeSelect, foundingTypeDeselect, competitorTypeDeselect,
-        competitorTypeSelect, TRLSelect, TRLDeselect
+        competitorTypeSelect, TRLSelect, TRLDeselect, loadAllSubjects, subjectsSort
     } = useActions();
+
+    useEffect(() => {
+        loadAllSubjects();
+    }, []);
+
+    console.log(state.sortedSubjects)
 
     return (
         <aside className={styles.filter}>
@@ -314,7 +320,11 @@ const HomeEventsFilter: FC = () => {
                             ? <div className={styles.subjects}>
                                 {
                                     subjects.map(s =>
-                                        <HomeEventsFilterSubject key={s.id} subject={s} subjects={state.subjects}/>
+                                        <HomeEventsFilterSubject
+                                            key={s.id}
+                                            subject={s}
+                                            selectedSubjects={state.selectedSubjects}
+                                        />
                                     )
                                 }
                             </div>

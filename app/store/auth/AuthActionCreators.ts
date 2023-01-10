@@ -36,7 +36,6 @@ export const checkAuth = createAsyncThunk<LoginResponse>('auth/check', async (
         if (response.data.access) {
             saveToStorage(response.data)
         }
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);

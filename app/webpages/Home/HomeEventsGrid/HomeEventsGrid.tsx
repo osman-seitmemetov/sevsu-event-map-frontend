@@ -5,20 +5,32 @@ import {useEventMins} from "@/hooks/useEventMins";
 import {useTypedSelector} from "@/hooks/useTypedSelector";
 import HomeEventsGridLoader from "@/webpages/Home/HomeEventsGrid/HomeEventsGridLoader/HomeEventsGridLoader";
 import HomeEventsGridNotFound from "@/webpages/Home/HomeEventsGrid/HomeEventsGridNotFound/HomeEventsGridNotFound";
+import {IEventMin} from "@/models/IEvent";
+import {useActions} from "@/hooks/useActions";
 
 
 interface HomeEventsGridProps {
 }
 
 const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
-    const [isExtended, setIsExtended] = useState(false);
-    const scrollareaHorizontalRef = useRef<HTMLDivElement | null>(null);
-    const scrollareaVerticalRef = useRef<HTMLDivElement | null>(null);
     const filterState = useTypedSelector(state => state.filterReducer);
     const {data, isLoading} = useEventMins(filterState);
     const events = data?.data || [];
+    const [isExtended, setIsExtended] = useState(false);
+    const scrollareaHorizontalRef = useRef<HTMLDivElement | null>(null);
+    const scrollareaVerticalRef = useRef<HTMLDivElement | null>(null);
     const isScrollable: boolean = scrollareaHorizontalRef.current ? (scrollareaHorizontalRef.current?.scrollHeight > scrollareaHorizontalRef.current?.clientHeight) : false;
 
+    const {loadEventIds, subjectsSort} = useActions();
+    useEffect(() => {
+        // loadEventIds({ids: events.map((e): number => e.id)})
+    //     subjectsSort(events.map((e): number => e.id))
+    //     console.log(events.map((e): number => e.id))
+    }, [])
+    // loadEventIds({ids: events.map((e): number => e.id), isLoading: false})
+    // console.log(state.isEventsLoading)
+    // console.log(state.eventIds)
+    // subjectsSort(events.map((e): number => e.id))
 
     const trl0Ref = useRef<HTMLDivElement | null>(null);
     const trl1Ref = useRef<HTMLDivElement | null>(null);

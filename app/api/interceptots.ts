@@ -3,7 +3,7 @@ import {API_SERVER_URL, API_URL} from "@/config/API";
 import {IS_PRODUCTION} from "@/config/constants";
 
 export const axiosClassic = axios.create({
-    baseURL: API_SERVER_URL,
+    baseURL: IS_PRODUCTION ? API_SERVER_URL : API_URL,
     headers: {
         'Content-Type': 'application/json'
     },
@@ -12,7 +12,7 @@ export const axiosClassic = axios.create({
 
 
 export const instance = axios.create({
-    baseURL: API_SERVER_URL,
+    baseURL: API_URL,
     headers: {
         'Content-Type': 'application/json'
     },

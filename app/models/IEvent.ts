@@ -15,7 +15,7 @@ export interface IEvent {
     },
     subjects: string[],
     title: string,
-    submission_deadline: string, //"2022-12-20",
+    submission_deadline: string,
     consideration_period: string,
     realisation_period: string,
     result: string,
