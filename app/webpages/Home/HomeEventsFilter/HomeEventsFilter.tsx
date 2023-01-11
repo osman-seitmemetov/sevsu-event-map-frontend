@@ -12,7 +12,6 @@ import InputDate from "@/UI/InputGroup/InputDate/InputDate";
 import CheckboxFilter, {CheckboxFilterOption} from "@/UI/CheckboxFilter/CheckboxFilter";
 import HomeEventsFilterSubject from "@/webpages/Home/HomeEventsFilter/HomeEventsFilterSubject/HomeEventsFilterSubject";
 import SkeletonLoader from "@/UI/SkeletonLoader/SkeletonLoader";
-import {useSubjects} from "@/webpages/Home/HomeEventsFilter/useSubjects";
 
 
 const TRLsForFilter: CheckboxFilterOption[] = [
@@ -65,8 +64,8 @@ const HomeEventsFilter: FC = () => {
     const competitorTypes = competitorTypesData || [];
     const {data: foundingTypesData, isLoading: isFoundingTypesLoading} = useFetchFoundingTypesForFilter();
     const foundingTypes = foundingTypesData || [];
-    const {data: subjectsData, isLoading: isSubjectsLoading} = useSubjects();
-    const subjects = subjectsData || [];
+    // const {data: subjectsData, isLoading: isSubjectsLoading} = useSubjects();
+    // const subjects = subjectsData || [];
 
     const state = useTypedSelector(state => state.filterReducer);
 
@@ -81,7 +80,8 @@ const HomeEventsFilter: FC = () => {
         loadAllSubjects();
     }, []);
 
-    console.log(state.sortedSubjects)
+    console.log("sortedSubjects", state.sortedSubjects)
+    console.log("allSubjects", state.allSubjects)
 
     return (
         <aside className={styles.filter}>
@@ -308,7 +308,7 @@ const HomeEventsFilter: FC = () => {
 
             <div className={styles.subjectsWrapper}>
                 {
-                    isSubjectsLoading
+                    state.isEventsLoading
                         ? <SkeletonLoader
                             style={{
                                 height: 240,
@@ -316,10 +316,10 @@ const HomeEventsFilter: FC = () => {
                                 borderRadius: 12
                             }}
                         />
-                        : subjects
+                        : state.sortedSubjects.length > 0
                             ? <div className={styles.subjects}>
                                 {
-                                    subjects.map(s =>
+                                    state.sortedSubjects.map(s =>
                                         <HomeEventsFilterSubject
                                             key={s.id}
                                             subject={s}

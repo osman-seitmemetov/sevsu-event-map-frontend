@@ -23,7 +23,7 @@ export const EventService = {
         return await axiosClassic.get<IEventOrganizer[]>(`/v1/event_print?${ids.length > 0 ? convertIdsToURL(ids, "id") : ""}`);
     },
 
-    async getMinByIds(ids: number[], filterParams?: filterState) {
+    async getMinByIds(ids: number[], filterParams?: Omit<filterState, 'sortedSubjects' | 'isEventsLoading'>) {
         const organizersURL = filterParams?.organizers ? convertIdsToURL(filterParams.organizers, "organizer") : "";
         const competitorTypesURL = filterParams?.competitorTypes ? convertIdsToURL(filterParams.competitorTypes, "competitors") : "";
         const foundingRangeMinURL = filterParams?.foundingRange.low ? `f_range_min=${filterParams.foundingRange.low}&)` : "";

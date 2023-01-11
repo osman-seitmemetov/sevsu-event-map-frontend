@@ -25,7 +25,7 @@ const sortSubjects = (eventIds: number[], subjects: ISubjectClient[]) => {
         console.log(i)
         for (let j = 0; j < subjects.length; j++) {
             for (let k = 0; k < subjects[j].event.length; k++) {
-                if (eventIds[i] === subjects[j].event[k]) {
+                if (eventIds[i] === subjects[j].event[k] && sortedSubjects.filter(s => s.subject === subjects[j].subject).length === 0) {
                     sortedSubjects.push(subjects[j]);
                     break;
                 }
@@ -148,7 +148,7 @@ export const filterSlice = createSlice({
         },
 
         loadEventIds(state, action: PayloadAction<{ ids?: number[], isLoading?: boolean }>) {
-            state.eventIds = action.payload.ids || [];
+            // state.eventIds = action.payload.ids || [];
             state.isEventsLoading = action.payload.isLoading || false;
             state.sortedSubjects = sortSubjects(action.payload.ids || [], current(state.allSubjects));
         },
