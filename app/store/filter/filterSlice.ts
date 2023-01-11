@@ -18,11 +18,8 @@ const removeDublicatedSubjects = (subjects: ISubjectServer[]) => {
 }
 
 const sortSubjects = (eventIds: number[], subjects: ISubjectClient[]) => {
-    console.log("s", subjects)
-    console.log("ids", eventIds)
     const sortedSubjects: ISubjectClient[] = [];
     for (let i = 0; i < eventIds.length; i++) {
-        console.log(i)
         for (let j = 0; j < subjects.length; j++) {
             for (let k = 0; k < subjects[j].event.length; k++) {
                 if (eventIds[i] === subjects[j].event[k] && sortedSubjects.filter(s => s.subject === subjects[j].subject).length === 0) {
@@ -32,7 +29,6 @@ const sortSubjects = (eventIds: number[], subjects: ISubjectClient[]) => {
             }
         }
     }
-    console.log(sortedSubjects)
 
     return sortedSubjects;
 }
@@ -143,7 +139,6 @@ export const filterSlice = createSlice({
             state.selectedSubjects = state.selectedSubjects.filter(s => s.id !== action.payload.id);
         },
         subjectsSort(state, action: PayloadAction<number[]>) {
-            console.log("change")
             state.sortedSubjects = sortSubjects(action.payload, current(state.allSubjects));
         },
 

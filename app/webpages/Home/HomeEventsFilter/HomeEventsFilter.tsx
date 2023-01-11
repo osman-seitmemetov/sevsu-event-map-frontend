@@ -64,8 +64,6 @@ const HomeEventsFilter: FC = () => {
     const competitorTypes = competitorTypesData || [];
     const {data: foundingTypesData, isLoading: isFoundingTypesLoading} = useFetchFoundingTypesForFilter();
     const foundingTypes = foundingTypesData || [];
-    // const {data: subjectsData, isLoading: isSubjectsLoading} = useSubjects();
-    // const subjects = subjectsData || [];
 
     const state = useTypedSelector(state => state.filterReducer);
 
@@ -79,9 +77,6 @@ const HomeEventsFilter: FC = () => {
     useEffect(() => {
         loadAllSubjects();
     }, []);
-
-    console.log("sortedSubjects", state.sortedSubjects)
-    console.log("allSubjects", state.allSubjects)
 
     return (
         <aside className={styles.filter}>
