@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 import styles from "@/webpages/Home/HomeEventsFilter/HomeEventsFilter.module.scss";
 import Dropdown from "@/UI/Dropdown/Dropdown";
 import {useFetchOrganizersForFilter} from "@/hooks/useFetchOrganizersForFilter";
@@ -77,6 +77,18 @@ const HomeEventsFilter: FC = () => {
     useEffect(() => {
         loadAllSubjects();
     }, []);
+
+    const [isFilterStateEmpty, setIsFilterStateEmpty] = useState(true);
+
+    useEffect(() => {
+        setIsFilterStateEmpty(state.organizers.length === 0
+            && state.competitorTypes.length === 0 && state.foundingRange.low === ""
+            && state.foundingRange.high === "" && state.coFoundingRange.low === ""
+            && state.coFoundingRange.high === "" && state.foundingType.length === 0
+            && state.submissionDeadlineBefore === undefined && state.submissionDeadlineAfter === undefined
+            && state.trls.length === 0 && state.selectedSubjects.length === 0)
+        console.log(isFilterStateEmpty)
+    }, [state])
 
     return (
         <aside className={styles.filter}>
@@ -303,18 +315,48 @@ const HomeEventsFilter: FC = () => {
 
             <div className={styles.subjectsWrapper}>
                 {
-                    state.isEventsLoading
-                        ? <SkeletonLoader
-                            style={{
-                                height: 240,
-                                width: '100%',
-                                borderRadius: 12
-                            }}
-                        />
+                    isFilterStateEmpty
+                        ? state.isEventsLoading
+                            ? <SkeletonLoader
+                                style={{
+                                    height: 240,
+                                    width: '100%',
+                                    borderRadius: 12
+                                }}
+                            />
+                            : state.allSubjects.length > 0
+                                ? <div className={styles.subjects}>
+                                    {
+                                        [...state.allSubjects].sort((a, b) => {
+                                            if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                                return -1;
+                                            }
+                                            if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                                return 1;
+                                            }
+                                            return 0;
+                                        }).map(s =>
+                                            <HomeEventsFilterSubject
+                                                key={s.id}
+                                                subject={s}
+                                                selectedSubjects={state.selectedSubjects}
+                                            />
+                                        )
+                                    }
+                                </div>
+                                : <div>Тематики не найдены</div>
                         : state.sortedSubjects.length > 0
                             ? <div className={styles.subjects}>
                                 {
-                                    state.sortedSubjects.map(s =>
+                                    [...state.sortedSubjects].sort((a, b) => {
+                                        if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                            return -1;
+                                        }
+                                        if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                            return 1;
+                                        }
+                                        return 0;
+                                    }).map(s =>
                                         <HomeEventsFilterSubject
                                             key={s.id}
                                             subject={s}

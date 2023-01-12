@@ -43,13 +43,25 @@ const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
     const isScrollable: boolean = scrollareaHorizontalRef.current ? (scrollareaHorizontalRef.current?.scrollHeight > scrollareaHorizontalRef.current?.clientHeight) : false;
     const {subjectsSort, loadEventIds} = useActions();
 
-    useEffect(() => {
-        loadEventIds({isLoading: isLoading})
-    }, [isLoading])
+    const [isFilterStateEmpty, setIsFilterStateEmpty] = useState(true);
 
     useEffect(() => {
-        if (data) subjectsSort(events.map((e): number => e.id))
-    }, [data])
+        setIsFilterStateEmpty(filterState.organizers.length === 0
+            && filterState.competitorTypes.length === 0 && filterState.foundingRange.low === ""
+            && filterState.foundingRange.high === "" && filterState.coFoundingRange.low === ""
+            && filterState.coFoundingRange.high === "" && filterState.foundingType.length === 0
+            && filterState.submissionDeadlineBefore === undefined && filterState.submissionDeadlineAfter === undefined
+            && filterState.trls.length === 0 && filterState.selectedSubjects.length === 0)
+        console.log(isFilterStateEmpty)
+    }, [filterState])
+
+    useEffect(() => {
+        if(isFilterStateEmpty) loadEventIds({isLoading: isLoading})
+    }, [isLoading, isFilterStateEmpty])
+
+    useEffect(() => {
+        if (data && !isLoading) subjectsSort(events.map((e): number => e.id))
+    }, [data, isLoading])
 
     const trl0Ref = useRef<HTMLDivElement | null>(null);
     const trl1Ref = useRef<HTMLDivElement | null>(null);
@@ -82,7 +94,6 @@ const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
     let columnsCount = 0;
     for (let i = 0; i < columns.length; i++) {
         if (columns[i].length > 0) columnsCount++;
-
     }
 
     const scrollToStart = () => {

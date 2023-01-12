@@ -26,7 +26,15 @@ const AdminEvents: FC = () => {
                         isLoading
                             ? <AdminEventsLoader />
                             : events?.length
-                                ? events.map(ev => <EventCard
+                                ? [...events].sort((a, b) => {
+                                    if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                                        return -1;
+                                    }
+                                    if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                }).map(ev => <EventCard
                                     eventMin={ev}
                                     key={ev.id}
                                     link={`/admin/events/${ev.id}`}

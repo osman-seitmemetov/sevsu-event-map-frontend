@@ -18,6 +18,8 @@ const removeDublicatedSubjects = (subjects: ISubjectServer[]) => {
 }
 
 const sortSubjects = (eventIds: number[], subjects: ISubjectClient[]) => {
+    console.log("s", subjects)
+    console.log("eids", eventIds)
     const sortedSubjects: ISubjectClient[] = [];
     for (let i = 0; i < eventIds.length; i++) {
         for (let j = 0; j < subjects.length; j++) {
