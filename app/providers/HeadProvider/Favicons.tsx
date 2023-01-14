@@ -1,7 +1,6 @@
 const Favicons = () => {
 	return (
 		<>
-			{/* https://iconifier.net/ */}
 			<link
 				rel='shortcut icon'
 				href='/favicons/favicon.ico'
