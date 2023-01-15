@@ -87,7 +87,6 @@ const HomeEventsFilter: FC = () => {
             && state.coFoundingRange.high === "" && state.foundingType.length === 0
             && state.submissionDeadlineBefore === undefined && state.submissionDeadlineAfter === undefined
             && state.trls.length === 0 && state.selectedSubjects.length === 0)
-        console.log(isFilterStateEmpty)
     }, [state])
 
     return (

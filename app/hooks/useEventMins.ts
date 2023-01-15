@@ -5,7 +5,7 @@ import {filterState} from "@/store/filter/filterSlice";
 import {useDebounce} from "@/hooks/useDebounce";
 import {useActions} from "@/hooks/useActions";
 
-export const useEventMins = (filterState: Omit<filterState, 'sortedSubjects' | 'isEventsLoading'>) => {
+export const useEventMins = (filterState: Omit<filterState, 'sortedSubjects' | 'isEventsLoading' | 'foundSubjects'>) => {
     const debouncedFilterState = useDebounce(filterState, 200);
     // const {subjectsSort, loadEventIds} = useActions();
 

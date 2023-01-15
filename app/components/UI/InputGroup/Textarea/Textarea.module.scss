@@ -23,6 +23,21 @@
     color: #232323;
     margin-top: 10px;
     background-color: transparent;
+    scrollbar-color: #458245 transparent;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #C1C1C1;
+        border-radius: 10px;
+        width: 6px;
+        height: 6px;
+    }
 
     &::placeholder {
         font-family: "Roboto", sans-serif;

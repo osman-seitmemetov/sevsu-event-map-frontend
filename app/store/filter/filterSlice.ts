@@ -18,8 +18,6 @@ const removeDublicatedSubjects = (subjects: ISubjectServer[]) => {
 }
 
 const sortSubjects = (eventIds: number[], subjects: ISubjectClient[]) => {
-    console.log("s", subjects)
-    console.log("eids", eventIds)
     const sortedSubjects: ISubjectClient[] = [];
     for (let i = 0; i < eventIds.length; i++) {
         for (let j = 0; j < subjects.length; j++) {
@@ -33,6 +31,17 @@ const sortSubjects = (eventIds: number[], subjects: ISubjectClient[]) => {
     }
 
     return sortedSubjects;
+}
+
+const searchSubjects = (term: string, subjects: ISubjectClient[]) => {
+    const foundSubjects: ISubjectClient[] = [];
+    for (let i = 0; i < subjects.length; i++) {
+        if(subjects[i].subject.toLowerCase().includes(term)
+            || subjects[i].subject.toUpperCase().includes(term)
+            || subjects[i].subject.includes(term)) foundSubjects.push(subjects[i]);
+    }
+
+    return foundSubjects;
 }
 
 export interface filterState {
@@ -55,7 +64,8 @@ export interface filterState {
     selectedSubjects: ISubjectClient[],
     isSubjectsLoading: boolean,
     isEventsLoading: boolean,
-    eventIds: number[]
+    eventIds: number[],
+    foundSubjects: ISubjectClient[]
 }
 
 const initialState: filterState = {
@@ -78,7 +88,8 @@ const initialState: filterState = {
     allSubjects: [],
     isSubjectsLoading: false,
     isEventsLoading: false,
-    eventIds: []
+    eventIds: [],
+    foundSubjects: []
 }
 
 export const filterSlice = createSlice({
@@ -148,6 +159,10 @@ export const filterSlice = createSlice({
             // state.eventIds = action.payload.ids || [];
             state.isEventsLoading = action.payload.isLoading || false;
             state.sortedSubjects = sortSubjects(action.payload.ids || [], current(state.allSubjects));
+        },
+
+        subjectsSearch(state, action: PayloadAction<string>) {
+            state.foundSubjects = searchSubjects(action.payload, current(state.allSubjects));
         },
     },
     extraReducers: (builder) => {

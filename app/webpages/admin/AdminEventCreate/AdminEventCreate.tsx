@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import InputGroup from "@/UI/InputGroup/InputGroup";
 import Input from "@/UI/InputGroup/Input/Input";
@@ -19,6 +19,9 @@ import {useEventCreate} from "@/webpages/admin/AdminEventCreate/useEventCreate";
 import Form from "@/UI/Form/Form";
 import {useFetchFoundingTypesForSelect} from "@/hooks/useFetchFoundingTypesForSelect";
 import {useFetchEventsForSelect} from "@/hooks/useFetchEventsForSelect";
+import {useTypedSelector} from "@/hooks/useTypedSelector";
+import {useActions} from "@/hooks/useActions";
+import styles from "./AdminEventCreate.module.scss"
 
 const DynamicSelect = dynamic(() => import('@/UI/InputGroup/SelectCustom/SelectCustom'), {
     ssr: false
@@ -32,12 +35,32 @@ const AdminEventCreate: FC = () => {
     const {data: events, isLoading: isEventsLoading} = useFetchEventsForSelect();
 
     const {
-        register, handleSubmit, formState: {errors}, control
+        register, handleSubmit, formState: {errors}, control, watch, setValue
     } = useForm<IEventFieldsClient>({
         mode: "onChange"
     });
 
+    const subjectTerm = watch("subjects") ? watch("subjects").split(';\n')[watch("subjects").split(';\n').length - 1] : "";
+    const subjects = watch("subjects") ? watch("subjects").split(';\n') : [];
+
     const {onSubmit, isLoading} = useEventCreate();
+
+    const state = useTypedSelector(state => state.filterReducer);
+
+    const [isActive, setIsActive] = useState(false);
+
+    const autoFill = (subject: string) => {
+        setValue("subjects", `${subjects.slice(0, -1).join(';\n')}${subjects.slice(0, -1).join(';\n').length > 0 ? ";\n" : ""}${subject};\n`)
+    }
+
+    const {loadAllSubjects, subjectsSearch} = useActions();
+    useEffect(() => {
+        loadAllSubjects();
+    }, []);
+
+    useEffect(() => {
+        subjectsSearch(subjectTerm)
+    }, [subjectTerm, subjectsSearch]);
 
     return (
         <>
@@ -272,6 +295,62 @@ const AdminEventCreate: FC = () => {
                             />
                         </InputGroup>
 
+                        <InputGroup
+                            title="Тематики (каждая тематика разделяется точкой с запятой и переносом строки)"
+                        >
+                            <div className={styles.subjectsWrapper}>
+                                <Textarea
+                                    {...register('subjects', {
+                                        required: "Это поле обязательно"
+                                    })}
+                                    placeholder="Введите текст"
+                                    error={errors.subjects}
+                                    onFocus={() => setIsActive(true)}
+                                    onBlur={() => setTimeout(() => setIsActive(false), 100)}
+                                />
+                                {
+                                    (isActive && state.foundSubjects.length > 0 && state.allSubjects.length > 0) && <div className={styles.subjects}>
+                                        {
+                                            (subjectTerm !== "" || subjectTerm[subjectTerm.length - 1] !== ';') ? [...state.foundSubjects].sort((a, b) => {
+                                                    if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                                        return -1;
+                                                    }
+                                                    if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                                        return 1;
+                                                    }
+                                                    return 0;
+                                                }).map(s =>
+                                                    <div
+                                                        onClick={() => autoFill(s.subject)}
+                                                        key={s.id}
+                                                        className={styles.subject}
+                                                    >
+                                                        {s.subject}
+                                                    </div>
+                                                )
+                                                : [...state.allSubjects].sort((a, b) => {
+                                                    if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                                        return -1;
+                                                    }
+                                                    if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                                        return 1;
+                                                    }
+                                                    return 0;
+                                                }).map(s =>
+                                                    <div
+                                                        onClick={() => autoFill(s.subject)}
+                                                        key={s.id}
+                                                        className={styles.subject}
+                                                    >
+                                                        {s.subject}
+                                                    </div>
+                                                )
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </InputGroup>
+
                         <InputGroup title="Регламентирующие документы">
                             <Textarea
                                 {...register('document')}
@@ -287,16 +366,6 @@ const AdminEventCreate: FC = () => {
                                 })}
                                 placeholder="Введите контакты"
                                 error={errors.internal_contacts}
-                            />
-                        </InputGroup>
-
-                        <InputGroup title="Тематики (каждая тематика разделяется точкой с запятой и переносом строки)">
-                            <Textarea
-                                {...register('subjects', {
-                                    required: "Это поле обязательно"
-                                })}
-                                placeholder="Введите текст"
-                                error={errors.subjects}
                             />
                         </InputGroup>
                     </FieldsSection>

@@ -8,6 +8,7 @@ import {filterState} from "@/store/filter/filterSlice";
 import {ISubjectServer} from "@/models/ISubject";
 import {convertSubjectsToIds} from "@/utils/string/convertSubjectsToIds";
 import {axiosClassic, instance} from "../api/interceptots";
+import {separateBySemicolons} from "@/utils/string/separateBySemicolons";
 
 
 export const EventService = {
@@ -23,7 +24,7 @@ export const EventService = {
         return await axiosClassic.get<IEventOrganizer[]>(`/v1/event_print?${ids.length > 0 ? convertIdsToURL(ids, "id") : ""}`);
     },
 
-    async getMinByIds(ids: number[], filterParams?: Omit<filterState, 'sortedSubjects' | 'isEventsLoading'>) {
+    async getMinByIds(ids: number[], filterParams?: Omit<filterState, 'sortedSubjects' | 'isEventsLoading' | 'foundSubjects'>) {
         const organizersURL = filterParams?.organizers ? convertIdsToURL(filterParams.organizers, "organizer") : "";
         const competitorTypesURL = filterParams?.competitorTypes ? convertIdsToURL(filterParams.competitorTypes, "competitors") : "";
         const foundingRangeMinURL = filterParams?.foundingRange.low ? `f_range_min=${filterParams.foundingRange.low}&)` : "";
@@ -53,7 +54,7 @@ export const EventService = {
     async edit(id: number, data: IEventFieldsClient) {
         return await instance.put<IEvent>(`/v1/event/${id}`, {
             ...data, submission_deadline: convertInputDateToPostgresDate(data.submission_deadline),
-            subjects: data.subjects.split(';\n'),
+            subjects: separateBySemicolons(data.subjects),
             founding_range: {
                 low: Number(data.founding_range.low),
                 high: Number(data.founding_range.high),

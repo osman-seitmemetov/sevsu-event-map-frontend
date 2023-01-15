@@ -14,7 +14,7 @@ interface HomeEventsGridProps {
 
 const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
     const filterState = useTypedSelector(state => state.filterReducer);
-    const sortedFilterState: Omit<filterState, 'sortedSubjects' | 'isEventsLoading'> = {
+    const sortedFilterState: Omit<filterState, 'sortedSubjects' | 'isEventsLoading' | 'foundSubjects'> = {
         organizers: filterState.organizers,
         competitorTypes: filterState.competitorTypes,
         foundingRange: {
@@ -52,7 +52,6 @@ const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
             && filterState.coFoundingRange.high === "" && filterState.foundingType.length === 0
             && filterState.submissionDeadlineBefore === undefined && filterState.submissionDeadlineAfter === undefined
             && filterState.trls.length === 0 && filterState.selectedSubjects.length === 0)
-        console.log(isFilterStateEmpty)
     }, [filterState])
 
     useEffect(() => {

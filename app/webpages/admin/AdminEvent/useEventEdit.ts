@@ -7,6 +7,7 @@ import {joinBySemicolons} from "@/utils/string/joinBySemicolons";
 import {convertPostgresDateWithoutTime} from "../../../helpers/date/convertPostgresDateWithoutTime";
 import {toastError} from "@/utils/api/withToastrErrorRedux";
 import {toastr} from "react-redux-toastr";
+import {joinBySemicolonsForInput} from "@/utils/string/joinBySemicolonsForInput";
 
 
 export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
@@ -34,7 +35,7 @@ export const useEventEdit = (setValue: UseFormSetValue<IEventFieldsClient>) => {
             setValue('trl', String(data.trl));
             // @ts-ignore
             setValue('competitors', String(data.competitors));
-            setValue('subjects', data.subjects.join(';\n'));
+            setValue('subjects', joinBySemicolonsForInput(data.subjects));
             setValue('precursor', String(data.precursor));
         },
         onError: (error) => {

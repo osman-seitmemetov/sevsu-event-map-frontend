@@ -58,7 +58,7 @@
     padding: 15px;
     display: flex;
     flex-wrap: wrap;
-    align-items: start;
+    align-content: flex-start;
     overflow-y: scroll;
     max-height: 100%;
     scrollbar-color: #458245 transparent;

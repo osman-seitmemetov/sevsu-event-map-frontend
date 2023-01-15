@@ -1,0 +1,1 @@
+export const joinBySemicolonsForInput = (arrStr: string[]) => `${arrStr.join(';\n')};`;

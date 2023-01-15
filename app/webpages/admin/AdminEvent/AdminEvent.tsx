@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import InputGroup from "@/UI/InputGroup/InputGroup";
 import Input from "@/UI/InputGroup/Input/Input";
@@ -20,6 +20,9 @@ import {useEventEdit} from "@/webpages/admin/AdminEvent/useEventEdit";
 import {useFetchFoundingTypesForSelect} from "@/hooks/useFetchFoundingTypesForSelect";
 import AdminFormLoader from "@/components/AdminFormLoader/AdminFormLoader";
 import {useFetchEventsForSelect} from "@/hooks/useFetchEventsForSelect";
+import {useActions} from "@/hooks/useActions";
+import {useTypedSelector} from "@/hooks/useTypedSelector";
+import styles from "@/webpages/admin/AdminEventCreate/AdminEventCreate.module.scss";
 
 const DynamicSelect = dynamic(() => import('@/UI/InputGroup/SelectCustom/SelectCustom'), {
     ssr: false
@@ -33,21 +36,41 @@ const AdminEvent: FC = () => {
     const {data: events, isLoading: isEventsLoading} = useFetchEventsForSelect();
 
     const {
-        register, handleSubmit, formState: {errors}, control, setValue
+        register, handleSubmit, formState: {errors}, control, setValue, watch
     } = useForm<IEventFieldsClient>({
         mode: "onChange"
     });
 
+    const subjectTerm = watch("subjects") ? watch("subjects").split(';\n')[watch("subjects").split(';\n').length - 1] : "";
+    const subjects = watch("subjects") ? watch("subjects").split(';\n') : [];
+
     const {onSubmit, data, isLoading, isUpdateLoading} = useEventEdit(setValue);
     const event = data?.data;
 
+    const state = useTypedSelector(state => state.filterReducer);
+
+    const [isActive, setIsActive] = useState(false);
+
+    const autoFill = (subject: string) => {
+        setValue("subjects", `${subjects.slice(0, -1).join(';\n')}${subjects.slice(0, -1).join(';\n').length > 0 ? ";\n" : ""}${subject};\n`)
+    }
+
+    const {loadAllSubjects, subjectsSearch} = useActions();
+    useEffect(() => {
+        loadAllSubjects();
+    }, []);
+
+    useEffect(() => {
+        subjectsSearch(subjectTerm)
+    }, [subjectTerm, subjectsSearch]);
+
     return (
         <>
-            <AdminEventNavbar />
+            <AdminEventNavbar/>
             <AdminContent isLoading={isLoading} title={`Редактирование мероприятия "${event?.title}"`}>
                 {
                     isLoading
-                        ? <AdminFormLoader />
+                        ? <AdminFormLoader/>
                         : <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: '100%'}}>
                             <FieldsSection>
                                 <InputGroup title="Название">
@@ -276,6 +299,62 @@ const AdminEvent: FC = () => {
                                     />
                                 </InputGroup>
 
+                                <InputGroup
+                                    title="Тематики (каждая тематика разделяется точкой с запятой и переносом строки)"
+                                >
+                                    <div className={styles.subjectsWrapper}>
+                                        <Textarea
+                                            {...register('subjects', {
+                                                required: "Это поле обязательно"
+                                            })}
+                                            placeholder="Введите текст"
+                                            error={errors.subjects}
+                                            onFocus={() => setIsActive(true)}
+                                            onBlur={() => setTimeout(() => setIsActive(false), 100)}
+                                        />
+                                        {
+                                            (isActive && state.foundSubjects.length > 0 && state.allSubjects.length > 0) && <div className={styles.subjects}>
+                                                {
+                                                    (subjectTerm !== "" || subjectTerm[subjectTerm.length - 1] !== ';') ? [...state.foundSubjects].sort((a, b) => {
+                                                            if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                                                return -1;
+                                                            }
+                                                            if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                                                return 1;
+                                                            }
+                                                            return 0;
+                                                        }).map(s =>
+                                                            <div
+                                                                onClick={() => autoFill(s.subject)}
+                                                                key={s.id}
+                                                                className={styles.subject}
+                                                            >
+                                                                {s.subject}
+                                                            </div>
+                                                        )
+                                                        : [...state.allSubjects].sort((a, b) => {
+                                                            if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                                                return -1;
+                                                            }
+                                                            if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                                                return 1;
+                                                            }
+                                                            return 0;
+                                                        }).map(s =>
+                                                            <div
+                                                                onClick={() => autoFill(s.subject)}
+                                                                key={s.id}
+                                                                className={styles.subject}
+                                                            >
+                                                                {s.subject}
+                                                            </div>
+                                                        )
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </InputGroup>
+
                                 <InputGroup title="Регламентирующие документы">
                                     <Textarea
                                         {...register('document')}
@@ -291,16 +370,6 @@ const AdminEvent: FC = () => {
                                         })}
                                         placeholder="Введите контакты"
                                         error={errors.internal_contacts}
-                                    />
-                                </InputGroup>
-
-                                <InputGroup title="Тематики (каждая тематика разделяется точкой с запятой и переносом строки)">
-                                    <Textarea
-                                        {...register('subjects', {
-                                            required: "Это поле обязательно"
-                                        })}
-                                        placeholder="Введите текст"
-                                        error={errors.subjects}
                                     />
                                 </InputGroup>
                             </FieldsSection>
