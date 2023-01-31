@@ -78,7 +78,7 @@ export const EventService = {
     async create(data: IEventFieldsClient) {
         return await instance.post<IEvent>(`/v1/event/`, {
             ...data, submission_deadline: convertInputDateToPostgresDate(data.submission_deadline),
-            subjects: data.subjects.split(';\n'),
+            subjects: separateBySemicolons(data.subjects),
             founding_range: {
                 low: Number(data.founding_range.low),
                 high: Number(data.founding_range.high),

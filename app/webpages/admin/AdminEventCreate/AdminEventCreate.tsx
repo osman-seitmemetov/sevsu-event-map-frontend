@@ -50,6 +50,7 @@ const AdminEventCreate: FC = () => {
     const [isActive, setIsActive] = useState(false);
 
     const autoFill = (subject: string) => {
+        console.log("set")
         setValue("subjects", `${subjects.slice(0, -1).join(';\n')}${subjects.slice(0, -1).join(';\n').length > 0 ? ";\n" : ""}${subject};\n`)
     }
 
@@ -296,60 +297,60 @@ const AdminEventCreate: FC = () => {
                         </InputGroup>
 
                         <InputGroup
-                            title="Тематики (каждая тематика разделяется точкой с запятой и переносом строки)"
-                        >
-                            <div className={styles.subjectsWrapper}>
-                                <Textarea
-                                    {...register('subjects', {
-                                        required: "Это поле обязательно"
-                                    })}
-                                    placeholder="Введите текст"
-                                    error={errors.subjects}
-                                    onFocus={() => setIsActive(true)}
-                                    onBlur={() => setTimeout(() => setIsActive(false), 100)}
-                                />
-                                {
-                                    (isActive && state.foundSubjects.length > 0 && state.allSubjects.length > 0) && <div className={styles.subjects}>
+                                    title="Тематики (каждая тематика разделяется точкой с запятой и переносом строки)"
+                                >
+                                    <div className={styles.subjectsWrapper}>
+                                        <Textarea
+                                            {...register('subjects', {
+                                                required: "Это поле обязательно"
+                                            })}
+                                            placeholder="Введите текст"
+                                            error={errors.subjects}
+                                            onFocus={() => setIsActive(true)}
+                                            onBlur={() => setTimeout(() => setIsActive(false), 100)}
+                                        />
                                         {
-                                            (subjectTerm !== "" || subjectTerm[subjectTerm.length - 1] !== ';') ? [...state.foundSubjects].sort((a, b) => {
-                                                    if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
-                                                        return -1;
-                                                    }
-                                                    if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
-                                                        return 1;
-                                                    }
-                                                    return 0;
-                                                }).map(s =>
-                                                    <div
-                                                        onClick={() => autoFill(s.subject)}
-                                                        key={s.id}
-                                                        className={styles.subject}
-                                                    >
-                                                        {s.subject}
-                                                    </div>
-                                                )
-                                                : [...state.allSubjects].sort((a, b) => {
-                                                    if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
-                                                        return -1;
-                                                    }
-                                                    if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
-                                                        return 1;
-                                                    }
-                                                    return 0;
-                                                }).map(s =>
-                                                    <div
-                                                        onClick={() => autoFill(s.subject)}
-                                                        key={s.id}
-                                                        className={styles.subject}
-                                                    >
-                                                        {s.subject}
-                                                    </div>
-                                                )
+                                            (isActive && state.foundSubjects.length > 0 && state.allSubjects.length > 0) && <div className={styles.subjects}>
+                                                {
+                                                    (subjectTerm !== "" || subjectTerm[subjectTerm.length - 1] !== ';') ? [...state.foundSubjects].sort((a, b) => {
+                                                            if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                                                return -1;
+                                                            }
+                                                            if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                                                return 1;
+                                                            }
+                                                            return 0;
+                                                        }).map(s =>
+                                                            <div
+                                                                onClick={() => autoFill(s.subject)}
+                                                                key={s.id}
+                                                                className={styles.subject}
+                                                            >
+                                                                {s.subject}
+                                                            </div>
+                                                        )
+                                                        : [...state.allSubjects].sort((a, b) => {
+                                                            if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                                                                return -1;
+                                                            }
+                                                            if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                                                                return 1;
+                                                            }
+                                                            return 0;
+                                                        }).map(s =>
+                                                            <div
+                                                                onClick={() => autoFill(s.subject)}
+                                                                key={s.id}
+                                                                className={styles.subject}
+                                                            >
+                                                                {s.subject}
+                                                            </div>
+                                                        )
+                                                }
+                                            </div>
                                         }
                                     </div>
-                                }
-                            </div>
-                        </InputGroup>
+                                </InputGroup>
 
                         <InputGroup title="Регламентирующие документы">
                             <Textarea

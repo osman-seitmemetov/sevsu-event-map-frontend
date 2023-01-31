@@ -16,7 +16,7 @@ export const axiosClassic = axios.create({
 // console.log("API_SERVER_URL", API_SERVER_URL)
 
 export const instance = axios.create({
-    baseURL: API_URL,
+    baseURL: IS_PRODUCTION ? API_SERVER_URL : API_URL,
     headers: {
         'Content-Type': 'application/json'
     },
