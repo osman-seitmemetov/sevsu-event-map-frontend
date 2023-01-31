@@ -312,6 +312,7 @@ const HomeEventsFilter: FC = () => {
                 }
             </div>
 
+
             <div className={styles.subjectsWrapper}>
                 {
                     isFilterStateEmpty
