@@ -2,16 +2,16 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    // env: {
-    //     APP_URL: process.env.NEXT_APP_URL,
-    //     APP_ENV: process.env.NEXT_APP_ENV,
-    //     APP_SERVER_URL: process.env.NEXT_APP_SERVER_URL
-    // },
+    env: {
+        NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+        NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
+        NEXT_PUBLIC_APP_SERVER_URL: process.env.NEXT_PUBLIC_APP_SERVER_URL
+    },
     async rewrites() {
         return [
             {
                 source: "/api/:path*",
-                destination: `https://event-map-django.onrender.com/api/:path*`
+                destination: `${process.env.NEXT_PUBLIC_APP_SERVER_URL}/api/:path*`
             }
         ]
     }
