@@ -8,6 +8,7 @@ USER node
 
 RUN npm install
 RUN npm run build
+RUN npx next build
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
