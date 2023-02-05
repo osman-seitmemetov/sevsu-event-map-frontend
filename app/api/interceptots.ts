@@ -11,9 +11,9 @@ export const axiosClassic = axios.create({
     withCredentials: true
 });
 
-// console.log("API_URL", API_URL)
-// console.log("IS_PRODUCTION", IS_PRODUCTION)
-// console.log("API_SERVER_URL", API_SERVER_URL)
+console.log("API_URL", API_URL)
+console.log("IS_PRODUCTION", IS_PRODUCTION)
+console.log("API_SERVER_URL", API_SERVER_URL)
 
 export const instance = axios.create({
     baseURL: IS_PRODUCTION ? API_SERVER_URL : API_URL,

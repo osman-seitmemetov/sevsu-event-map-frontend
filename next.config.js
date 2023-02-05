@@ -7,14 +7,14 @@ const nextConfig = {
         APP_ENV: process.env.NEXT_APP_ENV,
         APP_SERVER_URL: process.env.NEXT_APP_SERVER_URL
     },
-    // async rewrites() {
-    //     return [
-    //         {
-    //             source: "/api/:path*",
-    //             destination: `https://event-map-django.onrender.com/api/:path*`
-    //         }
-    //     ]
-    // }
+    async rewrites() {
+        return [
+            {
+                source: "/api/:path*",
+                destination: `https://event-map-django.onrender.com/api/:path*`
+            }
+        ]
+    }
 }
 
 module.exports = nextConfig
