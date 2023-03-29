@@ -2,10 +2,10 @@ import React, {ButtonHTMLAttributes, FC} from 'react';
 import style from './PrimaryButton.module.scss';
 
 interface IPrimaryButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-
+    hint?: string
 }
 
-const PrimaryButton: FC<IPrimaryButton> = ({className, children, ...rest}) => {
+const PrimaryButton: FC<IPrimaryButton> = ({className, children, hint, ...rest}) => {
     return (
         <>
             <button
@@ -13,6 +13,12 @@ const PrimaryButton: FC<IPrimaryButton> = ({className, children, ...rest}) => {
                 {...rest}
             >
                 {children}
+
+                {
+                    hint && <div className={style.hint}>
+                        {hint}
+                    </div>
+                }
             </button>
         </>
     );

@@ -1,13 +1,13 @@
 import React, {FC} from "react";
 import {
-    EmailIcon,
     TelegramIcon,
-    VKIcon,
-    EmailShareButton,
     TelegramShareButton,
+    ViberIcon,
     ViberShareButton,
+    VKIcon,
     VKShareButton,
-    WhatsappShareButton, ViberIcon, WhatsappIcon
+    WhatsappIcon,
+    WhatsappShareButton
 } from "react-share";
 import Modal from "@/UI/modals/Modal/Modal";
 import QRCode from "react-qr-code";

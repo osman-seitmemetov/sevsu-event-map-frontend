@@ -307,7 +307,7 @@ const AdminEventCreate: FC = () => {
                                             placeholder="Введите текст"
                                             error={errors.subjects}
                                             onFocus={() => setIsActive(true)}
-                                            onBlur={() => setTimeout(() => setIsActive(false), 100)}
+                                            onBlur={() => setTimeout(() => setIsActive(false), 300)}
                                         />
                                         {
                                             (isActive && state.foundSubjects.length > 0 && state.allSubjects.length > 0) && <div className={styles.subjects}>

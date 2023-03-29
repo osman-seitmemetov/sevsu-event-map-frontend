@@ -30,6 +30,9 @@ const HomeNav: FC = () => {
                         </Link>
                 }
 
+                <Link href="/guide" className={styles.btn}>
+                    <PrimaryButton>инструкция для пользователя</PrimaryButton>
+                </Link>
                 <FavouritesButton className={styles.btn}/>
             </div>
         </nav>

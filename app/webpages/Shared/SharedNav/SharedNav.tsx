@@ -7,6 +7,7 @@ import EventsPrint from "@/components/EventsPrint/EventsPrint";
 import ShareModal from "@/UI/modals/ShareModal/ShareModal";
 import PrintButton from "@/UI/PrintButton/PrintButton";
 import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
+import {APP_URL} from "@/config/API";
 
 
 const SharedNav: FC<{eventIds: number[]}> = ({eventIds}) => {
@@ -46,7 +47,7 @@ const SharedNav: FC<{eventIds: number[]}> = ({eventIds}) => {
                 {/*    refContent={selectedPrintContentRef}*/}
                 {/*/>*/}
 
-                <ShareModal modalTitle="Поделиться мероприятиями" title="Мероприятие" url={`https://sevsu-event-map.onrender.com/shared${convertIdsToURL(eventIds, "id")}`} setIsActive={setIsActive} isActive={isActive}/>
+                <ShareModal modalTitle="Поделиться мероприятиями" title="Мероприятие" url={`${APP_URL}/shared${convertIdsToURL(eventIds, "id")}`} setIsActive={setIsActive} isActive={isActive}/>
             </div>
         </nav>
     );

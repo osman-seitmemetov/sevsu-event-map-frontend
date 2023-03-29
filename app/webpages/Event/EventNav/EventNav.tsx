@@ -1,22 +1,17 @@
 import React, {FC, useRef, useState,} from "react";
 import styles from "./EventNav.module.scss";
 import Logo from "@/components/Logo/Logo";
-import Link from "next/link";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import ReactToPrint from "react-to-print";
 import EventsPrint from "@/components/EventsPrint/EventsPrint";
-import {IEvent} from "@/models/IEvent";
-import {IOrganizer} from "@/models/IOrganizer";
 import {favouritesSlice} from "@/store/favourites/favouritesSlice";
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "@/hooks/useTypedSelector";
 import {useRouter} from "next/router";
 import PrintButton from "@/UI/PrintButton/PrintButton";
-import Modal from "@/UI/modals/Modal/Modal";
-import QRCode from "react-qr-code";
-import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
 import ShareModal from "@/UI/modals/ShareModal/ShareModal";
 import FavouritesButton from "@/components/FavouritesButton/FavouritesButton";
+import {APP_URL} from "@/config/API";
 
 
 export interface EventNavProps {
@@ -70,7 +65,7 @@ const EventNav: FC<EventNavProps> = () => {
             <ShareModal
                 modalTitle="Поделиться мероприятием"
                 title=""
-                url={`https://sevsu-event-map.onrender.com/event/${eventId}`}
+                url={`${APP_URL}/event/${eventId}`}
                 setIsActive={setIsActive}
                 isActive={isActive}
             />

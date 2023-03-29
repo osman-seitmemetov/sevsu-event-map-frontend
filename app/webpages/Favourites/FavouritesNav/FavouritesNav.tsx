@@ -9,6 +9,7 @@ import ShareModal from "@/UI/modals/ShareModal/ShareModal";
 import {convertIdsToURL} from "@/utils/string/convertIdsToURL";
 import PrintButton from "@/UI/PrintButton/PrintButton";
 import Link from "next/link";
+import {APP_URL} from "@/config/API";
 
 
 const FavouritesNav: FC = () => {
@@ -78,7 +79,7 @@ const FavouritesNav: FC = () => {
                         <ShareModal
                             modalTitle="Поделиться мероприятиями"
                             title=""
-                            url={`https://sevsu-event-map.onrender.com/shared${convertIdsToURL(eventIds, "id")}`}
+                            url={`${APP_URL}/shared?${convertIdsToURL(eventIds, "id")}`}
                             setIsActive={setIsAllActive}
                             isActive={isAllActive}
                         />
@@ -86,7 +87,7 @@ const FavouritesNav: FC = () => {
                         <ShareModal
                             modalTitle="Поделиться мероприятиями"
                             title=""
-                            url={`https://sevsu-event-map.onrender.com/shared${convertIdsToURL(eventIdsSelected, "id")}`}
+                            url={`${APP_URL}/shared?${convertIdsToURL(eventIdsSelected, "id")}`}
                             setIsActive={setIsSelectedActive}
                             isActive={isSelectedActive}
                         />

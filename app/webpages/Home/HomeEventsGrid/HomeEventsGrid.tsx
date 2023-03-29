@@ -103,10 +103,10 @@ const HomeEventsGrid: FC<HomeEventsGridProps> = () => {
         })
     }
 
-    useEffect(() => {
-        scrollToStart();
-        window.addEventListener('resize', scrollToStart);
-    })
+    // useEffect(() => {
+    //     scrollToStart();
+    //     window.addEventListener('resize', scrollToStart);
+    // })
 
     const resizeHandler = (left: number = 0) => {
         setIsExtended(true)

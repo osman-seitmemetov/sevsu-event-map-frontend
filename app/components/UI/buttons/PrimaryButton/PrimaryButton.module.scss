@@ -16,6 +16,8 @@
     height: 40px;
     user-select: none;
 
+    position: relative;
+
     &:hover {
         background-color: #105086;
     }
@@ -28,4 +30,8 @@
         background-color: #073E6D;
         cursor: default;
     }
+}
+
+.hint {
+    position: absolute;
 }

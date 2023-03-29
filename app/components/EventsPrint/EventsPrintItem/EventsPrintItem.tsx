@@ -1,11 +1,10 @@
 import React, {FC} from 'react';
 import styles from "./EventsPrintItem.module.scss";
-import Logo from "@/assets/img/edu_rf.png"
-import QR from "@/assets/img/qr.jpg"
 import {IEventOrganizer} from "@/models/IEventOrganizer";
 import QRCode from "react-qr-code";
 import {joinBySemicolons} from "@/utils/string/joinBySemicolons";
 import {convertPostgresDateToNormalDate} from "../../../helpers/date/convertPostgresDateToNormalDate";
+import {APP_URL} from "@/config/API";
 
 
 const EventsPrintItem: FC<{ event: IEventOrganizer }> = ({event}) => {
@@ -86,7 +85,7 @@ const EventsPrintItem: FC<{ event: IEventOrganizer }> = ({event}) => {
 
                 <div className={styles.right}>
                     <img className={styles.logo} src={event.organizer.logo} alt="logo"/>
-                    <QRCode size={300} value={`https://sevsu-event-map.onrender.com/event/${event.id}`}/>
+                    <QRCode size={300} value={`${APP_URL}/event/${event.id}`}/>
                     <div className={styles.annotation}>Отсканируйте QR код, чтобы увидеть ссылки на файлы и сайты</div>
                 </div>
             </div>
