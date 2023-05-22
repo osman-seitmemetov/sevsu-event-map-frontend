@@ -25,9 +25,17 @@ const AdminFoundings: FC = () => {
                     <div className={styles.items}>
                         {
                             isLoading
-                                ? <AdminFoundingsLoader />
+                                ? <AdminFoundingsLoader/>
                                 : foundingTypes?.length
-                                    ? foundingTypes?.map(foundingType =>
+                                    ? [...foundingTypes].sort((a, b) => {
+                                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                                            return -1;
+                                        }
+                                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                                            return 1;
+                                        }
+                                        return 0;
+                                    }).map(foundingType =>
                                         <AdminFoundingsItem
                                             key={foundingType.id}
                                             foundingType={foundingType}

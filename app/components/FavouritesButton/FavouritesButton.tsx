@@ -13,7 +13,7 @@ const FavouritesButton: FC<FavouritesButtonProps> = ({className}) => {
 
     return (
         <Link className={styles.wrapper} href="/favourites">
-            <PrimaryButton className={`${styles.btn} ${className}`}>избранное</PrimaryButton>
+            <PrimaryButton className={`${styles.btn} ${className}`} hint="Здесь мероприятия, которые Вы сохранили в избранное">избранное</PrimaryButton>
             {eventIds.length > 0 && <div className={styles.count}>{eventIds.length}</div>}
         </Link>
     );

@@ -1,6 +1,6 @@
 import {ICompetitor} from "@/models/ICompetitor";
 import {ICompetitorFields} from "@/models/form";
-import {axiosClassic, instance} from "../api/interceptots";
+import {axiosClassic, instance} from "@/api/interceptots";
 
 
 export const CompetitorService = {

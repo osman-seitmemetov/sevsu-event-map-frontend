@@ -20,6 +20,10 @@
 
     &:hover {
         background-color: #105086;
+
+        .hint {
+            display: block;
+        }
     }
 
     &:active {
@@ -33,5 +37,32 @@
 }
 
 .hint {
+    display: none;
     position: absolute;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.07), -4px -4px 15px rgba(0, 0, 0, 0.07);
+    border-radius: 12px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #000000;
+    top: 50px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    min-width: max-content;
+    z-index: 10;
+    text-transform: none;
+
+    &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        top: -10px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+    }
 }

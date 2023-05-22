@@ -1,8 +1,17 @@
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 import styles from "./AdminSidebar.module.scss";
 import NavLink from "@/components/NavLink/NavLink";
+import {useAuth} from "@/hooks/useAuth";
 
 const AdminSidebar: FC = () => {
+    const {user} = useAuth();
+
+    const [domLoaded, setDomLoaded] = useState(false);
+
+    useEffect(() => {
+        setDomLoaded(true);
+    }, [domLoaded]);
+
     return (
         <aside className={styles.sidebar}>
             <NavLink
@@ -36,6 +45,16 @@ const AdminSidebar: FC = () => {
             >
                 Типы финансирования
             </NavLink>
+
+            {
+                domLoaded && user?.is_superuser && <NavLink
+                    href="/admin/users"
+                    className={styles.link}
+                    activeClassName={styles.link_active}
+                >
+                    Пользователи
+                </NavLink>
+            }
         </aside>
     );
 };

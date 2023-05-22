@@ -1,11 +1,19 @@
 import axios from "axios";
-import {API_SERVER_URL, API_URL} from "@/config/API";
+import {API_SERVER, API_SERVER_URL, API_URL} from "@/config/API";
 import {IS_PRODUCTION} from "@/config/constants";
 
 
 export const axiosClassic = axios.create({
     // baseURL: IS_PRODUCTION ? API_SERVER_URL : API_URL,
     baseURL: API_SERVER_URL,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    withCredentials: true
+});
+
+export const axiosURL = axios.create({
+    baseURL: API_SERVER,
     headers: {
         'Content-Type': 'application/json'
     },

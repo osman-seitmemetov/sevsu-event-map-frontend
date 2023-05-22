@@ -24,11 +24,13 @@
       "@/config/*": ["config/*"],
       "@/services/*": ["services/*"],
       "@/utils/*": ["utils/*"],
+      "@/helpers/*": ["helpers/*"],
       "@/store/*": ["store/*"],
       "@/assets/*": ["assets/*"],
       "@/types/*": ["types/*"],
       "@/models/*": ["models/*"],
       "@/http/*": ["http/*"],
+      "@/api/*": ["api/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

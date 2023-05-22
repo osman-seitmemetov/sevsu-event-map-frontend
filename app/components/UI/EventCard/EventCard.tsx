@@ -6,7 +6,7 @@ import {IEventMin} from "@/models/IEvent";
 import {favouritesSlice} from "@/store/favourites/favouritesSlice";
 import {useDispatch} from "react-redux";
 import {joinBySemicolons} from "@/utils/string/joinBySemicolons";
-import {convertPostgresDateToNormalDate} from "../../../helpers/date/convertPostgresDateToNormalDate";
+import {convertPostgresDateToNormalDate} from "@/helpers/date/convertPostgresDateToNormalDate";
 
 
 interface EventCardProps {

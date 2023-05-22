@@ -1,6 +1,5 @@
-import {LoginResponse} from "@/models/response/LoginResponse";
+import {IUser} from "@/models/IUser";
 
-export const saveToStorage = (data: LoginResponse) => {
-    // saveTokensStorage(data)
-    // localStorage.setItem('user', JSON.stringify(data.user))
+export const saveToStorage = (user: IUser) => {
+    localStorage.setItem('user', JSON.stringify(user));
 }

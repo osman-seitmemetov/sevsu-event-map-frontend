@@ -4,6 +4,7 @@ export interface IOrganizerFields {
     level: string
 }
 
+///////////
 interface IEventFields {
     id: number,
     internal_university_contacts: string,
@@ -16,6 +17,7 @@ interface IEventFields {
     internal_contacts: string,
     competitors: number[]
 }
+////////////
 
 export interface IEventFieldsServer extends IEventFields {
     founding_range: {
@@ -88,6 +90,15 @@ export interface IFilterFields {
 export interface ILoginFields {
     username: string,
     password: string
+}
+
+export interface IRegistrationFields {
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+    confirmPassword: string
 }
 
 export interface ILogin {

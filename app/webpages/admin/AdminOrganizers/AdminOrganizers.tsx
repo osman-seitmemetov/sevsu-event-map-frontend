@@ -14,7 +14,7 @@ const AdminOrganizers: FC = () => {
 
     return (
         <>
-            <AdminOrganizersNavbar />
+            <AdminOrganizersNavbar/>
             <AdminContent title="Организаторы">
                 <div className={styles.items}>
                     {
@@ -29,7 +29,15 @@ const AdminOrganizers: FC = () => {
                                 }}
                             />
                             : organizers?.length
-                                ? organizers.map(organizer =>
+                                ? [...organizers].sort((a, b) => {
+                                    if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                                        return -1;
+                                    }
+                                    if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                }).map(organizer =>
                                     <AdminOrganizersItem
                                         organizer={organizer}
                                         key={organizer.id}

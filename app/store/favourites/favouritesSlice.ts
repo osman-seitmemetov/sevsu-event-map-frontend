@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {fetchFavourites} from "@/store/favourites/FavouritesActionCreators";
 
 interface eventsState {
     eventIds: number[],
@@ -28,8 +29,18 @@ export const favouritesSlice = createSlice({
 
         favouritesDelete(state, action: PayloadAction<number>) {
             state.eventIds = state.eventIds.filter(id => id !== action.payload);
+        },
+
+        favouritesDeleteAll(state) {
+            state.eventIds = [];
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchFavourites.fulfilled, (state, action: PayloadAction<number[]>) => {
+            state.eventIds = action.payload;
+        })
     }
 })
 
+export const favouritesActions = favouritesSlice.actions;
 export default favouritesSlice.reducer;

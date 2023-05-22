@@ -12,6 +12,10 @@ import {useActions} from "@/hooks/useActions";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import {REQUIRE_ERROR} from "@/utils/consts";
 import {useRouter} from "next/router";
+import ButtonTransparent from "@/UI/buttons/ButtonTransparent/ButtonTransparent";
+import FormSeparator from "@/UI/Form/FormSeparator/FormSeparator";
+import Link from "next/link";
+import LoginNav from "@/webpages/Login/LoginNav/LoginNav";
 
 
 const Login: FC = () => {
@@ -42,8 +46,9 @@ const Login: FC = () => {
     return (
         <section className={styles.login}>
             <Container>
-                <h1 className={styles.title}>Вход</h1>
-                <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: 450}}>
+                <LoginNav/>
+                <Form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: 450, marginTop: 50}}>
+                    <h1 className={styles.title} style={{textAlign: "center"}}>Вход</h1>
                     <InputGroup style={{marginBottom: 20}} title="Логин">
                         <Input
                             {...register('username', {
@@ -65,7 +70,10 @@ const Login: FC = () => {
                         />
                     </InputGroup>
 
-                    <PrimaryButton disabled={isLoading}>Войти</PrimaryButton>
+                    <PrimaryButton type="submit" disabled={isLoading}>Войти</PrimaryButton>
+                    <FormSeparator/>
+                    <Link href="/register"><ButtonTransparent
+                        disabled={isLoading}>Зарегистрироваться</ButtonTransparent></Link>
                 </Form>
             </Container>
         </section>

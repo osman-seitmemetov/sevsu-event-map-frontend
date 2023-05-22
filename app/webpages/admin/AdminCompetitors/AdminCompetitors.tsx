@@ -2,12 +2,9 @@ import React, {FC, useState} from "react";
 import styles from "./AdminCompetitors.module.scss";
 import {useCompetitorsFetch} from "./useCompetitorsFetch";
 import AdminCompetitorsItem from "./AdminCompetitorsItem/AdminCompetitorsItem";
-import Input from "@/UI/InputGroup/Input/Input";
-import InputGroup from "@/UI/InputGroup/InputGroup";
 import PrimaryButton from "@/UI/buttons/PrimaryButton/PrimaryButton";
 import AdminContent from "@/components/AdminContent/AdminContent";
 import AdminCompetitorsNavbar from "@/webpages/admin/AdminCompetitors/AdminCompetitorsNavbar/AdminCompetitorsNavbar";
-import SkeletonLoader from "@/UI/SkeletonLoader/SkeletonLoader";
 import ButtonTransparent from "@/UI/buttons/ButtonTransparent/ButtonTransparent";
 import Modal from "@/UI/modals/Modal/Modal";
 import AdminCompetitorsLoader from "@/webpages/admin/AdminCompetitors/AdminCompetitorsLoader/AdminCompetitorsLoader";
@@ -25,24 +22,20 @@ const AdminCompetitors: FC = () => {
             <AdminCompetitorsNavbar/>
             <AdminContent title="Типы участников">
                 <div className={styles.competitors}>
-                    {/*<div className={styles.form}>*/}
-                    {/*    <InputGroup title="Новый тип участника">*/}
-                    {/*        <Input*/}
-                    {/*            className={styles.form__input}*/}
-                    {/*            placeholder="Введите название типа участника"*/}
-                    {/*        />*/}
-                    {/*    </InputGroup>*/}
-
-                    {/*    <FavouritesButton style={{height: 50}} className={styles.form__button}>создать тип*/}
-                    {/*        участника</FavouritesButton>*/}
-                    {/*</div>*/}
-
                     <div className={styles.items}>
                         {
                             isLoading
                                 ? <AdminCompetitorsLoader/>
                                 : competitors?.length
-                                    ? competitors?.map(competitor =>
+                                    ? [...competitors].sort((a, b) => {
+                                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                                            return -1;
+                                        }
+                                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                                            return 1;
+                                        }
+                                        return 0;
+                                    }).map(competitor =>
                                         <AdminCompetitorsItem
                                             key={competitor.id}
                                             competitor={competitor}

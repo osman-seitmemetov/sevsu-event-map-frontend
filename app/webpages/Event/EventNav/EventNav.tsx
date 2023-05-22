@@ -12,6 +12,9 @@ import PrintButton from "@/UI/PrintButton/PrintButton";
 import ShareModal from "@/UI/modals/ShareModal/ShareModal";
 import FavouritesButton from "@/components/FavouritesButton/FavouritesButton";
 import {APP_URL} from "@/config/API";
+import {useActions} from "@/hooks/useActions";
+import {FavouritesService} from "@/services/FavouritesService";
+import {useAuth} from "@/hooks/useAuth";
 
 
 export interface EventNavProps {
@@ -22,20 +25,21 @@ export interface EventNavProps {
 const EventNav: FC<EventNavProps> = () => {
     const printContentRef = useRef<HTMLDivElement>(null);
     const {eventIds} = useTypedSelector(state => state.favouritesReducer);
-    const {favouritesAdd, favouritesDelete} = favouritesSlice.actions;
-    const dispatch = useDispatch();
+    const {favouritesAdd, favouritesDelete} = useActions();
     const {query} = useRouter();
     const eventId = Number(query.id);
     const [isLoading, setIsLoading] = useState(false);
     const [isActive, setIsActive] = useState(false);
-    const {asPath} = useRouter();
+    const {user, isAuthorized} = useAuth();
 
     const addHandler = () => {
-        dispatch(favouritesAdd(eventId))
+        favouritesAdd(eventId);
+        if(isAuthorized && user) FavouritesService.updateFavourites(user.id, [...eventIds, eventId]);
     }
 
     const deleteHandler = () => {
-        dispatch(favouritesDelete(eventId))
+        favouritesDelete(eventId);
+        if(isAuthorized && user) FavouritesService.updateFavourites(user.id, eventIds.filter((n) => n != eventId));
     }
 
     return (

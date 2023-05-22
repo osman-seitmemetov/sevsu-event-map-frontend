@@ -12,10 +12,7 @@ const AdminHome: FC = () => {
     }, [push])
 
     return (
-        <>
-            {/*<AdminHomeNavbar />*/}
-            {/*<EventsPrint title="Административная панель"></EventsPrint>*/}
-        </>
+        <></>
     );
 }
 
