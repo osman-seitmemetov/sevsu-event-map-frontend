@@ -15,4 +15,10 @@
     font-size: 18px;
     line-height: 22px;
     outline: none;
+
+    &:disabled {
+        border: 2px solid rgba(162, 162, 178, 0.5);
+        color: rgba(162, 162, 178, 0.5);
+        cursor: default;
+    }
 }
