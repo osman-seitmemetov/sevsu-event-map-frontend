@@ -12,6 +12,8 @@ import {useDispatch} from "react-redux";
 import PrintButton from "@/UI/PrintButton/PrintButton";
 import ShareModal from "@/UI/modals/ShareModal/ShareModal";
 import FavouritesButton from "@/components/FavouritesButton/FavouritesButton";
+import {FavouritesService} from "@/services/FavouritesService";
+import {useAuth} from "@/hooks/useAuth";
 
 
 const FavouritesEventNav: FC = () => {
@@ -28,6 +30,7 @@ const FavouritesEventNav: FC = () => {
 
     const {favouritesDelete} = favouritesSlice.actions;
     const dispatch = useDispatch();
+    const {user, isAuthorized} = useAuth();
 
     const prevHandler = () => {
         push(`/favourites/${prevEventId}`)
@@ -38,7 +41,9 @@ const FavouritesEventNav: FC = () => {
     }
 
     const deleteHandler = () => {
-        dispatch(favouritesDelete(eventId))
+        dispatch(favouritesDelete(eventId));
+        if(isAuthorized && user) FavouritesService.updateFavourites(user.id, eventIds.filter((n) => n != eventId));
+
         if(eventIds.length > 1) {
             push(`/favourites/${nextEventId}`)
         } else push(`/favourites`);

@@ -1,4 +1,3 @@
-import {IFoundingTypeFields} from "@/models/form";
 import {instance} from "@/api/interceptots";
 
 
