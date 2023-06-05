@@ -18,6 +18,7 @@ import ButtonTransparent from "@/UI/buttons/ButtonTransparent/ButtonTransparent"
 import {registration} from "@/store/auth/AuthActionCreators";
 import {useTypedSelector} from "@/hooks/useTypedSelector";
 import RegistrationNav from "@/webpages/Registration/RegistrationNav/RegistrationNav";
+import {toastr} from "react-redux-toastr";
 
 
 const Registration: FC = () => {
@@ -35,7 +36,6 @@ const Registration: FC = () => {
     const {registration} = useActions();
 
     const {eventIds} = useTypedSelector(state => state.favouritesReducer);
-    console.log(eventIds)
 
     const onSubmit: SubmitHandler<IRegistrationFields> = ({password, username, firstName, lastName, email, confirmPassword}) => {
         registration({password, username, firstName, lastName, email, confirmPassword, eventIds});

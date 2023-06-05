@@ -59,7 +59,6 @@ const AdminEvents: FC = () => {
                             <PrimaryButton
                                 onClick={() => {
                                     deleteAsync(Number(eventId));
-                                    console.log(eventId)
                                     setActiveModal(false);
                                 }}
                                 style={{width: '48%'}}

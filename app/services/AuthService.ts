@@ -5,6 +5,7 @@ import {saveTokenToLocalStorage} from "@/utils/saveTokenToLocalStorage";
 import {RegistrationResponse} from "@/models/response/RegistrationResponse";
 import {API_SERVER} from "@/config/API";
 import {IUser} from "@/models/IUser";
+import {saveToStorage} from "@/helpers/auth/saveToStorage";
 
 
 export const AuthService = {
@@ -13,6 +14,10 @@ export const AuthService = {
         if (response.data.access) saveTokenToLocalStorage(response.data.access);
 
         const user = await instance.get<IUser>('/user/info');
+
+        if (user) {
+            saveToStorage(user.data)
+        }
 
         return {...response.data, user: user.data};
     },
@@ -24,6 +29,10 @@ export const AuthService = {
         const user = await axios.post<IUser>(`${API_SERVER}/accounts/register/`, {
             username, first_name: firstName, last_name: lastName, email, password, password_confirm: confirmPassword
         });
+
+        if (user) {
+            saveToStorage(user.data)
+        }
 
         const tokens = await axiosClassic.post<{access: string, refresh: string}>('/token/', {username, password});
         if(tokens.data.access) saveTokenToLocalStorage(tokens.data.access);

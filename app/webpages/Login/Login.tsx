@@ -24,8 +24,6 @@ const Login: FC = () => {
     const {isAuthorized, isLoading} = useAuth();
     if (typeof window !== 'undefined' && isAuthorized) router.push('/');
 
-    console.log(isAuthorized)
-
     const {
         register,
         handleSubmit,

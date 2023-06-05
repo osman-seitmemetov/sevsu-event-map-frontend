@@ -34,8 +34,6 @@ const EventNav: FC<EventNavProps> = () => {
 
     const addHandler = () => {
         favouritesAdd(eventId);
-        console.log(user);
-        console.log(isAuthorized);
         if(isAuthorized && user) FavouritesService.updateFavourites(user.id, [...eventIds, eventId]);
     }
 

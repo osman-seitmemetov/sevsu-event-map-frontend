@@ -10,7 +10,6 @@ import FavouritesLoader from "@/webpages/Favourites/FavouritesLoader/FavouritesL
 
 const Favourites: FC = () => {
     const {eventIds} = useTypedSelector(state => state.favouritesReducer);
-    console.log("eventIds", eventIds)
     const {data, isLoading} = useEventMinsByIds(eventIds);
     const eventMins = data?.data;
 

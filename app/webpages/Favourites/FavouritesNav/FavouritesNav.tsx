@@ -21,8 +21,6 @@ const FavouritesNav: FC = () => {
     const [isAllLoading, setIsAllLoading] = useState(false);
     const [isSelectedLoading, setIsSelectedLoading] = useState(false);
 
-    console.log(eventIds)
-
     return (
         <nav className={styles.nav}>
             <Logo/>
