@@ -3,9 +3,9 @@ import styles from "./GuidePage.module.scss";
 
 
 interface GuidePageProps {
-    img: string,
+    img: string | undefined,
     title: string,
-    desc: string
+    desc: string | undefined
 }
 
 const GuidePage: FC<GuidePageProps> = ({img, desc, title}) => {

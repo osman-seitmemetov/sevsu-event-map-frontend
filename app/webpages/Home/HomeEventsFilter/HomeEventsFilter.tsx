@@ -312,7 +312,6 @@ const HomeEventsFilter: FC = () => {
                 }
             </div>
 
-
             <div className={styles.subjectsWrapper}>
                 {
                     isFilterStateEmpty
@@ -345,10 +344,10 @@ const HomeEventsFilter: FC = () => {
                                     }
                                 </div>
                                 : <div>Тематики не найдены</div>
-                        : state.sortedSubjects.length > 0
+                        : state.allSubjects.length > 0
                             ? <div className={styles.subjects}>
                                 {
-                                    [...state.sortedSubjects].sort((a, b) => {
+                                    [...state.allSubjects].sort((a, b) => {
                                         if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
                                             return -1;
                                         }
@@ -366,6 +365,27 @@ const HomeEventsFilter: FC = () => {
                                 }
                             </div>
                             : <div>Тематики не найдены</div>
+                        // state.sortedSubjects.length > 0
+                        //     ? <div className={styles.subjects}>
+                        //         {
+                        //             [...state.sortedSubjects].sort((a, b) => {
+                        //                 if (a.subject.toLowerCase() < b.subject.toLowerCase()) {
+                        //                     return -1;
+                        //                 }
+                        //                 if (a.subject.toLowerCase() > b.subject.toLowerCase()) {
+                        //                     return 1;
+                        //                 }
+                        //                 return 0;
+                        //             }).map(s =>
+                        //                 <HomeEventsFilterSubject
+                        //                     key={s.id}
+                        //                     subject={s}
+                        //                     selectedSubjects={state.selectedSubjects}
+                        //                 />
+                        //             )
+                        //         }
+                        //     </div>
+                        //     : <div>Тематики не найдены</div>
                 }
             </div>
         </aside>

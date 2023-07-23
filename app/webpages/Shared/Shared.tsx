@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 import Error404 from "../../../pages/404";
 import SharedNav from "@/webpages/Shared/SharedNav/SharedNav";
 import {useEventMinsByIds} from "@/hooks/useEventMinsByIds";
+import SharedLoader from "@/webpages/Shared/SharedLoader/SharedLoader";
 
 
 const Shared: FC = () => {
@@ -27,7 +28,7 @@ const Shared: FC = () => {
                 <div className={styles.items}>
                     {
                         isLoading
-                            ? <div>loading...</div>
+                            ? <SharedLoader />
                             : eventMins && eventMins.map(ev => <EventCard key={ev.id} link={`/event/${ev.id}`} eventMin={ev}/>)
                     }
                 </div>

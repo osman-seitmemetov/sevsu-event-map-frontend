@@ -4,7 +4,7 @@ import Guide from "@/webpages/Guide/Guide";
 
 const HomePage: NextPage = () => {
     return (
-        <Meta title={"Инструкция для пользователя"} description="Карта инновационных мероприятий">
+        <Meta title="Инструкция по использованию" description="Карта инновационных мероприятий">
             <Guide/>
         </Meta>
     )
